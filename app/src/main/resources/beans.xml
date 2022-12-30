@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="factory" class="org.laban.learning.spring.factory.RoboFactory">
+        <constructor-arg index="0" name="factoryLine" ref="cleaner_factory_line"/>
+        <constructor-arg index="1" name="orderLength" value="5"/>
+    </bean>
+
+    <bean id="cleaner_factory_line" class="org.laban.learning.spring.factory.RoboFactoryLine.CleanerFactoryLine"/>
+    <bean id="currier_factory_line" class="org.laban.learning.spring.factory.RoboFactoryLine.CurrierFactoryLine"/>
+</beans>
