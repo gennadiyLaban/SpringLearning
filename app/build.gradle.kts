@@ -12,7 +12,7 @@ version = "1.0-SNAPSHOT"
 
 dependencies {
     // https://mvnrepository.com/artifact/org.springframework/spring-context
-    implementation(Library.StringContext)
+    implementation(Library.SpringContext)
 
     testImplementation(kotlin("test"))
 }
