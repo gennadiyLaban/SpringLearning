@@ -1,0 +1,9 @@
+./gradlew lesson-2:war \
+&& export TMP_LOG_FILE=/tmp/lesson_2.log \
+&& export TMP_LOG_DEPLOY_FILE=/tmp/lesson_2_deploy.log \
+&& export ARTIFACT_DIR=lesson-2/build/libs/spring_learning.war \
+&& export DEPLOY_PATH=spring/learning \
+&& touch $TMP_LOG_DEPLOY_FILE \
+&& > $TMP_LOG_DEPLOY_FILE \
+&& nohup tomcat-deploy $ARTIFACT_DIR $DEPLOY_PATH >> $TMP_LOG_DEPLOY_FILE \
+&& tail -f $TMP_LOG_DEPLOY_FILE $TMP_LOG_FILE

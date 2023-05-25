@@ -12,13 +12,29 @@ sealed class Library (
     val ext: String? = null,
     val dependencyConfiguration: Action<ExternalModuleDependency>? = null,
 ) {
+    object Log4jApi : Library("org.apache.logging.log4j", "log4j-api", Versions.LOG_4_J)
+    object Log4jCore : Library("org.apache.logging.log4j", "log4j-core", Versions.LOG_4_J)
+
     object SpringContext : Library("org.springframework", "spring-context", Versions.SPRING_CONTEXT)
     object SpringWebMVC : Library("org.springframework", "spring-webmvc", Versions.SPRING_CONTEXT)
-    object ServletApi : Library("javax.servlet", "servlet-api", Versions.SERVLET_API)
 
-    object Log4j : Library("log4j", "log4j", Versions.LOG_4_J)
+    object ServletApi : Library("javax.servlet", "javax.servlet-api", Versions.SERVLET_API)
     object ThymeleafSpring5 : Library("org.thymeleaf", "thymeleaf-spring5", Versions.THYMELEAF_SPRING5)
     object Lombok : Library("org.projectlombok", "lombok", Versions.LOMBOK)
+
+    object JavaxAnnotationApi : Library("javax.annotation", "javax.annotation-api", Versions.JAVAX_ANNOTATION_API)
+    object JavaxValidationsApi : Library("javax.validation", "validation-api", Versions.JAVAX_VALIDATION_API)
+    object HibernateValidator : Library("org.hibernate.validator", "hibernate-validator", Versions.HIBERNATE_VALIDATOR)
+    object HibernateValidatorAnnotationProcessor : Library("org.hibernate.validator", "hibernate-validator-annotation-processor", Versions.HIBERNATE_VALIDATOR)
+
+    object SpringSecurityCore : Library("org.springframework.security", "spring-security-core", Versions.SPRING_SECURITY)
+    object SpringSecurityWeb  : Library("org.springframework.security", "spring-security-web", Versions.SPRING_SECURITY)
+    object SpringSecurityConfig : Library("org.springframework.security", "spring-security-config", Versions.SPRING_SECURITY)
+
+    object SpringJDBC : Library("org.springframework", "spring-jdbc", Versions.SPRING_CONTEXT)
+    object H2DB : Library("com.h2database", "h2", Versions.H2_DB)
+    object CommonsFileUpload : Library("commons-fileupload", "commons-fileupload", Versions.COMMONS_FILE_UPLOAD)
+    object CommonsIO : Library("commons-io", "commons-io", Versions.COMMONS_IO)
 }
 
 

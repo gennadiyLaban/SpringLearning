@@ -1,0 +1,1 @@
+INSERT INTO books(author,title,size) VALUES ('Pehov Aleksey','Sraj',356),('Zykov Vitaliy','Doroga domoy',432);

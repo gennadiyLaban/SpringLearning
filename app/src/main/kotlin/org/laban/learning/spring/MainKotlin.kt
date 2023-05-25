@@ -1,17 +1,11 @@
 package org.laban.learning.spring
 
 import org.laban.learning.spring.factory.RoboFactory
-import org.springframework.context.ApplicationContext
-import org.springframework.context.support.ClassPathXmlApplicationContext
+import org.laban.learning.spring.utils.log.LogFactoryProvider
+import org.laban.learning.spring.utils.log.Logger
 
 fun main(args: Array<String>) {
-
-    val context = ClassPathXmlApplicationContext("beans.xml")
-    context.getBean<RoboFactory>("factory").produce().forEachIndexed { index, robot ->
-        println("robot number ${index}: ${robot.name}")
-    }
-}
-
-private inline fun <reified T: Any> ApplicationContext.getBean(name: String): T {
-    return getBean(name) as T
+    println("some %s some1 %s some2 %s".formatted("10", "20", "%s"))
+    val logger: Logger = LogFactoryProvider.logCreator().createLogger(RoboFactory::class.java)
+    logger.info("Hello logger 2!")
 }

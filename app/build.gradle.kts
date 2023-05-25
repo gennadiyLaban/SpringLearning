@@ -13,6 +13,10 @@ version = "1.0-SNAPSHOT"
 dependencies {
     // https://mvnrepository.com/artifact/org.springframework/spring-context
     implementation(Library.SpringContext)
+    implementation(Library.Log4jApi)
+    implementation(Library.Log4jCore)
+
+    implementation(project(":lesson-2"))
 
     testImplementation(kotlin("test"))
 }
