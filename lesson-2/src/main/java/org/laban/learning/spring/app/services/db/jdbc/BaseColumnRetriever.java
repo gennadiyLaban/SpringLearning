@@ -1,11 +1,10 @@
 package org.laban.learning.spring.app.services.db.jdbc;
 
-import org.laban.learning.spring.utils.log.Logger;
-import org.springframework.jdbc.core.RowMapper;
-
-import javax.validation.constraints.NotNull;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import org.laban.learning.spring.utils.log.Logger;
+import org.springframework.jdbc.core.RowMapper;
 
 public class BaseColumnRetriever<T> implements Retriever<T> {
     private final Logger logger;

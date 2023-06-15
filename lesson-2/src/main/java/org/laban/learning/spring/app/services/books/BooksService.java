@@ -1,5 +1,9 @@
 package org.laban.learning.spring.app.services.books;
 
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.regex.Pattern;
+
 import org.laban.learning.spring.app.exceptions.DomainException;
 import org.laban.learning.spring.app.services.ProjectRepository;
 import org.laban.learning.spring.app.services.Qualifiers;
@@ -12,11 +16,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.function.Predicate;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
 
 @Service
 public class BooksService {

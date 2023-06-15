@@ -1,5 +1,9 @@
 package org.laban.learning.spring.web.logging;
 
+import java.lang.reflect.Type;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.laban.learning.spring.app.services.logging.RequestLoggingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
@@ -7,9 +11,6 @@ import org.springframework.http.HttpInputMessage;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdviceAdapter;
-
-import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.Type;
 
 @ControllerAdvice
 public class CustomRequestBodyAdviceAdapter extends RequestBodyAdviceAdapter {

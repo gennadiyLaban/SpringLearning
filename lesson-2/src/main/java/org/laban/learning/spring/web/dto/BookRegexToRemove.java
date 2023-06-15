@@ -1,13 +1,13 @@
 package org.laban.learning.spring.web.dto;
 
+import javax.validation.constraints.NotEmpty;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.laban.learning.spring.web.validation.bookregextoremove.BookRegexToRemoveGroup;
 import org.laban.learning.spring.web.validation.bookregextoremove.TargetRegexPart;
 import org.laban.learning.spring.web.validation.bookregextoremove.ValuableRegexPart;
 import org.laban.learning.spring.web.validation.groups.NotEmptyGroup;
-
-import javax.validation.constraints.NotEmpty;
 
 @Data @NoArgsConstructor
 public class BookRegexToRemove {

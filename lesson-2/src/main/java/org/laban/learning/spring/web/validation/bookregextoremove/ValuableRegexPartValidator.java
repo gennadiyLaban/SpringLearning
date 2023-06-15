@@ -1,16 +1,15 @@
 package org.laban.learning.spring.web.validation.bookregextoremove;
 
-import org.laban.learning.spring.utils.log.LogFactory;
-import org.laban.learning.spring.utils.log.Logger;
-import org.laban.learning.spring.web.dto.BookRegexToRemove;
-
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
+
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+
+import org.laban.learning.spring.utils.log.LogFactory;
+import org.laban.learning.spring.utils.log.Logger;
+import org.laban.learning.spring.web.dto.BookRegexToRemove;
 
 public class ValuableRegexPartValidator implements ConstraintValidator<ValuableRegexPart, String> {
     private final Logger logger = LogFactory.getLogger(ValuableRegexPartValidator.class);

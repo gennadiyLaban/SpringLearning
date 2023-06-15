@@ -1,11 +1,11 @@
 package org.laban.learning.spring;
 
-import lombok.SneakyThrows;
-import org.springframework.lang.NonNull;
-
 import java.io.IOException;
 import java.util.Properties;
 import java.util.stream.Stream;
+
+import lombok.SneakyThrows;
+import org.springframework.lang.NonNull;
 
 public class Environment {
     private static final String ENV_VARIABLES_FILE_RESOURCES = "env.properties";

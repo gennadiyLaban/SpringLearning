@@ -1,13 +1,14 @@
 package org.laban.learning.spring;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRegistration;
+
 import lombok.SneakyThrows;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.LoggerContext;
 import org.h2.server.web.WebServlet;
 import org.laban.learning.spring.app.config.AppContextConfig;
 import org.laban.learning.spring.utils.log.LogFactory;
 import org.laban.learning.spring.utils.log.Logger;
-import org.laban.learning.spring.utils.log.log4j.Log4jFactoryCreator;
 import org.laban.learning.spring.web.config.WebContextConfig;
 import org.springframework.core.annotation.Order;
 import org.springframework.lang.NonNull;
@@ -15,10 +16,6 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
-
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRegistration;
 
 @Order(2)
 public class WebAppInitializer implements WebApplicationInitializer {

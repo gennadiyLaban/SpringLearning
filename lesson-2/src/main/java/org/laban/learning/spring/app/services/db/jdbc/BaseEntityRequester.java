@@ -1,13 +1,11 @@
 package org.laban.learning.spring.app.services.db.jdbc;
 
-import org.laban.learning.spring.utils.log.Logger;
-import org.laban.learning.spring.utils.jdbc.JDBCParams;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.EmptySqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-
 import java.util.Arrays;
 import java.util.List;
+
+import org.laban.learning.spring.utils.log.Logger;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import static org.laban.learning.spring.utils.jdbc.JDBCParams.configureParamSource;
 import static org.laban.learning.spring.utils.jdbc.JDBCParams.emptyParamSource;

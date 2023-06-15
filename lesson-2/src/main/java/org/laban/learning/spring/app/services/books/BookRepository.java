@@ -1,5 +1,7 @@
 package org.laban.learning.spring.app.services.books;
 
+import java.util.List;
+
 import org.laban.learning.spring.app.services.DAO;
 import org.laban.learning.spring.app.services.ProjectRepository;
 import org.laban.learning.spring.app.services.Qualifiers;
@@ -10,15 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
 @Qualifier(value= Qualifiers.BOOKS)
 public class BookRepository implements ProjectRepository<Book> {
     private final Logger logger = LogFactory.getLogger(BookRepository.class);
 
 
-    private DAO<Book> dao;
+    private final DAO<Book> dao;
 
     public BookRepository(
             @Autowired @Qualifier(value = Qualifiers.BOOKS)

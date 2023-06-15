@@ -1,10 +1,10 @@
 package org.laban.learning.spring.utils.jdbc;
 
+import java.util.HashMap;
+
 import org.springframework.jdbc.core.namedparam.EmptySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-
-import java.util.HashMap;
 
 public class JDBCParams {
     private JDBCParams() {}

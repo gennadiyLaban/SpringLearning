@@ -1,23 +1,26 @@
 package org.laban.learning.spring.web.controllers;
 
-import org.laban.learning.spring.utils.log.LogFactory;
-import org.laban.learning.spring.Environment;
 import org.laban.learning.spring.app.exceptions.login.BookShelfLoginException;
 import org.laban.learning.spring.app.services.LoginService;
+import org.laban.learning.spring.utils.log.LogFactory;
 import org.laban.learning.spring.utils.log.Logger;
 import org.laban.learning.spring.web.dto.LoginForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
 @RequestMapping(value = "/login")
 public class LoginController {
 
-    private Logger logger = LogFactory.getLogger(LoginController.class);
-    private LoginService loginService;
+    private final Logger logger = LogFactory.getLogger(LoginController.class);
+    private final LoginService loginService;
 
     @Autowired
     public LoginController(LoginService loginService) {

@@ -1,13 +1,14 @@
 package org.laban.learning.spring.web.validation.multipart;
 
+import java.util.Objects;
+
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+
 import org.laban.learning.spring.utils.log.LogFactory;
 import org.laban.learning.spring.utils.log.Logger;
 import org.springframework.lang.Nullable;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
-import java.util.Objects;
 
 public class MultipartNotEmptyValidator implements ConstraintValidator<MultipartFileNotEmpty, MultipartFile> {
     private final Logger logger = LogFactory.getLogger(MultipartNotEmptyValidator.class);

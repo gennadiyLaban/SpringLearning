@@ -3,7 +3,6 @@ package org.laban.learning.spring.web.controllers;
 import org.laban.learning.spring.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller

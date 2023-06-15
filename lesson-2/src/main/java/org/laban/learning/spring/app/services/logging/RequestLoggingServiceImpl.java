@@ -1,17 +1,18 @@
 package org.laban.learning.spring.app.services.logging;
 
+import java.util.Iterator;
+import java.util.function.Function;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.laban.learning.spring.utils.log.LogFactory;
 import org.laban.learning.spring.utils.log.Logger;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Iterator;
-import java.util.function.Function;
-
 @Service
 public class RequestLoggingServiceImpl implements RequestLoggingService {
-    private Logger logger = LogFactory.getLogger(RequestLoggingService.class);
+    private final Logger logger = LogFactory.getLogger(RequestLoggingService.class);
 
     @Override
     public void logRequest(final HttpServletRequest request, Object body) {
@@ -27,7 +28,7 @@ public class RequestLoggingServiceImpl implements RequestLoggingService {
     }
 
     private String buildAttributes(final HttpServletRequest request) {
-        final Iterator<String> iterator = (Iterator<String>) request.getAttributeNames().asIterator();
+        final Iterator<String> iterator = request.getAttributeNames().asIterator();
         Iterable<String> iterable = () -> wrapIterator(
                 iterator,
                 (String attributeName) -> String.valueOf(request.getAttribute(attributeName))

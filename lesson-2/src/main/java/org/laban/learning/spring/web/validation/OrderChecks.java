@@ -1,9 +1,9 @@
 package org.laban.learning.spring.web.validation;
 
+import javax.validation.GroupSequence;
+
 import org.laban.learning.spring.web.validation.bookregextoremove.BookRegexToRemoveGroup;
 import org.laban.learning.spring.web.validation.groups.NotEmptyGroup;
-
-import javax.validation.GroupSequence;
 
 @GroupSequence(value = {
         NotEmptyGroup.class,

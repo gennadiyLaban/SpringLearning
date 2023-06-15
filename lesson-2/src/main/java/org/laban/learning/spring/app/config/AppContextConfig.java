@@ -3,7 +3,10 @@ package org.laban.learning.spring.app.config;
 import org.laban.learning.spring.app.services.processor.CustomBeanPostProcessor;
 import org.laban.learning.spring.utils.log.LogFactory;
 import org.laban.learning.spring.utils.log.Logger;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @Configuration

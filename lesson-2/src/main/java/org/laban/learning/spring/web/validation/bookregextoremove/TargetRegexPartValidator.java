@@ -1,14 +1,14 @@
 package org.laban.learning.spring.web.validation.bookregextoremove;
 
-import org.laban.learning.spring.utils.log.LogFactory;
-import org.laban.learning.spring.utils.log.Logger;
-import org.laban.learning.spring.web.validation.validatestring.StringValidator;
-
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+
+import org.laban.learning.spring.utils.log.LogFactory;
+import org.laban.learning.spring.utils.log.Logger;
 
 public class TargetRegexPartValidator implements ConstraintValidator<TargetRegexPart, String> {
     private final Logger logger = LogFactory.getLogger(TargetRegexPartValidator.class);

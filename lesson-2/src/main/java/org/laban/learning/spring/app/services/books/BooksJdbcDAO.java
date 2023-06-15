@@ -1,11 +1,19 @@
 package org.laban.learning.spring.app.services.books;
 
+import java.util.List;
+import java.util.Optional;
+
 import lombok.SneakyThrows;
-import org.laban.learning.spring.utils.log.LogFactory;
-import org.laban.learning.spring.utils.log.Logger;
 import org.laban.learning.spring.app.services.DAO;
 import org.laban.learning.spring.app.services.Qualifiers;
-import org.laban.learning.spring.app.services.db.jdbc.*;
+import org.laban.learning.spring.app.services.db.jdbc.BaseColumnRetriever;
+import org.laban.learning.spring.app.services.db.jdbc.BaseDBUpdater;
+import org.laban.learning.spring.app.services.db.jdbc.BaseEntityRequester;
+import org.laban.learning.spring.app.services.db.jdbc.DBUpdater;
+import org.laban.learning.spring.app.services.db.jdbc.EntityRequester;
+import org.laban.learning.spring.app.services.db.jdbc.Retriever;
+import org.laban.learning.spring.utils.log.LogFactory;
+import org.laban.learning.spring.utils.log.Logger;
 import org.laban.learning.spring.web.dto.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,11 +21,9 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import java.sql.ResultSet;
-import java.util.List;
-import java.util.Optional;
-
-import static org.laban.learning.spring.utils.jdbc.JDBCParams.*;
+import static org.laban.learning.spring.utils.jdbc.JDBCParams.emptyParams;
+import static org.laban.learning.spring.utils.jdbc.JDBCParams.paramOf;
+import static org.laban.learning.spring.utils.jdbc.JDBCParams.paramsOf;
 
 @Component
 @Qualifier(value = Qualifiers.BOOKS)

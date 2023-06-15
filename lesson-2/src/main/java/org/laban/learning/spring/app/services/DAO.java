@@ -1,9 +1,10 @@
 package org.laban.learning.spring.app.services;
 
-import org.springframework.lang.Nullable;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
-import java.util.List;
+
+import org.springframework.lang.Nullable;
 
 public interface DAO<T> {
     @NotNull

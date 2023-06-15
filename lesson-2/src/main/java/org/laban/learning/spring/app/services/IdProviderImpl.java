@@ -1,5 +1,8 @@
 package org.laban.learning.spring.app.services;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import org.laban.learning.spring.utils.log.LogFactory;
 import org.laban.learning.spring.utils.log.Logger;
 import org.laban.learning.spring.web.dto.Book;
@@ -12,9 +15,6 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 
 @Component()
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
