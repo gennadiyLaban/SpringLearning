@@ -2,8 +2,9 @@ import org.gradle.api.Action
 import org.gradle.api.artifacts.ExternalModuleDependency
 import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.kotlin.dsl.accessors.runtime.addExternalModuleDependencyTo
+import java.lang.IllegalStateException
 
-sealed class Library (
+open class Library (
     val group: String,
     val name: String,
     val version: String? = null,
@@ -12,32 +13,43 @@ sealed class Library (
     val ext: String? = null,
     val dependencyConfiguration: Action<ExternalModuleDependency>? = null,
 ) {
-    object Log4jApi : Library("org.apache.logging.log4j", "log4j-api", Versions.LOG_4_J)
-    object Log4jCore : Library("org.apache.logging.log4j", "log4j-core", Versions.LOG_4_J)
+    class Builder {
+        var group: String? = null
+        var name: String? = null
+        var version: String? = null
+        var configuration: String? = null
+        var classifier: String? = null
+        var ext: String? = null
+        var dependencyConfiguration: Action<ExternalModuleDependency>? = null
 
-    object SpringContext : Library("org.springframework", "spring-context", Versions.SPRING_CONTEXT)
-    object SpringWebMVC : Library("org.springframework", "spring-webmvc", Versions.SPRING_CONTEXT)
+        fun group(value: String) = apply { this.group = value }
+        fun name(value: String) = apply { this.name = value }
+        fun version(value: String?) = apply { this.version = value }
 
-    object ServletApi : Library("javax.servlet", "javax.servlet-api", Versions.SERVLET_API)
-    object ThymeleafSpring5 : Library("org.thymeleaf", "thymeleaf-spring5", Versions.THYMELEAF_SPRING5)
-    object Lombok : Library("org.projectlombok", "lombok", Versions.LOMBOK)
+        fun build(): Library {
+            val group = this.group ?: throw IllegalStateException("group must be initialized")
+            val name = this.name ?: throw  IllegalStateException("name must be initialized")
 
-    object JavaxAnnotationApi : Library("javax.annotation", "javax.annotation-api", Versions.JAVAX_ANNOTATION_API)
-    object JavaxValidationsApi : Library("javax.validation", "validation-api", Versions.JAVAX_VALIDATION_API)
-    object HibernateValidator : Library("org.hibernate.validator", "hibernate-validator", Versions.HIBERNATE_VALIDATOR)
-    object HibernateValidatorAnnotationProcessor : Library("org.hibernate.validator", "hibernate-validator-annotation-processor", Versions.HIBERNATE_VALIDATOR)
+            return Library(
+                group = group,
+                name = name,
+                version = version,
+                configuration = configuration,
+                classifier = classifier,
+                ext = ext,
+                dependencyConfiguration = dependencyConfiguration
+            )
+        }
+    }
 
-    object SpringSecurityCore : Library("org.springframework.security", "spring-security-core", Versions.SPRING_SECURITY)
-    object SpringSecurityWeb  : Library("org.springframework.security", "spring-security-web", Versions.SPRING_SECURITY)
-    object SpringSecurityConfig : Library("org.springframework.security", "spring-security-config", Versions.SPRING_SECURITY)
+    companion object {
+        fun build(buildAction: Builder.() -> Unit ): Library {
+            return Builder().apply(buildAction).build()
+        }
 
-    object SpringJDBC : Library("org.springframework", "spring-jdbc", Versions.SPRING_CONTEXT)
-    object H2DB : Library("com.h2database", "h2", Versions.H2_DB)
-    object CommonsFileUpload : Library("commons-fileupload", "commons-fileupload", Versions.COMMONS_FILE_UPLOAD)
-    object CommonsIO : Library("commons-io", "commons-io", Versions.COMMONS_IO)
+        fun builder() = Builder()
+    }
 }
-
-
 
 fun DependencyHandler.implementation(library: Library): ExternalModuleDependency {
     return addDepsLibrary(library, targetConfiguration = "implementation")

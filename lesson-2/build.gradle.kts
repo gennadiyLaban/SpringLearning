@@ -1,3 +1,4 @@
+import libraries.cleanspring.CleanSpring
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import properties.BaseEnvironmentProvider
 import properties.BaseProjectProperties
@@ -15,27 +16,27 @@ tasks.withType<KotlinCompile>().configureEach {
 }
 
 dependencies {
-    implementation(Library.SpringContext)
-    implementation(Library.SpringWebMVC)
-    implementation(Library.ServletApi)
-    implementation(Library.Log4jApi)
-    implementation(Library.Log4jCore)
-    implementation(Library.ThymeleafSpring5)
-    implementation(Library.JavaxAnnotationApi)
-    implementation(Library.JavaxValidationsApi)
-    implementation(Library.HibernateValidator)
+    implementation(CleanSpring.SpringContext)
+    implementation(CleanSpring.SpringWebMVC)
+    implementation(CleanSpring.ServletApi)
+    implementation(CleanSpring.Log4jApi)
+    implementation(CleanSpring.Log4jCore)
+    implementation(CleanSpring.ThymeleafSpring5)
+    implementation(CleanSpring.JavaxAnnotationApi)
+    implementation(CleanSpring.JavaxValidationsApi)
+    implementation(CleanSpring.HibernateValidator)
 
-    implementation(Library.SpringSecurityCore)
-    implementation(Library.SpringSecurityWeb)
-    implementation(Library.SpringSecurityConfig)
+    implementation(CleanSpring.SpringSecurityCore)
+    implementation(CleanSpring.SpringSecurityWeb)
+    implementation(CleanSpring.SpringSecurityConfig)
 
-    implementation(Library.SpringJDBC)
-    implementation(Library.H2DB)
-    implementation(Library.CommonsFileUpload)
-    implementation(Library.CommonsIO)
+    implementation(CleanSpring.SpringJDBC)
+    implementation(CleanSpring.H2DB)
+    implementation(CleanSpring.CommonsFileUpload)
+    implementation(CleanSpring.CommonsIO)
 
-    annotationProcessor(Library.HibernateValidatorAnnotationProcessor)
-    providedAnnotationProcessor(Library.Lombok)
+    annotationProcessor(CleanSpring.HibernateValidatorAnnotationProcessor)
+    providedAnnotationProcessor(CleanSpring.Lombok)
 
     testImplementation(kotlin("test"))
 }
