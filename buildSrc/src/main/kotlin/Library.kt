@@ -63,9 +63,17 @@ fun DependencyHandler.providedCompile(library: Library): ExternalModuleDependenc
     return addDepsLibrary(library, targetConfiguration = "providedCompile")
 }
 
+fun DependencyHandler.compileOnly(library: Library): ExternalModuleDependency {
+    return addDepsLibrary(library, targetConfiguration = "compileOnly")
+}
+
 fun DependencyHandler.providedAnnotationProcessor(library: Library) {
     providedCompile(library)
     annotationProcessor(library)
+}
+
+fun DependencyHandler.testImplementation(library: Library): ExternalModuleDependency {
+    return addDepsLibrary(library, targetConfiguration = "testImplementation")
 }
 
 internal fun DependencyHandler.addDepsLibrary(
