@@ -6,9 +6,11 @@ import java.util.logging.Logger;
 import org.laban.learning.spring.timeserver.config.time.TimeProviderProperties;
 import org.laban.learning.spring.timeserver.time.TimeService;
 import org.laban.learning.spring.timeserver.time.clock.Now;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
+@Profile({"prod", "default"})
 public class UTCTimeService implements TimeService {
     private final Logger logger = Logger.getLogger(UTCTimeService.class.getName());
     private final DateTimeFormatter dateTimeFormatter;

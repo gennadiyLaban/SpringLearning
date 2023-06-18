@@ -7,22 +7,28 @@ import java.util.logging.Logger;
 import org.laban.learning.spring.timeserver.config.time.TimeProviderProperties;
 import org.laban.learning.spring.timeserver.time.TimeService;
 import org.laban.learning.spring.timeserver.time.clock.Now;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 
-public class LocalTimeService implements TimeService {
-    private final Logger logger = Logger.getLogger(LocalTimeService.class.getName());
+@Profile("dev")
+@Component
+public class ServerLocationTimeService implements TimeService {
+    private final Logger logger = Logger.getLogger(ServerLocationTimeService.class.getName());
 
     private final DateTimeFormatter dateTimeFormatter;
+    private final ZoneId serverLocationZoneId;
 
-    public LocalTimeService(TimeProviderProperties properties)  {
+    public ServerLocationTimeService(TimeProviderProperties properties)  {
+        this.serverLocationZoneId = ZoneId.systemDefault();
         this.dateTimeFormatter = DateTimeFormatter
                 .ofPattern(properties.getFormat())
-                .withZone(ZoneId.systemDefault());
+                .withZone(serverLocationZoneId);
     }
 
     @Override
     public void printCurrentTime() {
         logger.info("Current time in %s: %s".formatted(
-                Now.clock().getZone().toString(),
+                serverLocationZoneId.toString(),
                 Now.offsetDateTime().format(dateTimeFormatter))
         );
     }
