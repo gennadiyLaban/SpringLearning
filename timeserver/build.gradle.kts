@@ -1,4 +1,4 @@
-import libraries.timeserver.*
+import libraries.timeserver.TimeServer
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -17,6 +17,7 @@ java {
 
 dependencies {
     implementation(TimeServer.libSpringBootStarter)
+    annotationProcessor(TimeServer.libSpringBootConfigurationProcessor)
 
     compileOnly(TimeServer.libLombok)
     annotationProcessor(TimeServer.libLombok)

@@ -24,6 +24,11 @@ object TimeServer {
         group = "org.springframework.boot"
         name = "spring-boot-starter"
     }
+    val libSpringBootConfigurationProcessor = libOf {
+        group = "org.springframework.boot"
+        name = "spring-boot-configuration-processor"
+        version = Version.PLUGIN_SPRING_BOOT
+    }
 
 
 
