@@ -2,7 +2,7 @@ import libraries.utils.jdbc.UtilsJdbc
 
 plugins {
     java
-    applyPlugin(UtilsJdbc.KotlinJVM)
+    applyPlugin(libraries.utils.jdbc.UtilsJdbc.KotlinJVM)
 }
 
 group = "org.laban"

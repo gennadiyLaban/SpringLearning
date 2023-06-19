@@ -4,7 +4,7 @@ import properties.BaseEnvironmentProvider
 import properties.BaseProjectProperties
 
 plugins {
-    applyPlugin(CleanSpring.KotlinJVM)
+    applyPlugin(libraries.cleanspring.CleanSpring.KotlinJVM)
     war
 }
 
