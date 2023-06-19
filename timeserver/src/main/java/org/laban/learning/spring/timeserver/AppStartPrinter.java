@@ -1,15 +1,14 @@
 package org.laban.learning.spring.timeserver;
 
-import java.util.logging.Logger;
-
+import lombok.extern.slf4j.Slf4j;
 import org.laban.learning.spring.timeserver.config.time.TimeProviderProperties;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class AppStartPrinter implements CommandLineRunner {
-    private final Logger logger = Logger.getLogger(AppStartPrinter.class.getName());
 
     @Value("${spring.application.name}")
     private String appName;
@@ -24,9 +23,9 @@ public class AppStartPrinter implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        logger.info("Running application: %s".formatted(appName));
-        logger.info("Application profile: %s".formatted(properties.getProfile()));
-        logger.info(properties.getDescription());
-        logger.info(welcomeMessage);
+        log.info("Running application: %s".formatted(appName));
+        log.info("Application profile: %s".formatted(properties.getProfile()));
+        log.info(properties.getDescription());
+        log.info(welcomeMessage);
     }
 }
