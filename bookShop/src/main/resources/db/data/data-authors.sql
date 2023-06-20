@@ -1024,7 +1024,7 @@ insert into authors (name) values ('Ярыгин Николай');
 insert into authors (name) values ('Ясинская Марина');
 insert into authors (name) values ('Ясинский Анджей');
 insert into authors (name) values ('Яхина Гузель');
-insert into authors (name) values ('    Абгарян Наринэ');
+insert into authors (name) values ('Абгарян Наринэ');
 insert into authors (name) values ('Абдуллаев Чингиз');
 insert into authors (name) values ('Аберкромби Джо');
 insert into authors (name) values ('Авдич Оса');
