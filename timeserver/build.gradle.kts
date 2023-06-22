@@ -12,7 +12,7 @@ group = "org.laban"
 version = "1.0-SNAPSHOT"
 
 java {
-    sourceCompatibility = Versions.JAVA_VERSION
+    sourceCompatibility = Global.Version.JAVA_VERSION
 }
 
 dependencies {
@@ -30,5 +30,5 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 tasks.withType<KotlinCompile>().configureEach {
-    kotlinOptions.jvmTarget = Versions.JAVA
+    kotlinOptions.jvmTarget = Global.Version.JAVA
 }

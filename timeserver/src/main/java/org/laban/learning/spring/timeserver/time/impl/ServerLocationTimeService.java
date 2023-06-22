@@ -2,8 +2,8 @@ package org.laban.learning.spring.timeserver.time.impl;
 
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.logging.Logger;
 
+import lombok.extern.slf4j.Slf4j;
 import org.laban.learning.spring.timeserver.config.time.TimeProviderProperties;
 import org.laban.learning.spring.timeserver.time.TimeService;
 import org.laban.learning.spring.timeserver.time.clock.Now;
@@ -12,9 +12,8 @@ import org.springframework.stereotype.Component;
 
 @Profile("dev")
 @Component
+@Slf4j
 public class ServerLocationTimeService implements TimeService {
-    private final Logger logger = Logger.getLogger(ServerLocationTimeService.class.getName());
-
     private final DateTimeFormatter dateTimeFormatter;
     private final ZoneId serverLocationZoneId;
 
@@ -27,7 +26,7 @@ public class ServerLocationTimeService implements TimeService {
 
     @Override
     public void printCurrentTime() {
-        logger.info("Current time in %s: %s".formatted(
+        log.info("Current time in %s: %s".formatted(
                 serverLocationZoneId.toString(),
                 Now.offsetDateTime().format(dateTimeFormatter))
         );

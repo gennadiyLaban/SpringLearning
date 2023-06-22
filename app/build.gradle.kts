@@ -2,7 +2,7 @@ import libraries.cleanspring.CleanSpring
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    applyPlugin(Plugin.KotlinJVM)
+    applyPlugin(Global.Plugin.KotlinJVM)
     application
 }
 
@@ -27,7 +27,7 @@ tasks.test {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = Versions.JAVA
+    kotlinOptions.jvmTarget = Global.Version.JAVA
 }
 
 application {

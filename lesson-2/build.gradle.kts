@@ -4,7 +4,7 @@ import properties.BaseEnvironmentProvider
 import properties.BaseProjectProperties
 
 plugins {
-    applyPlugin(Plugin.KotlinJVM)
+    applyPlugin(libraries.cleanspring.CleanSpring.KotlinJVM)
     war
 }
 
@@ -12,10 +12,12 @@ group = "org.example"
 version = "1.0-SNAPSHOT"
 
 tasks.withType<KotlinCompile>().configureEach {
-    kotlinOptions.jvmTarget = Versions.JAVA
+    kotlinOptions.jvmTarget = Global.Version.JAVA
 }
 
 dependencies {
+    implementation(project(":utils:jdbc"))
+
     implementation(CleanSpring.SpringContext)
     implementation(CleanSpring.SpringWebMVC)
     implementation(CleanSpring.ServletApi)
