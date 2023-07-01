@@ -1,6 +1,18 @@
 import org.gradle.api.JavaVersion
 
 object Global {
+    object Modules {
+        val App = ProjectModule("app")
+        val Lesson_2 = ProjectModule("lesson-2")
+        val TimeServer = ProjectModule("timeserver")
+        val BookShop = ProjectModule("bookShop")
+        object Utils {
+            private val root = "utils"
+
+            val JDBC = ProjectModule("$root:jdbc")
+            val Time = ProjectModule("$root:time")
+        }
+    }
 
     object Plugin {
         val KotlinJVM = Plugin("org.jetbrains.kotlin.jvm", Version.KOTLIN)

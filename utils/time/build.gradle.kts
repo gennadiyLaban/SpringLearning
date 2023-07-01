@@ -1,5 +1,3 @@
-import libraries.utils.jdbc.UtilsJdbc
-
 plugins {
     java
     applyPlugin(Global.Plugin.KotlinJVM)
@@ -13,10 +11,6 @@ java {
 }
 
 dependencies {
-    implementation(UtilsJdbc.SpringJDBC)
-    implementation(UtilsJdbc.SpringCore)
-    implementation(UtilsJdbc.Slf4jApi)
-
     testImplementation(kotlin("test"))
 }
 

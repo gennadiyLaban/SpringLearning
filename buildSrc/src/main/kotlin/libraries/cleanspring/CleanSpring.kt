@@ -3,8 +3,6 @@ package libraries.cleanspring
 import Library
 
 object CleanSpring {
-    val KotlinJVM = Global.Plugin.KotlinJVM
-
     val Log4jApi = Global.Library.Log4jApi
     val Log4jCore = Global.Library.Log4jCore
 

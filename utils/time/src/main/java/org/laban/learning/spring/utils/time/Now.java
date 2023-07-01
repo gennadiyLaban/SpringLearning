@@ -1,4 +1,4 @@
-package org.laban.learning.spring.timeserver.time.clock;
+package org.laban.learning.spring.utils.time;
 
 import java.time.Clock;
 import java.time.Instant;
