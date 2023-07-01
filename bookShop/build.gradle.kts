@@ -6,6 +6,13 @@ plugins {
     applyPlugin(libraries.bookShop.BookShop.pluginSpringDependencyManagement)
 }
 
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom(developmentOnly.get())
+    }
+}
+
 group = "org.laban.learning.spring"
 version = "0.0.1-SNAPSHOT"
 
@@ -26,6 +33,8 @@ dependencies {
     annotationProcessor(BookShop.libLombok)
 
     implementation(BookShop.libH2Database)
+
+    developmentOnly(BookShop.libSpringBootDevTools)
 
     testImplementation(kotlin("test"))
     testImplementation(libraries.timeserver.TimeServer.testLibSpringBootTestStarter)
