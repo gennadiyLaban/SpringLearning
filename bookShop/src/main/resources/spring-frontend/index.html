@@ -1,7 +1,6 @@
-
 <!--END-->
 <!--END--><!DOCTYPE html><!--[if IE 7]>
-<html class="ie7" lang="ru" >
+<html class="ie7" lang="ru">
 <![endif]-->
 <!--[if IE 8]>
 <html class="ie8" lang="ru">
@@ -9,7 +8,8 @@
 <!--[if IE 9]>
 <html class="ie9" lang="ru">
 <![endif]-->
-<!--[if gt IE 9]><!--> <html lang="ru"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"> <!--<![endif]-->
+<!--[if gt IE 9]><!-->
+<html lang="ru"> <!--<![endif]-->
 <head>
     <title>Тут название страницы написать</title>
     <meta content="Описание страницы" name="description">
@@ -29,22 +29,6 @@
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
     <script defer src="/assets/js/scripts.min.js?v=64223515"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            console.info('onReady')
-            $("#locales").change(function (){
-                const selectedOption = $('#locales').val();
-                console.info('change selected option: ' + selectedOption);
-                if (selectedOption == '') {
-                    console.info('selected option: is empty');
-                    return;
-                }
-                console.info('replace lang on $selectedOption');
-                window.location.replace('?lang=' + selectedOption);
-            })
-        })
-    </script>
 </head>
 <body class="Site">
 <!--if lt IE 8
@@ -77,12 +61,8 @@ p.error-browser
                     <div class="Header-search">
                         <div class="search">
                             <form action="#" class="form form_search" data-searchlimit="20" method="post">
-                                <input class="search-input" id="query" name="query" th:placeholder="#{str.main.searchbar.placeholder}"
-                                        type="text"
-                                />
-                                <!--                  placeholder="My "-->
-                                <!--                  th:placeholder="#{str.main.searchbar.placeholder}"-->
-
+                                <input class="search-input" id="query" name="query" placeholder="Search over 30 million book titles"
+                                        type="text" value="" />
                                 <button class="search-button" id="search" name="search" type="submit">Поиск
                                 </button>
                             </form>
@@ -135,20 +115,15 @@ p.error-browser
         <div class="wrap">
             <nav class="menuModal" id="navigate">
                 <ul class="menu menu_main">
-                    <li class="menu-item menu-item_ACTIVE">
-                        <a class="menu-link" href="/index.html" th:text="#{str.main.topbar.main}">Главная</a>
+                    <li class="menu-item menu-item_ACTIVE"><a class="menu-link" href="/index.html">Главная</a>
                     </li>
-                    <li class="menu-item">
-                        <a class="menu-link" href="/genres/index.html" th:text="#{str.main.topbar.genres}">Жанры</a>
+                    <li class="menu-item"><a class="menu-link" href="/genres/index.html">Жанры</a>
                     </li>
-                    <li class="menu-item">
-                        <a class="menu-link" href="/books/recent.html" th:text="#{str.main.topbar.news}">Новинки</a>
+                    <li class="menu-item"><a class="menu-link" href="/books/recent.html">Новинки</a>
                     </li>
-                    <li class="menu-item">
-                        <a class="menu-link" href="/books/popular.html" th:text="#{str.main.topbar.popular}">Популярное</a>
+                    <li class="menu-item"><a class="menu-link" href="/books/popular.html">Популярное</a>
                     </li>
-                    <li class="menu-item">
-                        <a class="menu-link" href="/authors/index.html" th:text="#{str.main.topbar.authors}">Авторы</a>
+                    <li class="menu-item"><a class="menu-link" href="/authors/index.html">Авторы</a>
                     </li>
                 </ul>
             </nav>
@@ -159,34 +134,145 @@ p.error-browser
     <div class="wrap">
         <main class="Middle-main">
             <div class="Section">
-
                 <div class="Section-header">
-                    <h2 class="Section-title">Рекомендуемое</h2>
+                    <h2 class="Section-title">Рекомендуемое
+                    </h2>
                 </div>
-
                 <div class="Slider Slider_carousel">
                     <div class="Slider-box Cards" data-load="recommended" data-loadlimit="20" data-loadoffset="8">
-                        <div class="Slider-item" th:each="book : ${bookData}">
+                        <div class="Slider-item">
                             <div class="Slider-content">
-                                <div class="Card">
-                                    <a class="Card-picture" href="/books/slug.html"><img
-                                            alt="card.jpg" src="/assets/img/content/main/card.jpg" /></a>
+                                <div class="Card"><a class="Card-picture" href="/books/slug.html"><img
+                                        alt="card.jpg" src="/assets/img/content/main/card.jpg" /></a>
                                     <div class="Card-content">
-                                        <strong class="Card-title"><a href="#"
-                                                th:text="${book.title}">Техника</a></strong>
-                                        <div class="Card-description" th:text="${book.author}">Кондратенко Валерий
-                                            Петрович
+                                        <strong class="Card-title"><a href="/books/slug.html">Техника</a>
+                                        </strong>
+                                        <div class="Card-description">Кондратенко Валерий Петрович
                                         </div>
-                                        <div class="Card-cost">
-                                            <span class="Card-priceOld" th:text="${book.priceOld}">₽300.00</span>
-                                            <span class="Card-price" th:text="${book.price}">₽190.00</span>
+                                        <div class="Card-cost"><span class="Card-priceOld">₽300.00</span><span
+                                                class="Card-price">₽190.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="Slider-item">
+                            <div class="Slider-content">
+                                <div class="Card"><a class="Card-picture" href="/books/slug.html"><img
+                                        alt="card.jpg" src="/assets/img/content/main/card.jpg" />
+                                    <div class="Card-sale">30% скидка
+                                    </div>
+                                </a>
+                                    <div class="Card-content">
+                                        <strong class="Card-title"><a href="/books/slug.html">Английский язык. 5 класс.
+                                            Английский в фокусе. Рабочая тетрадь. ФГОС</a>
+                                        </strong>
+                                        <div class="Card-description">Ваулина, Дули, Подоляко
+                                        </div>
+                                        <div class="Card-cost"><span class="Card-priceOld">₽250.00</span><span
+                                                class="Card-price">₽210.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="Slider-item">
+                            <div class="Slider-content">
+                                <div class="Card"><a class="Card-picture" href="/books/slug.html"><img
+                                        alt="card.jpg" src="/assets/img/content/main/card.jpg" /></a>
+                                    <div class="Card-content">
+                                        <strong class="Card-title"><a href="/books/slug.html">Английский язык. 4 класс.
+                                            Английский в фокусе. Рабочая тетрадь</a>
+                                        </strong>
+                                        <div class="Card-description">Быкова, Дули, Эванс
+                                        </div>
+                                        <div class="Card-cost"><span class="Card-price">₽190.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="Slider-item">
+                            <div class="Slider-content">
+                                <div class="Card"><a class="Card-picture" href="/books/slug.html"><img
+                                        alt="card.jpg" src="/assets/img/content/main/card.jpg" /></a>
+                                    <div class="Card-content">
+                                        <strong class="Card-title"><a href="/books/slug.html">Великая Отечественная
+                                            война. 1941-1945</a>
+                                        </strong>
+                                        <div class="Card-description">Солопенко Алла, Меркулов Дмитрий
+                                        </div>
+                                        <div class="Card-cost"><span class="Card-price">₽50.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="Slider-item">
+                            <div class="Slider-content">
+                                <div class="Card"><a class="Card-picture" href="/books/slug.html"><img
+                                        alt="card.jpg" src="/assets/img/content/main/card.jpg" /></a>
+                                    <div class="Card-content">
+                                        <strong class="Card-title"><a href="/books/slug.html">Большое путешествие по
+                                            телу человека</a>
+                                        </strong>
+                                        <div class="Card-description">Джон Фарндон
+                                        </div>
+                                        <div class="Card-cost"><span class="Card-price">₽900.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="Slider-item">
+                            <div class="Slider-content">
+                                <div class="Card"><a class="Card-picture" href="/books/slug.html"><img
+                                        alt="card.jpg" src="/assets/img/content/main/card.jpg" /></a>
+                                    <div class="Card-content">
+                                        <strong class="Card-title"><a href="/books/slug.html">Английский язык. 4 класс.
+                                            Английский в фокусе. Рабочая тетрадь</a>
+                                        </strong>
+                                        <div class="Card-description">Быкова, Дули, Эванс
+                                        </div>
+                                        <div class="Card-cost"><span class="Card-price">₽190.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="Slider-item">
+                            <div class="Slider-content">
+                                <div class="Card"><a class="Card-picture" href="/books/slug.html"><img
+                                        alt="card.jpg" src="/assets/img/content/main/card.jpg" /></a>
+                                    <div class="Card-content">
+                                        <strong class="Card-title"><a href="/books/slug.html">Великая Отечественная
+                                            война. 1941-1945</a>
+                                        </strong>
+                                        <div class="Card-description">Солопенко Алла, Меркулов Дмитрий
+                                        </div>
+                                        <div class="Card-cost"><span class="Card-price">₽50.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="Slider-item">
+                            <div class="Slider-content">
+                                <div class="Card"><a class="Card-picture" href="/books/slug.html"><img
+                                        alt="card.jpg" src="/assets/img/content/main/card.jpg" /></a>
+                                    <div class="Card-content">
+                                        <strong class="Card-title"><a href="/books/slug.html">Большое путешествие по
+                                            телу человека</a>
+                                        </strong>
+                                        <div class="Card-description">Джон Фарндон
+                                        </div>
+                                        <div class="Card-cost"><span class="Card-price">₽900.00</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                     <div class="Slider-navigateWrap">
                         <div class="Slider-navigate">
                         </div>
@@ -196,7 +282,6 @@ p.error-browser
                         </div>
                     </div>
                 </div>
-
                 <div class="Section-header">
                     <h2 class="Section-title">Новинки
                     </h2>
@@ -368,7 +453,6 @@ p.error-browser
                         </div>
                     </div>
                 </div>
-
                 <div class="Section-header">
                     <h2 class="Section-title">Популярное
                     </h2>
@@ -532,7 +616,6 @@ p.error-browser
                     </div>
                 </div>
             </div>
-
             <h2 class="Middle-title">Книги по тегам
             </h2>
             <div class="Tags" id="tags">
@@ -635,11 +718,9 @@ p.error-browser
                 <div class="Tag"><a href="/tags/index.html">english</a>
                 </div>
             </div>
-
         </main>
     </div>
 </div>
-
 <footer class="Footer">
     <div class="wrap">
         <div class="row Footer-main">
@@ -723,18 +804,15 @@ p.error-browser
             </div>
             <div class="row-block">
                 <ul class="menu menu_vt Footer-menu">
-                    <li class="menu-item"><a class="menu-link" href="/signin.html">Войти</a></li>
-                    <li class="menu-item"><a class="menu-link" href="/documents/index.html">Документы</a></li>
-                    <li class="menu-item"><a class="menu-link" href="/about.html">О компании</a></li>
-                    <li class="menu-item"><a class="menu-link" href="/faq.html">Помощь</a></li>
-                    <li class="menu-item"><a class="menu-link" href="/contacts.html">Контакты</a></li>
-                    <li class="menu-item">
-                        <span th:text="#{str.main.footer.langselector.title}"></span>
-                        <select id="locales">
-                            <option value=" "></option>
-                            <option value="en">English</option>
-                            <option value="ru">Русский</option>
-                        </select>
+                    <li class="menu-item"><a class="menu-link" href="/signin.html">Войти</a>
+                    </li>
+                    <li class="menu-item"><a class="menu-link" href="/documents/index.html">Документы</a>
+                    </li>
+                    <li class="menu-item"><a class="menu-link" href="/about.html">О компании</a>
+                    </li>
+                    <li class="menu-item"><a class="menu-link" href="/faq.html">Помощь</a>
+                    </li>
+                    <li class="menu-item"><a class="menu-link" href="/contacts.html">Контакты</a>
                     </li>
                 </ul>
             </div>
@@ -744,17 +822,18 @@ p.error-browser
         <div class="wrap">© 2016 Bookshop Pty Ltd. ALL RIGHTS RESERVED
         </div>
     </div>
-  </footer>
-  <script src="/assets/plg/jQuery/jquery-3.5.1.min.js"></script>
-  <!--+menu(-->
-  <!--    'Это раз',-->
-  <!--    'Это два',-->
-  <!--    'Это три'-->
-  <!--)-->
-  <!--br-->
-  <!--br-->
-  <!--+menu._vt-->
-  <!--    +menuItem Это раз-->
-  <!--    +menuItem.-item_danger Это два-->
-  <!--    +menuItem Это три-->
-</body></html>
+</footer>
+<script src="/assets/plg/jQuery/jquery-3.5.1.min.js"></script>
+<!--+menu(-->
+<!--    'Это раз',-->
+<!--    'Это два',-->
+<!--    'Это три'-->
+<!--)-->
+<!--br-->
+<!--br-->
+<!--+menu._vt-->
+<!--    +menuItem Это раз-->
+<!--    +menuItem.-item_danger Это два-->
+<!--    +menuItem Это три-->
+</body>
+</html>
