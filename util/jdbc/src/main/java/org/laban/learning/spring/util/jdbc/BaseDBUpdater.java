@@ -1,41 +1,34 @@
-package org.laban.learning.spring.app.services.db.jdbc;
+package org.laban.learning.spring.util.jdbc;
 
 import java.util.Arrays;
-import java.util.List;
 
-import org.laban.learning.spring.utils.log.Logger;
-import org.springframework.jdbc.core.RowMapper;
+import org.slf4j.Logger;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
-import static org.laban.learning.spring.util.jdbc.JDBCParams.configureParamSource;
-import static org.laban.learning.spring.util.jdbc.JDBCParams.emptyParamSource;
-
-public class BaseEntityRequester<T> implements EntityRequester<T> {
+public class BaseDBUpdater implements DBUpdater {
     protected final NamedParameterJdbcTemplate jdbcTemplate;
     private final Logger logger;
     protected final String queryTemplate;
     private final String[] paramNames;
-    protected final RowMapper<T> rowMapper;
 
-    public BaseEntityRequester(
+    public BaseDBUpdater(
             NamedParameterJdbcTemplate jdbcTemplate,
             Logger logger,
             String queryTemplate,
-            String[] paramNames,
-            RowMapper<T> rowMapper
+            String[] paramNames
     ) {
         this.jdbcTemplate = jdbcTemplate;
         this.logger = logger;
         this.queryTemplate = queryTemplate;
         this.paramNames = paramNames;
-        this.rowMapper = rowMapper;
     }
 
     @Override
-    public List<T> retrieve() {
+    public int update() {
         logger.debug(formatExecStartingMsg(queryTemplate));
         try {
-            return jdbcTemplate.query(queryTemplate, emptyParamSource(), rowMapper);
+            return jdbcTemplate.update(queryTemplate, JDBCParams.emptyParamSource());
         } catch (Throwable th) {
             logger.error(formatExecErrorMsg(queryTemplate, th));
             throw th;
@@ -43,12 +36,27 @@ public class BaseEntityRequester<T> implements EntityRequester<T> {
     }
 
     @Override
-    public List<T> retrieve(Object... args) {
-        logger.debug(formatExecStartingMsg(queryTemplate, args));
+    public int update(Object... args) {
+        logger.debug(formatExecStartingMsg(queryTemplate));
         try {
-            return jdbcTemplate.query(queryTemplate, configureParamSource(paramNames, args), rowMapper);
+            return jdbcTemplate.update(queryTemplate, JDBCParams.configureParamSource(paramNames, args));
         } catch (Throwable th) {
-            logger.error(formatExecErrorMsg(queryTemplate, th, args));
+            logger.error(formatExecErrorMsg(queryTemplate, th));
+            throw th;
+        }
+    }
+
+    @Override
+    public int[] batchUpdate(Object[]... args) {
+        logger.info(formatExecStartingMsg(queryTemplate));
+        try {
+            var batchParams = new SqlParameterSource[args.length];
+            for (int index = 0; index < args.length; index++) {
+                batchParams[index] = JDBCParams.configureParamSource(paramNames, args[index]);
+            }
+            return jdbcTemplate.batchUpdate(queryTemplate, batchParams);
+        } catch (Throwable th) {
+            logger.error(formatExecErrorMsg(queryTemplate, th));
             throw th;
         }
     }

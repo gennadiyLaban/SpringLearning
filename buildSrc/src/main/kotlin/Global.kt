@@ -7,10 +7,11 @@ object Global {
         val TimeServer = ProjectModule("timeserver")
         val BookShop = ProjectModule("bookShop")
         object Utils {
-            private val root = "utils"
+            private val root = "util"
 
             val JDBC = ProjectModule("$root:jdbc")
             val Time = ProjectModule("$root:time")
+            val Utils = ProjectModule("$root:utils")
         }
     }
 

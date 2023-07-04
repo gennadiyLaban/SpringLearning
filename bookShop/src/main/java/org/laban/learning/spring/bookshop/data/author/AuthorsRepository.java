@@ -29,9 +29,9 @@ public class AuthorsRepository {
                 .build();
         getAllAuthors()
                 .stream()
-                .sorted(Comparator.comparingInt(author -> author.getName().charAt(0)))
+                .sorted(Comparator.comparing(Author::getLastName))
                 .forEach(author -> {
-                    var authorList = pageData.computeIfAbsent(author.getName().charAt(0), pageAuthorListCreator);
+                    var authorList = pageData.computeIfAbsent(author.getLastName().charAt(0), pageAuthorListCreator);
                     authorList.getAuthors().add(author);
                 });
         return pageData.values().stream().toList();

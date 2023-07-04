@@ -23,6 +23,7 @@ java {
 dependencies {
     implementation(Global.Modules.Utils.JDBC)
     implementation(Global.Modules.Utils.Time)
+    implementation(Global.Modules.Utils.Utils)
 
     implementation(BookShop.libSpringBootStarter)
     annotationProcessor(BookShop.libSpringBootConfigurationProcessor)

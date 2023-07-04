@@ -1,14 +1,11 @@
-package org.laban.learning.spring.app.services.db.jdbc;
+package org.laban.learning.spring.util.jdbc;
 
 import java.util.Arrays;
 import java.util.List;
 
-import org.laban.learning.spring.utils.log.Logger;
+import org.slf4j.Logger;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-
-import static org.laban.learning.spring.util.jdbc.JDBCParams.configureParamSource;
-import static org.laban.learning.spring.util.jdbc.JDBCParams.emptyParamSource;
 
 public class BaseEntityRequester<T> implements EntityRequester<T> {
     protected final NamedParameterJdbcTemplate jdbcTemplate;
@@ -35,7 +32,7 @@ public class BaseEntityRequester<T> implements EntityRequester<T> {
     public List<T> retrieve() {
         logger.debug(formatExecStartingMsg(queryTemplate));
         try {
-            return jdbcTemplate.query(queryTemplate, emptyParamSource(), rowMapper);
+            return jdbcTemplate.query(queryTemplate, JDBCParams.emptyParamSource(), rowMapper);
         } catch (Throwable th) {
             logger.error(formatExecErrorMsg(queryTemplate, th));
             throw th;
@@ -46,7 +43,7 @@ public class BaseEntityRequester<T> implements EntityRequester<T> {
     public List<T> retrieve(Object... args) {
         logger.debug(formatExecStartingMsg(queryTemplate, args));
         try {
-            return jdbcTemplate.query(queryTemplate, configureParamSource(paramNames, args), rowMapper);
+            return jdbcTemplate.query(queryTemplate, JDBCParams.configureParamSource(paramNames, args), rowMapper);
         } catch (Throwable th) {
             logger.error(formatExecErrorMsg(queryTemplate, th, args));
             throw th;

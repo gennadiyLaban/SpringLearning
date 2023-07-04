@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import lombok.extern.slf4j.Slf4j;
 import org.laban.learning.spring.timeserver.config.time.TimeProviderProperties;
 import org.laban.learning.spring.timeserver.time.TimeService;
-import org.laban.learning.spring.utils.time.Now;
+import org.laban.learning.spring.util.time.Now;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 

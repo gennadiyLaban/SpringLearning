@@ -21,9 +21,9 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import static org.laban.learning.spring.utils.jdbc.JDBCParams.emptyParams;
-import static org.laban.learning.spring.utils.jdbc.JDBCParams.paramOf;
-import static org.laban.learning.spring.utils.jdbc.JDBCParams.paramsOf;
+import static org.laban.learning.spring.util.jdbc.JDBCParams.emptyParams;
+import static org.laban.learning.spring.util.jdbc.JDBCParams.paramOf;
+import static org.laban.learning.spring.util.jdbc.JDBCParams.paramsOf;
 
 @Component
 @Qualifier(value = Qualifiers.BOOKS)

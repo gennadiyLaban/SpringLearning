@@ -7,8 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.laban.learning.spring.bookshop.data.author.jdbc.AuthorsTable;
 import org.laban.learning.spring.bookshop.data.book.Book;
 import org.laban.learning.spring.bookshop.data.book.BookDAO;
-import org.laban.learning.spring.utils.jdbc.EntityRequester;
-import org.laban.learning.spring.utils.jdbc.Retrievers;
+import org.laban.learning.spring.util.jdbc.EntityRequester;
+import org.laban.learning.spring.util.jdbc.Retrievers;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -19,9 +19,10 @@ public class BooksJdbcDAO implements BookDAO {
     private final EntityRequester<Book> allBooksRetriever;
 
     public BooksJdbcDAO(BooksTable booksTable, AuthorsTable authorsTable, NamedParameterJdbcTemplate jdbcTemplate) {
-        final var queryRetrieveAll = "SELECT %s, %s, %s, %s, %s\n".formatted(
+        final var queryRetrieveAll = "SELECT %s, %s, %s, %s, %s, %s\n".formatted(
                 booksTable.compositeId(),
-                authorsTable.compositeName(),
+                authorsTable.compositeFirstName(),
+                authorsTable.compositeLastName(),
                 booksTable.compositeTitle(),
                 booksTable.compositePriceOld(),
                 booksTable.compositePrice()
@@ -32,7 +33,11 @@ public class BooksJdbcDAO implements BookDAO {
         );
 
         var idRetriever = Retrievers.intColumnOf(log, booksTable.compositeId());
-        var authorRetriever = Retrievers.strColumnOf(log, authorsTable.compositeName());
+        var authorRetriever = Retrievers.compositeOf(
+                Retrievers.strColumnOf(log, authorsTable.compositeFirstName()),
+                Retrievers.strColumnOf(log, authorsTable.compositeLastName()),
+                "%s %s"::formatted
+        );
         var titleRetriever = Retrievers.strColumnOf(log, booksTable.compositeTitle());
         var priceOldRetriever = Retrievers.strColumnOf(log, booksTable.compositePriceOld());
         var priceRetriever = Retrievers.strColumnOf(log, booksTable.compositePrice());
