@@ -40,7 +40,7 @@ p.error-browser
         | браузера здесь&nbsp;
     | для правильного отображения сайта.
 -->
-<header th:replace="~{fragments/header_fragment :: headFragment('Главная')}"></header>
+<header th:replace="~{fragments/header_fragment :: headFragment(${@basePageContext.MAIN})}"></header>
 <div class="Middle">
     <div class="wrap">
         <main class="Middle-main">

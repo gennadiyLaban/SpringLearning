@@ -5,7 +5,7 @@
         <div class="Header-rowMain">
             <div class="wrap">
                 <div class="row">
-                    <div class="row-block Header-logo"><a class="logo" href="/"><img alt="logo.png"
+                    <div class="row-block Header-logo"><a class="logo" th:href="@{(${@basePageContext.MAIN.baseUrl})}"><img alt="logo.png"
                             class="logo-image" src="/assets/img/logo.png" /><span class="logo-text">BOOKSHOP</span></a>
                     </div>
                     <div class="Header-searchWrap row-block">
@@ -31,7 +31,7 @@
                         </div>
                     </div>
                     <div class="row-block Header-cart">
-                        <div class="CartBlock"><a class="CartBlock-block" href="/postponed.html">
+                        <div class="CartBlock"><a class="CartBlock-block" th:href="@{(${@basePageContext.POSTPONED.baseUrl})}">
                             <svg class="CartBlock-img" height="23" viewBox="0 0 512 512" width="23"
                                     xmlns="http://www.w3.org/2000/svg">
                                 <g>
@@ -41,7 +41,7 @@
                                     </g>
                                 </g>
                             </svg>
-                            <span class="CartBlock-amount">0</span></a><a class="CartBlock-block" href="/cart.html">
+                            <span class="CartBlock-amount">0</span></a><a class="CartBlock-block" th:href="@{(${@basePageContext.CART.baseUrl})}">
                             <svg class="CartBlock-img" height="23" viewBox="0 0 30 23" width="30"
                                     xmlns="http://www.w3.org/2000/svg">
                                 <g>
@@ -51,7 +51,7 @@
                                     </g>
                                 </g>
                             </svg>
-                            <span class="CartBlock-amount">0</span></a><a class="CartBlock-block" href="/signin.html">
+                            <span class="CartBlock-amount">0</span></a><a class="CartBlock-block" th:href="@{(${@basePageContext.SIGNIN.baseUrl})}">
                             <svg class="CartBlock-img" height="23" viewBox="0 0 22 23" width="22"
                                     xmlns="http://www.w3.org/2000/svg">
                                 <g>
@@ -76,11 +76,31 @@
             <div class="wrap">
                 <nav class="menuModal" id="navigate">
                     <ul class="menu menu_main">
-                        <li th:replace="this :: pageNavigationMenu('Главная', ${currentPage}, 'Главная', '/')"></li>
-                        <li th:replace="this :: pageNavigationMenu('Жанры', ${currentPage}, 'Жанры', '/genres')"></li>
-                        <li th:replace="this :: pageNavigationMenu('Новинки', ${currentPage}, 'Новинки', '/books/recent.html')"></li>
-                        <li th:replace="this :: pageNavigationMenu('Популярное', ${currentPage}, 'Популярное', '/books/popular.html')"></li>
-                        <li th:replace="this :: pageNavigationMenu('Авторы', ${currentPage}, 'Авторы', '/authors')"></li>
+                        <li th:replace="this :: pageNavigationMenu(
+                            ${@basePageContext.MAIN},
+                            ${currentPage},
+                            'Главная',
+                            ${@basePageContext.MAIN.baseUrl})"></li>
+                        <li th:replace="this :: pageNavigationMenu(
+                        ${@basePageContext.GENRES},
+                        ${currentPage},
+                        'Жанры',
+                        ${@basePageContext.GENRES.baseUrl})"></li>
+                        <li th:replace="this :: pageNavigationMenu(
+                        ${@basePageContext.RECENT},
+                        ${currentPage},
+                        'Новинки',
+                        ${@basePageContext.RECENT.baseUrl})"></li>
+                        <li th:replace="this :: pageNavigationMenu(
+                        ${@basePageContext.POPULAR},
+                        ${currentPage},
+                        'Популярное',
+                        ${@basePageContext.POPULAR.baseUrl})"></li>
+                        <li th:replace="this :: pageNavigationMenu(
+                        ${@basePageContext.AUTHORS},
+                        ${currentPage},
+                        'Авторы',
+                        ${@basePageContext.AUTHORS.baseUrl})"></li>
                     </ul>
                 </nav>
             </div>
