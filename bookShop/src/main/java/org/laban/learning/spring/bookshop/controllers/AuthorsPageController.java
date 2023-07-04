@@ -21,9 +21,9 @@ public class AuthorsPageController {
         this.service = service;
     }
 
-    @GetMapping(value = {"/authors", "/authors/index.html"})
+    @GetMapping(value = {"/authors", "/authors/index", "/authors/index.html" })
     public String genres() {
-        log.info("GET authors page");
+        log.info("GET %s".formatted(Pages.AUTHORS.baseUrl));
         return VIEW_AUTHORS;
     }
 

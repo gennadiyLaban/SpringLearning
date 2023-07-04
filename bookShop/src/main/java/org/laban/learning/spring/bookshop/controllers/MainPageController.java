@@ -22,6 +22,7 @@ public class MainPageController {
 
     @GetMapping(value = { "/", "/index.html", "/main", "/main/index.html" })
     public String mainPage() {
+        log.info("GET %s".formatted(Pages.MAIN.baseUrl));
         return VIEW_MAIN;
     }
 
