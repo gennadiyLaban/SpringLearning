@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div class="Section"
+        th:fragment="bookSection(title, books)"
+        th:assert="${not #strings.isEmpty(title) and not #lists.isEmpty(books)}">
+    <div class="Section-header">
+        <h2 class="Section-title" th:text="${title}">Рекомендуемое</h2>
+    </div>
+    <div class="Slider Slider_carousel">
+        <div class="Slider-box Cards" data-load="recommended" data-loadlimit="20" data-loadoffset="8">
+            <div class="Slider-item" th:each="book : ${books}">
+                <div class="Slider-content">
+                    <div class="Card">
+                        <a class="Card-picture" href="/books/slug.html">
+                            <img alt="card.jpg" src="/assets/img/content/main/card.jpg" />
+                        </a>
+                        <div class="Card-content">
+                            <strong class="Card-title">
+                                <a href="/books/slug.html" th:text="${book.title}">Техника</a>
+                            </strong>
+                            <div class="Card-description" th:text="${book.author}">Кондратенко Валерий Петрович</div>
+                            <div class="Card-cost">
+                                            <span class="Card-priceOld"
+                                                    th:if="${not #strings.isEmpty(book.priceOld)}"
+                                                    th:text="${book.priceOld}">₽300.00</span>
+                                <span class="Card-price"
+                                        th:if="${not #strings.isEmpty(book.price)}"
+                                        th:text="${book.price}">₽190.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="Slider-navigateWrap">
+            <div class="Slider-navigate">
+            </div>
+        </div>
+        <div class="Slider-load">
+            <div class="Slider-load-text">Идет загрузка данных
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

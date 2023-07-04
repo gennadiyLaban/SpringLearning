@@ -30,4 +30,14 @@ public class MainPageController {
     public List<Book> recommendedBooks() {
         return bookService.getBooksData();
     }
+
+    @ModelAttribute("recentBooks")
+    public List<Book> recentBooks() {
+        return bookService.getBooksData();
+    }
+
+    @ModelAttribute("popularBooks")
+    public List<Book> popularBooks() {
+        return bookService.getBooksData();
+    }
 }
