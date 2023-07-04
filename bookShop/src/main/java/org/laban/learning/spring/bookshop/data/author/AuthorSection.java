@@ -9,8 +9,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 @Builder
-public class PageAuthorList {
-    private Character letterUpperCase;
-    private Character letterLowerCase;
+public class AuthorSection {
+    private Character sectionLetter;
     private List<Author> authors;
 }
