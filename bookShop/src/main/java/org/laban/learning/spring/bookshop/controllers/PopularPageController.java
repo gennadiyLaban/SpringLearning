@@ -32,9 +32,9 @@ public class PopularPageController {
     @ModelAttribute("navigationPath")
     public Map<Pages, String> navigationPath() {
         var path = new LinkedHashMap<Pages, String>();
-        path.put(Pages.MAIN, "str.page.books.fragment.breadcrumbs.path.main");
-        path.put(Pages.GENRES, "str.page.books.fragment.breadcrumbs.path.genres");
-        path.put(Pages.POPULAR, "str.page.books.fragment.breadcrumbs.path.popular");
+        path.put(Pages.MAIN, "str.fragment.breadcrumbs.path.main");
+        path.put(Pages.GENRES, "str.fragment.breadcrumbs.path.genres");
+        path.put(Pages.POPULAR, "str.fragment.breadcrumbs.path.popular");
         return path;
     }
 

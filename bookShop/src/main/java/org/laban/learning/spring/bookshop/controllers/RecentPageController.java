@@ -32,9 +32,9 @@ public class RecentPageController {
     @ModelAttribute("navigationPath")
     public Map<Pages, String> navigationPath() {
         var path = new LinkedHashMap<Pages, String>();
-        path.put(Pages.MAIN, "str.page.books.fragment.breadcrumbs.path.main");
-        path.put(Pages.GENRES, "str.page.books.fragment.breadcrumbs.path.genres");
-        path.put(Pages.RECENT, "str.page.books.fragment.breadcrumbs.path.recent");
+        path.put(Pages.MAIN, "str.fragment.breadcrumbs.path.main");
+        path.put(Pages.GENRES, "str.fragment.breadcrumbs.path.genres");
+        path.put(Pages.RECENT, "str.fragment.breadcrumbs.path.recent");
         return path;
     }
 
