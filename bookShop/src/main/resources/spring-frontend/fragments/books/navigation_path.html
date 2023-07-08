@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+  <!--/*@thymesVar id="pathMap" type="java.util.Map<org.laban.learning.spring.bookshop.controllers.Pages, java.lang.String>"*/-->
+  <ul class="breadcrumbs" th:fragment="breadcrumbs(pathMap)" th:assert="${not #maps.isEmpty(pathMap)}">
+    <li th:each="pathItem, iter : ${pathMap}"
+            class="breadcrumbs-item"
+            th:if="${not iter.last}">
+      <a th:href="@{(${pathItem.key.baseUrl})}" th:text="#{${pathItem.value}}">Главная</a>
+    </li>
+    <li th:each="pathItem, iter : ${pathMap}"
+            class="breadcrumbs-item breadcrumbs-item_current"
+            th:if="${iter.last}">
+      <span th:text="#{${pathItem.value}}">Главная</span>
+    </li>
+  </ul>
+</body>
+</html>

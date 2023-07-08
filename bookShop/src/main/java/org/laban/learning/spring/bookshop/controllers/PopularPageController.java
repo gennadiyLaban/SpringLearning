@@ -1,6 +1,8 @@
 package org.laban.learning.spring.bookshop.controllers;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,4 +28,14 @@ public class PopularPageController {
     public List<Book> popularBooks() {
         return bookService.getBooksData();
     }
+
+    @ModelAttribute("navigationPath")
+    public Map<Pages, String> navigationPath() {
+        var path = new LinkedHashMap<Pages, String>();
+        path.put(Pages.MAIN, "str.books.fragment.breadcrumbs.path.main");
+        path.put(Pages.GENRES, "str.books.fragment.breadcrumbs.path.genres");
+        path.put(Pages.POPULAR, "str.books.fragment.breadcrumbs.path.popular");
+        return path;
+    }
+
 }

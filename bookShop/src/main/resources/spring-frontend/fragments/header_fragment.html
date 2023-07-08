@@ -22,10 +22,12 @@
                         <div class="Header-search">
                             <div class="search">
                                 <form action="#" class="form form_search" data-searchlimit="20" method="post">
-                                    <input class="search-input" id="query" name="query" placeholder="Search over 30 million book titles"
+                                    <input class="search-input" id="query" name="query"
+                                            th:placeholder="#{str.main.searchbar.placeholder}"
                                             type="text" value="" />
-                                    <button class="search-button" id="search" name="search" type="submit">Поиск
-                                    </button>
+                                    <button class="search-button" id="search" name="search"
+                                            type="submit"
+                                            th:text="#{str.main.searchbar.btn.search}">Поиск</button>
                                 </form>
                             </div>
                         </div>
@@ -65,8 +67,7 @@
                         </div>
                     </div>
                     <div class="row-block Header-trigger"><a class="menuTrigger" href="#navigate">
-                        <div class="menuTrigger-content">Показать навигацию
-                        </div>
+                        <div class="menuTrigger-content">Показать навигацию</div>
                         <span></span><span></span><span></span></a>
                     </div>
                 </div>
@@ -79,27 +80,27 @@
                         <li th:replace="this :: pageNavigationMenu(
                             ${@basePageContext.MAIN},
                             ${currentPage},
-                            'Главная',
+                            #{str.main.topbar.main},
                             ${@basePageContext.MAIN.baseUrl})"></li>
                         <li th:replace="this :: pageNavigationMenu(
                         ${@basePageContext.GENRES},
                         ${currentPage},
-                        'Жанры',
+                        #{str.main.topbar.genres},
                         ${@basePageContext.GENRES.baseUrl})"></li>
                         <li th:replace="this :: pageNavigationMenu(
                         ${@basePageContext.RECENT},
                         ${currentPage},
-                        'Новинки',
+                        #{str.main.topbar.recent},
                         ${@basePageContext.RECENT.baseUrl})"></li>
                         <li th:replace="this :: pageNavigationMenu(
                         ${@basePageContext.POPULAR},
                         ${currentPage},
-                        'Популярное',
+                        #{str.main.topbar.popular},
                         ${@basePageContext.POPULAR.baseUrl})"></li>
                         <li th:replace="this :: pageNavigationMenu(
                         ${@basePageContext.AUTHORS},
                         ${currentPage},
-                        'Авторы',
+                        #{str.main.topbar.authors},
                         ${@basePageContext.AUTHORS.baseUrl})"></li>
                     </ul>
                 </nav>
