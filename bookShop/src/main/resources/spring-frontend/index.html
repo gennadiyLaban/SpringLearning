@@ -44,11 +44,11 @@ p.error-browser
 <div class="Middle">
     <div class="wrap">
         <main class="Middle-main">
-            <div class="Section" th:replace="~{fragments/main/book_section :: bookSection(#{str.main.sections.recommended}, ${recommendedBooks})}"></div>
-            <div class="Section" th:replace="~{fragments/main/book_section :: bookSection(#{str.main.sections.recent}, ${recentBooks})}"></div>
-            <div class="Section" th:replace="~{fragments/main/book_section :: bookSection(#{str.main.sections.popular}, ${popularBooks})}"></div>
+            <div class="Section" th:replace="~{fragments/main/book_section :: bookSection(#{str.page.main.sections.recommended}, ${recommendedBooks})}"></div>
+            <div class="Section" th:replace="~{fragments/main/book_section :: bookSection(#{str.page.main.sections.recent}, ${recentBooks})}"></div>
+            <div class="Section" th:replace="~{fragments/main/book_section :: bookSection(#{str.page.main.sections.popular}, ${popularBooks})}"></div>
 
-            <h2 class="Middle-title" th:text="#{str.main.booktags.title}">Книги по тегам</h2>
+            <h2 class="Middle-title" th:text="#{str.page.main.booktags.title}">Книги по тегам</h2>
             <div class="Tags" id="tags">
                 <div class="Tag Tag_xs"><a href="/tags/index.html">современная литература</a>
                 </div>

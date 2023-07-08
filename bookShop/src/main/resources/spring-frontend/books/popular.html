@@ -46,7 +46,7 @@
         <ul class="breadcrumbs" th:replace="~{fragments/books/navigation_path :: breadcrumbs(${navigationPath})}"></ul>
         <div class="Section">
           <div class="Section-header">
-            <h1 class="Section-title">Популярное</h1>
+            <h1 class="Section-title" th:text="#{str.page.popular.title}">Популярное</h1>
           </div>
           <div class="Cards Cards_refresh">
             <div class="Card" th:each="book : ${popularBooks}">
@@ -61,7 +61,9 @@
                 </div>
               </div>
             </div>
-            <div class="Cards-footer Cards-footer_center"><a class="btn btn_primary" href="#" data-refreshshow="popular" data-refreshoffset="20" data-refreshlimit="20">Показать еще</a>
+            <div class="Cards-footer Cards-footer_center"><a class="btn btn_primary" href="#" data-refreshshow="popular" data-refreshoffset="20"
+                    data-refreshlimit="20"
+                    th:text="#{str.page.popular.btn.show_more}">Показать еще</a>
             </div>
           </div>
         </div>

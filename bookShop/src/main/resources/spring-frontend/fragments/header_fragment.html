@@ -23,11 +23,11 @@
                             <div class="search">
                                 <form action="#" class="form form_search" data-searchlimit="20" method="post">
                                     <input class="search-input" id="query" name="query"
-                                            th:placeholder="#{str.main.searchbar.placeholder}"
+                                            th:placeholder="#{str.fragment.header.headFragment.searchbar.placeholder}"
                                             type="text" value="" />
                                     <button class="search-button" id="search" name="search"
                                             type="submit"
-                                            th:text="#{str.main.searchbar.btn.search}">Поиск</button>
+                                            th:text="#{str.fragment.header.headFragment.searchbar.btn.search}">Поиск</button>
                                 </form>
                             </div>
                         </div>
@@ -80,27 +80,27 @@
                         <li th:replace="this :: pageNavigationMenu(
                             ${@basePageContext.MAIN},
                             ${currentPage},
-                            #{str.main.topbar.main},
+                            #{str.fragment.header.headFragment.page.main},
                             ${@basePageContext.MAIN.baseUrl})"></li>
                         <li th:replace="this :: pageNavigationMenu(
                         ${@basePageContext.GENRES},
                         ${currentPage},
-                        #{str.main.topbar.genres},
+                        #{str.fragment.header.headFragment.genres},
                         ${@basePageContext.GENRES.baseUrl})"></li>
                         <li th:replace="this :: pageNavigationMenu(
                         ${@basePageContext.RECENT},
                         ${currentPage},
-                        #{str.main.topbar.recent},
+                        #{str.fragment.header.headFragment.recent},
                         ${@basePageContext.RECENT.baseUrl})"></li>
                         <li th:replace="this :: pageNavigationMenu(
                         ${@basePageContext.POPULAR},
                         ${currentPage},
-                        #{str.main.topbar.popular},
+                        #{str.fragment.header.headFragment.popular},
                         ${@basePageContext.POPULAR.baseUrl})"></li>
                         <li th:replace="this :: pageNavigationMenu(
                         ${@basePageContext.AUTHORS},
                         ${currentPage},
-                        #{str.main.topbar.authors},
+                        #{str.fragment.header.headFragment.authors},
                         ${@basePageContext.AUTHORS.baseUrl})"></li>
                     </ul>
                 </nav>

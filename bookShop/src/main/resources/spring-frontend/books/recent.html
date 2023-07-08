@@ -46,7 +46,7 @@
         <ul class="breadcrumbs" th:replace="~{fragments/books/navigation_path :: breadcrumbs(${navigationPath})}"></ul>
         <div class="Section">
           <div class="Section-header">
-            <h1 class="Section-title">Новинки</h1>
+            <h1 class="Section-title" th:text="#{str.page.recent.title}">Новинки</h1>
             <form class="form form_inline Section-header-form" action="#" method="post">
               <div class="form-group">
                 <label class="form-label">с
@@ -75,7 +75,9 @@
               </div>
             </div>
 
-            <div class="Cards-footer Cards-footer_center"><a class="btn btn_primary" href="#" data-refreshshow="recent" data-refreshoffset="20" data-refreshlimit="20">Показать еще</a>
+            <div class="Cards-footer Cards-footer_center">
+              <a class="btn btn_primary" href="#" data-refreshshow="recent" data-refreshoffset="20" data-refreshlimit="20"
+                      th:text="#{str.page.recent.btn.show_more}">Показать еще</a>
             </div>
           </div>
         </div>
