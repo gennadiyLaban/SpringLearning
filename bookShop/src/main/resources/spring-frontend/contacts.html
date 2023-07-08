@@ -43,56 +43,56 @@
   <div class="Middle">
     <div class="Middle-top">
       <div class="wrap">
-        <h1 class="Middle-title">Контакты
-        </h1>
+        <h1 class="Middle-title" th:text="#{str.page.contacts.title}">Контакты</h1>
       </div>
     </div>
     <div class="wrap">
       <main class="Middle-main">
-        <ul class="breadcrumbs">
-          <li class="breadcrumbs-item"><a href="/index.html">Главная</a>
-          </li>
-          <li class="breadcrumbs-item breadcrumbs-item_current"><span>Контакты</span>
-          </li>
-        </ul>
+        <ul class="breadcrumbs" th:replace="~{fragments/navigation_path :: breadcrumbs(${navigationPath})}"></ul>
         <div class="Contacts">
           <div class="row">
             <div class="row-block">
-              <h2>Контакты
-              </h2>
+              <h2 th:text="#{str.page.contacts.title}">Контакты</h2>
               <div class="Contacts-prop">
-                <strong class="Contacts-propTitle">Телефон:
-                </strong><span class="Contacts-propContent">8 (800) 484-48-48</span>
+                <strong class="Contacts-propTitle" th:text="#{str.page.contacts.contact_phone.title}">Телефон:
+                </strong><span class="Contacts-propContent" th:text="#{str.page.contacts.contact_phone.value}"></span>
               </div>
               <div class="Contacts-prop">
-                <strong class="Contacts-propTitle">E-mail:
-                </strong><span class="Contacts-propContent">test@test.ru</span>
+                <strong class="Contacts-propTitle" th:text="#{str.page.contacts.contact_email.title}">E-mail:
+                </strong><span class="Contacts-propContent" th:text="#{str.page.contacts.contact_email.value}">test@test.ru</span>
               </div>
               <div class="Contacts-prop">
-                <strong class="Contacts-propTitle">Телеграм-бот:
-                </strong><span class="Contacts-propContent">@testBookShop</span>
+                <strong class="Contacts-propTitle" th:text="#{str.page.contacts.contact_telegram.title}">Телеграм-бот:
+                </strong><span class="Contacts-propContent" th:text="#{str.page.contacts.contact_telegram.value}">@testBookShop</span>
               </div>
             </div>
             <div class="row-block">
               <div class="Contacts-form">
-                <h2>Напишите нам:
-                </h2>
+                <h2 th:text="#{str.page.contacts.contact_section.title}">Напишите нам:</h2>
                 <form class="form" action="#" method="post">
                   <div class="form-group">
-                    <input class="form-input" id="name" name="name" type="text" placeholder="Введите Имя" data-validate="require"/>
+                    <input class="form-input" id="name" name="name" type="text" data-validate="require"
+                            th:placeholder="#{str.page.contacts.contact_section.name.placeholder}"
+                    />
                   </div>
                   <div class="form-group">
-                    <input class="form-input form-input_mail" id="mail" name="mail" type="text" placeholder="Введите e-mail" data-validate="mail require"/>
+                    <input class="form-input form-input_mail" id="mail" name="mail" type="text" data-validate="mail require"
+                            th:placeholder="#{str.page.contacts.contact_section.email.placeholder}"
+                    />
                   </div>
                   <div class="form-group">
-                    <input class="form-input" id="topic" name="topic" type="text" placeholder="Введите тему" data-validate="require"/>
+                    <input class="form-input" id="topic" name="topic" type="text" data-validate="require"
+                            th:placeholder="#{str.page.contacts.contact_section.topic.placeholder}"
+                    />
                   </div>
                   <div class="form-group">
-                    <textarea class="form-textarea Contacts-message" name="message" id="message" placeholder="Введите сообщение" data-validate="require"></textarea>
+                    <textarea class="form-textarea Contacts-message" name="message" id="message" data-validate="require"
+                            th:placeholder="#{str.page.contacts.contact_section.message.placeholder}"
+                    ></textarea>
                   </div>
                   <div class="form-group">
-                    <button class="btn btn_primary form-btn" type="submit" name="sendMessage" id="sendMessage">Отправить
-                    </button>
+                    <button class="btn btn_primary form-btn" type="submit" name="sendMessage" id="sendMessage"
+                            th:text="#{str.page.contacts.contact_section.btn.send}">Отправить</button>
                   </div>
                 </form>
               </div>
