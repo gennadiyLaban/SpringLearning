@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class GenresPageController {
     private static final String VIEW_GENRES = "genres/index";
 
-    @GetMapping(value = { "/genres", "/genres/index.html" })
+    @GetMapping(value = { "/genres", "/genres/index", "/genres/index.html" })
     public String genres() {
-        log.info("GET genres page");
+        log.info("GET %s".formatted(Pages.GENRES.baseUrl));
         return VIEW_GENRES;
     }
 

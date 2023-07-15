@@ -67,6 +67,10 @@ fun DependencyHandler.compileOnly(library: Library): ExternalModuleDependency {
     return addDepsLibrary(library, targetConfiguration = "compileOnly")
 }
 
+fun DependencyHandler.developmentOnly(library: Library): ExternalModuleDependency {
+    return addDepsLibrary(library, targetConfiguration = "developmentOnly")
+}
+
 fun DependencyHandler.providedAnnotationProcessor(library: Library) {
     providedCompile(library)
     annotationProcessor(library)

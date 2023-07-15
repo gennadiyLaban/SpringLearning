@@ -1,6 +1,6 @@
 package org.laban.learning.spring.bookshop.data.book.jdbc;
 
-import org.laban.learning.spring.utils.jdbc.SqlTable;
+import org.laban.learning.spring.util.jdbc.SqlTable;
 import org.springframework.stereotype.Component;
 
 @Component

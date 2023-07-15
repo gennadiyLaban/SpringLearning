@@ -3,9 +3,9 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     java
-    applyPlugin(libraries.timeserver.TimeServer.pluginKotlin)
-    applyPlugin(libraries.timeserver.TimeServer.pluginSpringBoot)
-    applyPlugin(libraries.timeserver.TimeServer.pluginSpringDependencyManagement)
+    applyPlugin(Global.Plugin.KotlinJVM)
+    applyPlugin(Global.Plugin.SpringBoot)
+    applyPlugin(Global.Plugin.SpringDependencyManagement)
 }
 
 group = "org.laban"
@@ -16,6 +16,8 @@ java {
 }
 
 dependencies {
+    implementation(Global.Modules.Utils.Time)
+
     implementation(TimeServer.libSpringBootStarter)
     annotationProcessor(TimeServer.libSpringBootConfigurationProcessor)
 

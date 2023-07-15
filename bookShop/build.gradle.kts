@@ -2,8 +2,15 @@ import libraries.bookShop.BookShop
 
 plugins {
     java
-    applyPlugin(libraries.bookShop.BookShop.pluginSpringBoot)
-    applyPlugin(libraries.bookShop.BookShop.pluginSpringDependencyManagement)
+    applyPlugin(Global.Plugin.SpringBoot)
+    applyPlugin(Global.Plugin.SpringDependencyManagement)
+}
+
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom(developmentOnly.get())
+    }
 }
 
 group = "org.laban.learning.spring"
@@ -14,7 +21,9 @@ java {
 }
 
 dependencies {
-    implementation(project(":utils:jdbc"))
+    implementation(Global.Modules.Utils.JDBC)
+    implementation(Global.Modules.Utils.Time)
+    implementation(Global.Modules.Utils.Utils)
 
     implementation(BookShop.libSpringBootStarter)
     annotationProcessor(BookShop.libSpringBootConfigurationProcessor)
@@ -26,6 +35,8 @@ dependencies {
     annotationProcessor(BookShop.libLombok)
 
     implementation(BookShop.libH2Database)
+
+    developmentOnly(BookShop.libSpringBootDevTools)
 
     testImplementation(kotlin("test"))
     testImplementation(libraries.timeserver.TimeServer.testLibSpringBootTestStarter)

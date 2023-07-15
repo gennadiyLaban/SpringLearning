@@ -20,18 +20,17 @@ public class AuthorsRepository {
         return dao.retrieveAll();
     }
 
-    public List<PageAuthorList> getPageAuthorLists() {
-        var pageData = new LinkedHashMap<Character, PageAuthorList>();
-        Function<Character, PageAuthorList> pageAuthorListCreator = (Character letter) -> PageAuthorList.builder()
-                .letterUpperCase(Character.toUpperCase(letter))
-                .letterLowerCase(Character.toLowerCase(letter))
+    public List<AuthorSection> getAuthorsSections() {
+        var pageData = new LinkedHashMap<Character, AuthorSection>();
+        Function<Character, AuthorSection> pageAuthorListCreator = (Character letter) -> AuthorSection.builder()
+                .sectionLetter(Character.toLowerCase(letter))
                 .authors(new ArrayList<>())
                 .build();
         getAllAuthors()
                 .stream()
-                .sorted(Comparator.comparingInt(author -> author.getName().charAt(0)))
+                .sorted(Comparator.comparing(Author::getLastName).thenComparing(Author::getFirstName))
                 .forEach(author -> {
-                    var authorList = pageData.computeIfAbsent(author.getName().charAt(0), pageAuthorListCreator);
+                    var authorList = pageData.computeIfAbsent(author.getLastName().charAt(0), pageAuthorListCreator);
                     authorList.getAuthors().add(author);
                 });
         return pageData.values().stream().toList();

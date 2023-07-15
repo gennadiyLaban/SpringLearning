@@ -7,8 +7,8 @@ import org.laban.learning.spring.utils.log.Logger;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
-import static org.laban.learning.spring.utils.jdbc.JDBCParams.configureParamSource;
-import static org.laban.learning.spring.utils.jdbc.JDBCParams.emptyParamSource;
+import static org.laban.learning.spring.util.jdbc.JDBCParams.configureParamSource;
+import static org.laban.learning.spring.util.jdbc.JDBCParams.emptyParamSource;
 
 public class BaseEntityRequester<T> implements EntityRequester<T> {
     protected final NamedParameterJdbcTemplate jdbcTemplate;

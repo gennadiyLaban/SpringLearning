@@ -4,7 +4,7 @@ import properties.BaseEnvironmentProvider
 import properties.BaseProjectProperties
 
 plugins {
-    applyPlugin(libraries.cleanspring.CleanSpring.KotlinJVM)
+    applyPlugin(Global.Plugin.KotlinJVM)
     war
 }
 
@@ -16,7 +16,7 @@ tasks.withType<KotlinCompile>().configureEach {
 }
 
 dependencies {
-    implementation(project(":utils:jdbc"))
+    implementation(Global.Modules.Utils.JDBC)
 
     implementation(CleanSpring.SpringContext)
     implementation(CleanSpring.SpringWebMVC)

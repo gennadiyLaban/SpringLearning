@@ -17,7 +17,7 @@ dependencies {
     implementation(CleanSpring.Log4jApi)
     implementation(CleanSpring.Log4jCore)
 
-    implementation(project(":lesson-2"))
+    implementation(Global.Modules.Lesson_2)
 
     testImplementation(kotlin("test"))
 }

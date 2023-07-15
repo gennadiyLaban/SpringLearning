@@ -1,6 +1,19 @@
 import org.gradle.api.JavaVersion
 
 object Global {
+    object Modules {
+        val App = ProjectModule("app")
+        val Lesson_2 = ProjectModule("lesson-2")
+        val TimeServer = ProjectModule("timeserver")
+        val BookShop = ProjectModule("bookShop")
+        object Utils {
+            private val root = "util"
+
+            val JDBC = ProjectModule("$root:jdbc")
+            val Time = ProjectModule("$root:time")
+            val Utils = ProjectModule("$root:utils")
+        }
+    }
 
     object Plugin {
         val KotlinJVM = Plugin("org.jetbrains.kotlin.jvm", Version.KOTLIN)
@@ -27,6 +40,11 @@ object Global {
         val SpringBootJdbcStarter = Library(
             "org.springframework.boot",
             "spring-boot-starter-jdbc",
+            Version.SPRING_BOOT_PLUGIN
+        )
+        val SpringBootDevTools = Library(
+            "org.springframework.boot",
+            "spring-boot-devtools",
             Version.SPRING_BOOT_PLUGIN
         )
 
