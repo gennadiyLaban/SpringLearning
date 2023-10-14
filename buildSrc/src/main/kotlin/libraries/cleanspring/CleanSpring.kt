@@ -1,7 +1,5 @@
 package libraries.cleanspring
 
-import Library
-
 object CleanSpring {
     val Log4jApi = Global.Library.Log4jApi
     val Log4jCore = Global.Library.Log4jCore
@@ -14,8 +12,8 @@ object CleanSpring {
 
     val Lombok = Global.Library.Lombok
 
-    val JavaxAnnotationApi = Global.Library.JavaxAnnotationApi
-    val JavaxValidationsApi = Global.Library.JavaxValidationsApi
+    val JavaxAnnotationApi = Global.Library.JakartaAnnotationApi
+    val JavaxValidationsApi = Global.Library.JakartaValidationsApi
     val HibernateValidator = Global.Library.HibernateValidator
     val HibernateValidatorAnnotationProcessor = Global.Library.HibernateValidatorAnnotationProcessor
 

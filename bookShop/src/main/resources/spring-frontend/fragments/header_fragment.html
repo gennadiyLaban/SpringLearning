@@ -77,31 +77,31 @@
             <div class="wrap">
                 <nav class="menuModal" id="navigate">
                     <ul class="menu menu_main">
-                        <li th:replace="this :: pageNavigationMenu(
+                        <li th:replace="~{this :: pageNavigationMenu(
                             ${@basePageContext.MAIN},
                             ${currentPage},
                             #{str.fragment.header.headFragment.page.main},
-                            ${@basePageContext.MAIN.baseUrl})"></li>
-                        <li th:replace="this :: pageNavigationMenu(
-                        ${@basePageContext.GENRES},
-                        ${currentPage},
-                        #{str.fragment.header.headFragment.genres},
-                        ${@basePageContext.GENRES.baseUrl})"></li>
-                        <li th:replace="this :: pageNavigationMenu(
-                        ${@basePageContext.RECENT},
-                        ${currentPage},
-                        #{str.fragment.header.headFragment.recent},
-                        ${@basePageContext.RECENT.baseUrl})"></li>
-                        <li th:replace="this :: pageNavigationMenu(
-                        ${@basePageContext.POPULAR},
-                        ${currentPage},
-                        #{str.fragment.header.headFragment.popular},
-                        ${@basePageContext.POPULAR.baseUrl})"></li>
-                        <li th:replace="this :: pageNavigationMenu(
+                            ${@basePageContext.MAIN.baseUrl})}"></li>
+                        <li th:replace="~{this :: pageNavigationMenu(
+                            ${@basePageContext.GENRES},
+                            ${currentPage},
+                            #{str.fragment.header.headFragment.genres},
+                            ${@basePageContext.GENRES.baseUrl})}"></li>
+                        <li th:replace="~{this :: pageNavigationMenu(
+                            ${@basePageContext.RECENT},
+                            ${currentPage},
+                            #{str.fragment.header.headFragment.recent},
+                            ${@basePageContext.RECENT.baseUrl})}"></li>
+                        <li th:replace="~{this :: pageNavigationMenu(
+                            ${@basePageContext.POPULAR},
+                            ${currentPage},
+                            #{str.fragment.header.headFragment.popular},
+                            ${@basePageContext.POPULAR.baseUrl})}"></li>
+                        <li th:replace="~{this :: pageNavigationMenu(
                         ${@basePageContext.AUTHORS},
                         ${currentPage},
                         #{str.fragment.header.headFragment.authors},
-                        ${@basePageContext.AUTHORS.baseUrl})"></li>
+                        ${@basePageContext.AUTHORS.baseUrl})}"></li>
                     </ul>
                 </nav>
             </div>

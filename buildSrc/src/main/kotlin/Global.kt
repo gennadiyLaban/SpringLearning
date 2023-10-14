@@ -48,7 +48,7 @@ object Global {
             Version.SPRING_BOOT_PLUGIN
         )
 
-        val ServletApi = Library("javax.servlet", "javax.servlet-api", Version.SERVLET_API)
+        val ServletApi = Library("jakarta.servlet:", "jakarta.servlet-api", Version.SERVLET_API)
 
         val ThymeleafSpring5 = Library("org.thymeleaf", "thymeleaf-spring5", Version.THYMELEAF_SPRING5)
 
@@ -63,8 +63,8 @@ object Global {
 
         val Lombok = Library("org.projectlombok", "lombok", Version.LOMBOK)
 
-        val JavaxAnnotationApi = Library("javax.annotation", "javax.annotation-api", Version.JAVAX_ANNOTATION_API)
-        val JavaxValidationsApi = Library("javax.validation", "validation-api", Version.JAVAX_VALIDATION_API)
+        val JakartaAnnotationApi = Library("jakarta.annotation", "jakarta.annotation-api", Version.JAKARTA_ANNOTATION_API)
+        val JakartaValidationsApi = Library("jakarta.annotation", "jakarta.validation-api", Version.JAKARTA_VALIDATION_API)
         val HibernateValidator = Library("org.hibernate.validator", "hibernate-validator", Version.HIBERNATE_VALIDATOR)
         val HibernateValidatorAnnotationProcessor = Library(
             "org.hibernate.validator",
@@ -81,13 +81,13 @@ object Global {
         val JAVA_VERSION = JavaVersion.VERSION_17
         const val KOTLIN = "1.8.21"
 
-        const val SPRING_CONTEXT = "5.3.27"
-        const val SPRING_SECURITY = "5.8.3"
+        const val SPRING_CONTEXT = "6.0.12"
+        const val SPRING_SECURITY = "6.1.2"
 
-        const val SPRING_BOOT_PLUGIN = "2.7.12"
-        const val SPRING_DEP_MANAGEMENT_PLUGIN = "1.0.15.RELEASE"
+        const val SPRING_BOOT_PLUGIN = "3.1.2"
+        const val SPRING_DEP_MANAGEMENT_PLUGIN = "1.1.3"
 
-        const val SERVLET_API = "4.0.1"
+        const val SERVLET_API = "6.0.0"
 
         const val THYMELEAF_SPRING5 = "3.1.1.RELEASE"
 
@@ -100,8 +100,8 @@ object Global {
 
         const val LOMBOK = "1.18.26"
 
-        const val JAVAX_ANNOTATION_API = "1.3.2"
-        const val JAVAX_VALIDATION_API = "2.0.1.Final"
-        const val HIBERNATE_VALIDATOR = "6.2.5.Final"
+        const val JAKARTA_ANNOTATION_API = "2.1.1"
+        const val JAKARTA_VALIDATION_API = "3.0.2"
+        const val HIBERNATE_VALIDATOR = "8.0.0.Final"
     }
 }
