@@ -10,18 +10,30 @@ public class AuthorsTable extends SqlTable {
     public final String last_name = "last_name";
 
     public AuthorsTable() {
-        super("authors");
+        super("shop", "authors");
     }
 
     public String compositeId() {
         return compositeColumn(id);
     }
 
+    public String aliasId() {
+        return columnAlias(id);
+    }
+
     public String compositeFirstName() {
         return compositeColumn(first_name);
     }
 
+    public String aliasFirstName() {
+        return columnAlias(first_name);
+    }
+
     public String compositeLastName() {
         return compositeColumn(last_name);
+    }
+
+    public String aliasLastName() {
+        return columnAlias(last_name);
     }
 }

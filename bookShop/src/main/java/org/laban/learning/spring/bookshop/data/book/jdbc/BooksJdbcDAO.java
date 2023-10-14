@@ -19,28 +19,29 @@ public class BooksJdbcDAO implements BookDAO {
     private final EntityRequester<Book> allBooksRetriever;
 
     public BooksJdbcDAO(BooksTable booksTable, AuthorsTable authorsTable, NamedParameterJdbcTemplate jdbcTemplate) {
-        final var queryRetrieveAll = "SELECT %s, %s, %s, %s, %s, %s\n".formatted(
-                booksTable.compositeId(),
-                authorsTable.compositeFirstName(),
-                authorsTable.compositeLastName(),
-                booksTable.compositeTitle(),
-                booksTable.compositePriceOld(),
-                booksTable.compositePrice()
-        ) + "FROM %s\n".formatted(
-                booksTable.tblName
+        final var queryRetrieveAll = "SELECT %s as %s, %s as %s, %s as %s, %s as %s, %s as %s, %s as %s\n".formatted(
+                booksTable.compositeId(), booksTable.aliasId(),
+                authorsTable.compositeFirstName(), authorsTable.aliasFirstName(),
+                authorsTable.compositeLastName(), authorsTable.aliasLastName(),
+                booksTable.compositeTitle(), booksTable.aliasTitle(),
+                booksTable.compositePriceOld(), booksTable.aliasPriceOld(),
+                booksTable.compositePrice(), booksTable.aliasPrice()
+        ) + "FROM %s\n ".formatted(
+                booksTable.compositeTblName()
         ) + "INNER JOIN %s ON %s=%s;".formatted(
-                authorsTable.tblName, booksTable.compositeAuthorId(), authorsTable.compositeId()
+                authorsTable.compositeTblName(),
+                booksTable.compositeAuthorId(), authorsTable.compositeId()
         );
 
-        var idRetriever = Retrievers.intColumnOf(log, booksTable.compositeId());
+        var idRetriever = Retrievers.intColumnOf(log, booksTable.aliasId());
         var authorRetriever = Retrievers.compositeOf(
-                Retrievers.strColumnOf(log, authorsTable.compositeFirstName()),
-                Retrievers.strColumnOf(log, authorsTable.compositeLastName()),
+                Retrievers.strColumnOf(log, authorsTable.aliasFirstName()),
+                Retrievers.strColumnOf(log, authorsTable.aliasLastName()),
                 "%s %s"::formatted
         );
-        var titleRetriever = Retrievers.strColumnOf(log, booksTable.compositeTitle());
-        var priceOldRetriever = Retrievers.strColumnOf(log, booksTable.compositePriceOld());
-        var priceRetriever = Retrievers.strColumnOf(log, booksTable.compositePrice());
+        var titleRetriever = Retrievers.strColumnOf(log, booksTable.aliasTitle());
+        var priceOldRetriever = Retrievers.strColumnOf(log, booksTable.aliasPriceOld());
+        var priceRetriever = Retrievers.strColumnOf(log, booksTable.aliasPrice());
 
         RowMapper<Book> bookMapper = (rs, rowNum) -> Book.builder()
                 .id(idRetriever.retrieve(rs, rowNum))

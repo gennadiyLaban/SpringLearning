@@ -54,6 +54,7 @@ object Global {
 
         val SpringJDBC = Library("org.springframework", "spring-jdbc", Version.SPRING_CONTEXT)
         val H2DB = Library("com.h2database", "h2", Version.H2_DB)
+        val POSTGRESQL = Library("org.postgresql", "postgresql", Version.POSTGRESQL)
         val CommonsFileUpload = Library("commons-fileupload", "commons-fileupload", Version.COMMONS_FILE_UPLOAD)
         val CommonsIO = Library("commons-io", "commons-io", Version.COMMONS_IO)
 
@@ -92,6 +93,7 @@ object Global {
         const val THYMELEAF_SPRING5 = "3.1.1.RELEASE"
 
         const val H2_DB = "2.1.214"
+        const val POSTGRESQL = "42.6.0"
         const val COMMONS_FILE_UPLOAD = "1.5"
         const val COMMONS_IO = "2.12.0"
 

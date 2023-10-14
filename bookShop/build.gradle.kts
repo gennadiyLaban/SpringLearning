@@ -34,7 +34,7 @@ dependencies {
     compileOnly(BookShop.libLombok)
     annotationProcessor(BookShop.libLombok)
 
-    implementation(BookShop.libH2Database)
+    implementation(BookShop.libPostgresql)
 
     developmentOnly(BookShop.libSpringBootDevTools)
 

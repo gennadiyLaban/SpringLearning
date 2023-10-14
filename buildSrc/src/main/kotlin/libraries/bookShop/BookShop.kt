@@ -13,7 +13,7 @@ object BookShop {
     val libSpringBootWebStarter = Global.Library.SpringBootWebStarter
     val libSpringBootDevTools = Global.Library.SpringBootDevTools
 
-    val libH2Database = Global.Library.H2DB
+    val libPostgresql = Global.Library.POSTGRESQL
     val libSpringBootJdbcStarter = Global.Library.SpringBootJdbcStarter
 
     val testLibSpringBootTestStarter = Global.Library.SpringBootTestStarter

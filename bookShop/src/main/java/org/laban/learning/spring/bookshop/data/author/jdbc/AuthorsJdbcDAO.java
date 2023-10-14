@@ -18,7 +18,7 @@ public class AuthorsJdbcDAO implements AuthorsDAO {
     private final EntityRequester<Author> allAuthorsRetriever;
 
     public AuthorsJdbcDAO(AuthorsTable authorsTable, NamedParameterJdbcTemplate jdbcTemplate) {
-        final var queryRetrieveAll = "SELECT * FROM %s".formatted(authorsTable.tblName);
+        final var queryRetrieveAll = "SELECT * FROM %s".formatted(authorsTable.compositeTblName());
 
         var idRetriever = Retrievers.intColumnOf(log, authorsTable.id);
         var firstNameRetriever = Retrievers.strColumnOf(log, authorsTable.first_name);
