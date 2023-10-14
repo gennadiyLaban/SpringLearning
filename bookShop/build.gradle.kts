@@ -39,7 +39,7 @@ dependencies {
     developmentOnly(BookShop.libSpringBootDevTools)
 
     testImplementation(kotlin("test"))
-    testImplementation(libraries.timeserver.TimeServer.testLibSpringBootTestStarter)
+    testImplementation(BookShop.testLibSpringBootTestStarter)
 }
 
 tasks.withType<Test> {

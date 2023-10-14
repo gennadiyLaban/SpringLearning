@@ -1,4 +1,3 @@
-import libraries.cleanspring.CleanSpring
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -13,11 +12,9 @@ version = "1.0-SNAPSHOT"
 
 dependencies {
     // https://mvnrepository.com/artifact/org.springframework/spring-context
-    implementation(CleanSpring.SpringContext)
-    implementation(CleanSpring.Log4jApi)
-    implementation(CleanSpring.Log4jCore)
-
-    implementation(Global.Modules.Lesson_2)
+    implementation(Global.Library.SpringContext)
+    implementation(Global.Library.Log4jApi)
+    implementation(Global.Library.Log4jCore)
 
     testImplementation(kotlin("test"))
 }
