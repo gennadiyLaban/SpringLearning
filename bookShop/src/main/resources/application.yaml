@@ -19,6 +19,9 @@ spring:
         - "classpath:db/data/data-authors.sql"
         - "classpath:db/data/data-books.sql"
       mode: embedded
+  jpa:
+    database-platform: "org.hibernate.dialect.PostgreSQLDialect"
+    show-sql: true
 
   messages:
     basename: "values.strings.strings"
