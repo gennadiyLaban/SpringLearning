@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: "BookShopApp-lesson-3"
+
+  web:
+    resources:
+      static-locations:
+        - "classpath:spring-frontend/"
+
+  thymeleaf:
+    prefix: "classpath:spring-frontend/"
+
+  datasource:
+    url: "jdbc:postgresql://127.0.0.1:5432/bookshop"
+    username: admin
+    password: admin
+
+  sql:
+    init:
+      schema-locations:
+        - "classpath:db/schema/schema.sql"
+      data-locations:
+        - "classpath:db/data/data-authors.sql"
+        - "classpath:db/data/data-books.sql"
+      mode: embedded
+
+  messages:
+    basename: "values.strings.strings"
+
+server:
+  port: 8085
+
+logging:
+  level:
+    root: info
