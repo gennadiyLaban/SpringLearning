@@ -9,7 +9,7 @@ public class BooksTable extends SqlTable {
     public final String id = "id";
     public final String authorId = "author_id";
     public final String title = "title";
-    public final String priceOld = "priceOld";
+    public final String priceOld = "price_old";
     public final String price = "price";
 
     public BooksTable() {

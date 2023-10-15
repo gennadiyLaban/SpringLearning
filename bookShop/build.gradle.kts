@@ -30,6 +30,7 @@ dependencies {
     implementation(BookShop.libSpringBootWebStarter)
     implementation(BookShop.libSpringBootThymeleafStarter)
     implementation(BookShop.libSpringBootJdbcStarter)
+    implementation(BookShop.libSpringBootJpaStarter)
 
     compileOnly(BookShop.libLombok)
     annotationProcessor(BookShop.libLombok)

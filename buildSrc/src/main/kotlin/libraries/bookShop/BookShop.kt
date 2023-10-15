@@ -1,8 +1,6 @@
 package libraries.bookShop
 
 import Global
-import Library
-import Plugin
 
 object BookShop {
     val libLombok = Global.Library.Lombok
@@ -15,6 +13,7 @@ object BookShop {
 
     val libPostgresql = Global.Library.POSTGRESQL
     val libSpringBootJdbcStarter = Global.Library.SpringBootJdbcStarter
+    val libSpringBootJpaStarter = Global.Library.SpringBootDataJpaStarter
 
     val testLibSpringBootTestStarter = Global.Library.SpringBootTestStarter
 }

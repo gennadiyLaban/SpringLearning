@@ -42,6 +42,11 @@ object Global {
             "spring-boot-starter-jdbc",
             Version.SPRING_BOOT_PLUGIN
         )
+        val SpringBootDataJpaStarter = Library(
+            "org.springframework.boot",
+            "spring-boot-starter-data-jpa",
+            Version.SPRING_BOOT_PLUGIN
+        )
         val SpringBootDevTools = Library(
             "org.springframework.boot",
             "spring-boot-devtools",

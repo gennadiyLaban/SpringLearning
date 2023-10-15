@@ -21,6 +21,10 @@ public class AuthorsTable extends SqlTable {
         return columnAlias(id);
     }
 
+    public String plainId() {
+        return id;
+    }
+
     public String compositeFirstName() {
         return compositeColumn(first_name);
     }

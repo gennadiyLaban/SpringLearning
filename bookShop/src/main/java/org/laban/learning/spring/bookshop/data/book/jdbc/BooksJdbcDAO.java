@@ -4,48 +4,46 @@ import java.util.List;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.laban.learning.spring.bookshop.data.author.jdbc.AuthorsTable;
+import org.laban.learning.spring.bookshop.data.author.AuthorsDAO;
 import org.laban.learning.spring.bookshop.data.book.Book;
 import org.laban.learning.spring.bookshop.data.book.BookDAO;
 import org.laban.learning.spring.util.jdbc.EntityRequester;
 import org.laban.learning.spring.util.jdbc.Retrievers;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
+@Lazy
 @Component
 @Slf4j
 public class BooksJdbcDAO implements BookDAO {
     private final EntityRequester<Book> allBooksRetriever;
 
-    public BooksJdbcDAO(BooksTable booksTable, AuthorsTable authorsTable, NamedParameterJdbcTemplate jdbcTemplate) {
-        final var queryRetrieveAll = "SELECT %s as %s, %s as %s, %s as %s, %s as %s, %s as %s, %s as %s\n".formatted(
+    public BooksJdbcDAO(
+            BooksTable booksTable,
+            AuthorsDAO authorsDAO,
+            NamedParameterJdbcTemplate jdbcTemplate
+    ) {
+        final var queryRetrieveAll = "SELECT %s as %s, %s as %s, %s as %s, %s as %s, %s as %s\n".formatted(
                 booksTable.compositeId(), booksTable.aliasId(),
-                authorsTable.compositeFirstName(), authorsTable.aliasFirstName(),
-                authorsTable.compositeLastName(), authorsTable.aliasLastName(),
                 booksTable.compositeTitle(), booksTable.aliasTitle(),
                 booksTable.compositePriceOld(), booksTable.aliasPriceOld(),
-                booksTable.compositePrice(), booksTable.aliasPrice()
+                booksTable.compositePrice(), booksTable.aliasPrice(),
+                booksTable.compositeAuthorId(), booksTable.aliasAuthorId()
         ) + "FROM %s\n ".formatted(
                 booksTable.compositeTblName()
-        ) + "INNER JOIN %s ON %s=%s;".formatted(
-                authorsTable.compositeTblName(),
-                booksTable.compositeAuthorId(), authorsTable.compositeId()
         );
 
         var idRetriever = Retrievers.intColumnOf(log, booksTable.aliasId());
-        var authorRetriever = Retrievers.compositeOf(
-                Retrievers.strColumnOf(log, authorsTable.aliasFirstName()),
-                Retrievers.strColumnOf(log, authorsTable.aliasLastName()),
-                "%s %s"::formatted
-        );
+        var authorIdRetriever = Retrievers.intColumnOf(log, booksTable.aliasAuthorId());
         var titleRetriever = Retrievers.strColumnOf(log, booksTable.aliasTitle());
         var priceOldRetriever = Retrievers.strColumnOf(log, booksTable.aliasPriceOld());
         var priceRetriever = Retrievers.strColumnOf(log, booksTable.aliasPrice());
 
         RowMapper<Book> bookMapper = (rs, rowNum) -> Book.builder()
                 .id(idRetriever.retrieve(rs, rowNum))
-                .author(authorRetriever.retrieve(rs, rowNum))
+                .author(authorsDAO.findAuthorById(authorIdRetriever.retrieve(rs, rowNum)))
                 .title(titleRetriever.retrieve(rs, rowNum))
                 .priceOld(priceOldRetriever.retrieve(rs, rowNum))
                 .price(priceRetriever.retrieve(rs, rowNum))
