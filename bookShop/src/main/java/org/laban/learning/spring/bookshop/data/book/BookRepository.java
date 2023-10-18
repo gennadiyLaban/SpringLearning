@@ -13,6 +13,6 @@ public class BookRepository {
     }
 
     public List<Book> getAllBooks() {
-        return dao.retrieveAll();
+        return dao.findAll();
     }
 }

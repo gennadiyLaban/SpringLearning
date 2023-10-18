@@ -1,7 +1,6 @@
 package org.laban.learning.spring.bookshop.data.book;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BookDAO {
-    List<Book> retrieveAll();
+public interface BookDAO extends JpaRepository<Book, Long> {
 }

@@ -17,7 +17,7 @@ public class AuthorsRepository {
     }
 
     public List<Author> getAllAuthors() {
-        return dao.retrieveAll();
+        return dao.findAll();
     }
 
     public List<AuthorSection> getAuthorsSections() {
