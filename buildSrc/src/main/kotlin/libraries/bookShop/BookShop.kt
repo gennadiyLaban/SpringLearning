@@ -11,7 +11,8 @@ object BookShop {
     val libSpringBootWebStarter = Global.Library.SpringBootWebStarter
     val libSpringBootDevTools = Global.Library.SpringBootDevTools
 
-    val libPostgresql = Global.Library.POSTGRESQL
+    val libPostgresql = Global.Library.Postgresql
+    val libLiquibase = Global.Library.Liquibase
     val libSpringBootJdbcStarter = Global.Library.SpringBootJdbcStarter
     val libSpringBootJpaStarter = Global.Library.SpringBootDataJpaStarter
 

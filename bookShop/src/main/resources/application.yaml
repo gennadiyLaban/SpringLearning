@@ -15,16 +15,26 @@ spring:
     password: admin
   sql:
     init:
-      data-locations:
-        - "classpath:db/data/data-authors.sql"
-        - "classpath:db/data/data-books.sql"
-      mode: embedded
+#      schema-locations: "classpath:db/init.sql"
+#      data-locations:
+#        - "classpath:db/data/data-authors.sql"
+#        - "classpath:db/data/data-books.sql"
+      mode: never
   jpa:
     database-platform: "org.hibernate.dialect.PostgreSQLDialect"
     show-sql: true
+    hibernate:
+      ddl-auto: validate
     properties:
       hibernate:
-        default_schema: "shop"
+        default_schema: ${bookshop.db.schema}
+  liquibase:
+    change-log: classpath:db/migration/changelog-master.xml
+    parameters:
+      bookshop.db.schema: ${bookshop.db.schema}
+
+  #    default-schema: ${bookshop.db.schema}
+
 
   messages:
     basename: "values.strings.strings"
@@ -35,3 +45,7 @@ server:
 logging:
   level:
     root: info
+
+bookshop:
+  db:
+    schema: "shop"
