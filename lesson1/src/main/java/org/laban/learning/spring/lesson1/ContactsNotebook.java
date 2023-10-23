@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ContactsNotebook {
     private final CommandInterpreter commandInterpreter;
+    private final Printer printer;
 
 
     public void run() {
@@ -25,7 +26,8 @@ public class ContactsNotebook {
 
     public boolean handleNextCommand(Scanner scanner) {
         try {
-            System.out.print("Input command: ");
+            printer.newLine();
+            printer.print("Input command: ");
             var input = scanner.nextLine();
             if (StringUtils.isBlank(input)) {
                 return true;
@@ -42,17 +44,17 @@ public class ContactsNotebook {
         } catch (ExitCommandException e) {
             return false;
         } catch (IllegalInputError e) {
-            printDivider();
-            printErrorMessage(e.userMessage());
-            printDivider();
-            printNewLine();
+            printer
+                    .divider()
+                    .border().print("Input Error: ").print(e.userMessage()).newLine()
+                    .divider();
             return true;
         } catch (Exception e) {
-            printDivider();
-            System.out.printf("== Unexpected exception: %s\n", e.getMessage());
+            printer
+                    .divider()
+                    .border().print("Unexpected exception: ").print(e.getMessage()).newLine();
             e.printStackTrace();
-            printDivider();
-            printNewLine();
+            printer.divider();
             return true;
         }
     }
@@ -65,18 +67,6 @@ public class ContactsNotebook {
         }
 
         return new Command(input.substring(0, spaceIndex), input.substring(spaceIndex + 1));
-    }
-
-    private void printDivider() {
-        System.out.println("==================================================================");
-    }
-
-    private void printNewLine() {
-        System.out.println();
-    }
-
-    private void printErrorMessage(String message) {
-        System.out.printf("== Input Error: %s\n", message);
     }
 
     private record Command(@Nonnull String key, @Nullable String body) {
