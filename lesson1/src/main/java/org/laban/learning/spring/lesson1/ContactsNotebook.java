@@ -7,6 +7,7 @@ import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.laban.learning.spring.lesson1.commands.CommandInterpreter;
+import org.laban.learning.spring.lesson1.commands.HelpCommandHandler;
 import org.laban.learning.spring.lesson1.exceptions.ExitCommandException;
 import org.laban.learning.spring.lesson1.exceptions.input.IllegalInputError;
 import org.laban.learning.spring.lesson1.exceptions.input.SimpleInputError;
@@ -20,6 +21,7 @@ public class ContactsNotebook {
 
 
     public void run() {
+        handleCommand(HelpCommandHandler.HELP_COMMAND);
         Scanner scanner = new Scanner(System.in);
         while (handleNextCommand(scanner));
     }
@@ -28,19 +30,7 @@ public class ContactsNotebook {
         try {
             printer.newLine();
             printer.print("Input command: ");
-            var input = scanner.nextLine();
-            if (StringUtils.isBlank(input)) {
-                return true;
-            }
-
-            var command = parseUserInput(input);
-            var commandHandler = commandInterpreter.interpret(command.key());
-            if (commandHandler == null) {
-                throw new SimpleInputError("Unknown command, please retry");
-            }
-
-            commandHandler.handle(command.body());
-            return true;
+            return handleCommand(scanner.nextLine());
         } catch (ExitCommandException e) {
             return false;
         } catch (IllegalInputError e) {
@@ -56,6 +46,21 @@ public class ContactsNotebook {
             printer.divider();
             return true;
         }
+    }
+
+    private boolean handleCommand(String input) {
+        if (StringUtils.isBlank(input)) {
+            return true;
+        }
+
+        var command = parseUserInput(input);
+        var commandHandler = commandInterpreter.interpret(command.key());
+        if (commandHandler == null) {
+            throw new SimpleInputError("Unknown command, please retry");
+        }
+
+        commandHandler.handle(command.body());
+        return true;
     }
 
     private Command parseUserInput(String input) {
