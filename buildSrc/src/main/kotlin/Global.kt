@@ -3,9 +3,9 @@ import org.gradle.api.JavaVersion
 object Global {
     object Modules {
         val App = ProjectModule("app")
-        val Lesson_2 = ProjectModule("lesson-2")
         val TimeServer = ProjectModule("timeserver")
         val BookShop = ProjectModule("bookShop")
+        val Lesson1 = ProjectModule("lesson1")
         object Utils {
             private val root = "util"
 
@@ -79,6 +79,9 @@ object Global {
             Version.HIBERNATE_VALIDATOR
         )
 
+        val SnakeYaml = Library("org.yaml", "snakeyaml", Version.SnakeYaml)
+        val ApacheCommonLang3 = Library("org.apache.commons", "commons-lang3", Version.ApacheCommonLang3)
+
         val SpringBootTestStarter = Library("org.springframework.boot", "spring-boot-starter-test")
     }
 
@@ -112,5 +115,8 @@ object Global {
         const val JAKARTA_ANNOTATION_API = "2.1.1"
         const val JAKARTA_VALIDATION_API = "3.0.2"
         const val HIBERNATE_VALIDATOR = "8.0.0.Final"
+
+        const val SnakeYaml = "2.0"
+        const val ApacheCommonLang3 = "3.12.0"
     }
 }

@@ -4,7 +4,7 @@ fun Settings.init() {
     rootProject.name = "SpringLearning"
 
     include(Global.Modules.App)
-    include(Global.Modules.Lesson_2)
+    include(Global.Modules.Lesson1)
     include(Global.Modules.TimeServer)
     include(Global.Modules.BookShop)
     include(Global.Modules.Utils.JDBC)
