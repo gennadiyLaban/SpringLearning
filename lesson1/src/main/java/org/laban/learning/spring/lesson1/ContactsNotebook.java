@@ -53,7 +53,6 @@ public class ContactsNotebook {
             printer
                     .divider()
                     .border().print("Unexpected exception: ").print(e.getMessage()).newLine();
-            e.printStackTrace();
             printer.divider();
             return true;
         }
