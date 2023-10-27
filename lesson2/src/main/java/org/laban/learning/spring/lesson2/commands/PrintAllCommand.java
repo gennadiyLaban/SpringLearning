@@ -1,8 +1,7 @@
 package org.laban.learning.spring.lesson2.commands;
 
-import java.text.MessageFormat;
-
 import lombok.RequiredArgsConstructor;
+import org.laban.learning.spring.lesson2.MessageBuilder;
 import org.laban.learning.spring.lesson2.students.datasource.StudentsDatasource;
 import org.springframework.shell.command.annotation.Command;
 
@@ -13,13 +12,17 @@ public class PrintAllCommand {
 
     @Command(command = "printAll", alias = { "printall" })
     public String printAll() {
-        var builder = new StringBuilder();
-        datasource.getAllStudents().stream()
-                .map(student -> MessageFormat.format(
-                        "{0} | {1} | {2} | {3}",
-                        student.getId(), student.getFirstName(), student.getLastName(), student.getAge()
-                ))
-                .forEach(message -> builder.append(message).append('\n'));
+        var students = datasource.getAllStudents();
+        var builder = new MessageBuilder();
+        builder.divider();
+        if (students.isEmpty()) {
+            builder.border().msg("No students yet...").newLine();
+        } else {
+            for (var student : students) {
+                builder.border().student(student).newLine();
+            }
+        }
+        builder.divider();
         return builder.toString();
     }
 }
