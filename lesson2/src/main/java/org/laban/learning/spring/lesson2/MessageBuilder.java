@@ -23,7 +23,7 @@ public class MessageBuilder {
     }
 
     public MessageBuilder formatMsg(String pattern, Object ... arguments) {
-        builder.append(MessageFormat.format(pattern,arguments));
+        builder.append(MessageFormat.format(pattern, arguments));
         return this;
     }
 
