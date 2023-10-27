@@ -10,29 +10,38 @@ import java.util.Scanner;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
-import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.laban.learning.spring.lesson2.events.StudentCreatedEvent;
+import org.laban.learning.spring.lesson2.events.StudentDeletedEvent;
 import org.laban.learning.spring.lesson2.exceptions.StudentNotFoundError;
 import org.laban.learning.spring.lesson2.students.Student;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.event.ApplicationStartedEvent;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.event.EventListener;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 @Slf4j
+@RequiredArgsConstructor
 @Component
 public class StudentsDatasource {
     private static final String SPLITTER = ";";
 
     private final Map<Long, Student> students = new HashMap<>();
+    private final ApplicationEventPublisher applicationEventPublisher;
     @Value("${app.init.file.enabled}")
     private Boolean enableInitFromFile;
     @Value("${app.init.file.name}")
     private String studentsFileName;
 
 
-    @PostConstruct
-    void initData() {
+    @ConditionalOnProperty(value = "${app.init.file.enabled}", havingValue = "true")
+    @EventListener(classes = ApplicationStartedEvent.class)
+    public void initData() {
         if (enableInitFromFile) {
             log.info("Initialization from file started");
             read().forEach(this::save);
@@ -110,6 +119,7 @@ public class StudentsDatasource {
         var id = StudentSequence.nextId();
         var savedStudent = student.toBuilder().id(id).build();
         students.put(savedStudent.getId(), savedStudent);
+        applicationEventPublisher.publishEvent(new StudentCreatedEvent(this, savedStudent.getId()));
         return savedStudent;
     }
 
@@ -131,6 +141,7 @@ public class StudentsDatasource {
         if (deleted == null) {
             throw new StudentNotFoundError(id);
         }
+        applicationEventPublisher.publishEvent(new StudentDeletedEvent(this, deleted.getId()));
         return deleted;
     }
 
