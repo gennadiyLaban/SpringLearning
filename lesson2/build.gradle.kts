@@ -20,6 +20,8 @@ dependencies {
     compileOnly(Global.Library.Lombok)
     annotationProcessor(Global.Library.Lombok)
 
+    implementation(Global.Library.ApacheCommonLang3)
+
     // developmentOnly(Global.Library.SpringBootDevTools)
 
     testImplementation(kotlin("test"))
