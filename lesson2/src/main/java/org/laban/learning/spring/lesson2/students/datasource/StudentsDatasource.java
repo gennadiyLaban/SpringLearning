@@ -18,7 +18,6 @@ import org.laban.learning.spring.lesson2.events.StudentDeletedEvent;
 import org.laban.learning.spring.lesson2.exceptions.StudentNotFoundError;
 import org.laban.learning.spring.lesson2.students.Student;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
@@ -33,21 +32,17 @@ public class StudentsDatasource {
 
     private final Map<Long, Student> students = new HashMap<>();
     private final ApplicationEventPublisher applicationEventPublisher;
-    @Value("${app.init.file.enabled}")
-    private Boolean enableInitFromFile;
     @Value("${app.init.file.name}")
     private String studentsFileName;
 
 
-    @ConditionalOnProperty(value = "${app.init.file.enabled}", havingValue = "true")
-    @EventListener(classes = ApplicationStartedEvent.class)
+    @EventListener(
+            classes = ApplicationStartedEvent.class,
+            condition = "@environment.getProperty('app.init.file.enabled')"
+    )
     public void initData() {
-        if (enableInitFromFile) {
-            log.info("Initialization from file started");
-            read().forEach(this::save);
-        } else {
-            log.info("Initialization from file disabled");
-        }
+        log.info("Initialization from file started");
+        read().forEach(this::save);
     }
 
     @Nonnull

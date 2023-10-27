@@ -5,6 +5,6 @@ spring:
 app:
   init:
     file:
-      enabled: false
+      enabled: ${INIT_FROM_FILE:false}
       name: default-students.txt
 
