@@ -6,6 +6,7 @@ object Global {
         val TimeServer = ProjectModule("timeserver")
         val BookShop = ProjectModule("bookShop")
         val Lesson1 = ProjectModule("lesson1")
+        val Lesson2 = ProjectModule("lesson2")
         object Utils {
             private val root = "util"
 
@@ -45,6 +46,11 @@ object Global {
         val SpringBootDataJpaStarter = Library(
             "org.springframework.boot",
             "spring-boot-starter-data-jpa",
+            Version.SPRING_BOOT_PLUGIN
+        )
+        val SpringShellStarter = Library(
+            "org.springframework.shell",
+            "spring-shell-starter",
             Version.SPRING_BOOT_PLUGIN
         )
         val SpringBootDevTools = Library(

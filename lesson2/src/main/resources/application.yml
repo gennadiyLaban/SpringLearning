@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active: default
+
+app:
+  init:
+    file:
+      enabled: ${INIT_FROM_FILE:false}
+      name: default-students.txt
+

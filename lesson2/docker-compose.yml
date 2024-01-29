@@ -1,0 +1,8 @@
+version: "3.9"
+services:
+  students-book:
+    build:
+      context: ./
+      dockerfile: ./docker/Dockerfile
+    environment:
+      INIT_FROM_FILE: false
