@@ -1,0 +1,25 @@
+<!doctype html>
+<html
+        lang="ru"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="utf-8" />
+    <title th:text="#{application.name}">App title  </title>
+</head>
+<body>
+    <h1 th:text="#{contacts.title}"></h1>
+
+    <table>
+        <caption th:text="#{contacts.tabletitle}"></caption>
+        <tr><th>ID</th><th>First Name</th><th>Last Name</th><th>email</th><th>phone</th></tr>
+        <tr th:each="contact : ${contactList}">
+            <td th:text="${contact.id}">1</td>
+            <td th:text="${contact.firstName}">Gennadiy</td>
+            <td th:text="${contact.lastName}">Laban</td>
+            <td th:text="${contact.email}">tagudur@yandex.ru</td>
+            <td th:text="${contact.phone}">+375336020092</td></tr>
+    </table>
+
+</body>
+</html>

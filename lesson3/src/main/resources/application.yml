@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: "Lesson-3-Notebook"
+  messages:
+    basename: "strings"
+
+server:
+  port: 8085
