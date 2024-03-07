@@ -18,6 +18,7 @@ dependencies {
     implementation(Global.Library.SpringBootStarter)
     implementation(Global.Library.SpringBootWebStarter)
     implementation(Global.Library.SpringBootThymeleafStarter)
+    implementation(Global.Library.SpringBootValidationStarter)
 //    implementation(Global.Library.SpringBootJdbcStarter)
 
     annotationProcessor(Global.Library.SpringBootConfigurationProcessor)

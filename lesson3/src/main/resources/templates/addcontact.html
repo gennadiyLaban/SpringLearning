@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html
+        lang="ru"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{application.name}">Title</title>
+</head>
+<body>
+    <h1 th:text="#{addcontact.title}">Header</h1>
+
+    <form th:object="${contactSample}" method="post">
+        <p><label>First name: <input type="text" th:field="*{firstName}"></label></p>
+        <p><label>Last name : <input type="text" th:field="*{lastName}"></label></p>
+        <p><label>Email     : <input type="email" th:field="*{email}"></label></p>
+        <p><label>Phone     : <input type="text" th:field="*{phone}"></label></p>
+        <input type="submit" value="Add contact">
+    </form>
+</body>
+</html>

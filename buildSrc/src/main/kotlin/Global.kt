@@ -48,6 +48,11 @@ object Global {
             "spring-boot-starter-data-jpa",
             Version.SPRING_BOOT_PLUGIN
         )
+        val SpringBootValidationStarter = Library(
+            "org.springframework.boot",
+            "spring-boot-starter-validation",
+            Version.SPRING_BOOT_PLUGIN
+        )
         val SpringShellStarter = Library(
             "org.springframework.shell",
             "spring-shell-starter",
