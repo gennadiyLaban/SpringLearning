@@ -2,12 +2,16 @@ package org.laban.learning.spring.lesson3.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.laban.learning.spring.lesson3.services.ContactsService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
@@ -34,6 +38,17 @@ public class ContactsController {
     @ModelAttribute("contactSample")
     public ContactSample contactSample() {
         return new ContactSample();
+    }
+
+    @ExceptionHandler
+    public ModelAndView handleException(MethodArgumentNotValidException exception) {
+        String errorMsg = exception.getBindingResult().getFieldErrors()
+                .stream()
+                .filter(fieldError -> StringUtils.isNotEmpty(fieldError.getDefaultMessage()))
+                .findFirst()
+                .map(fieldError -> fieldError.getField() + " " + fieldError.getDefaultMessage())
+                .orElse(exception.getMessage());
+        return new ModelAndView("400", Map.of("errMessage", errorMsg), HttpStatus.BAD_REQUEST);
     }
 
 }
