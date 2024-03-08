@@ -70,3 +70,30 @@ th:alt-title="${iStat.even}? 'even' : 'odd'">
     <input type="submit" value="Submit"/>
 </form>
 ```
+
+Показ/скрытие элемета в зависимости от условия:
+```html
+<td>
+    <span th:if="${teacher.gender == 'F'}">Female</span>
+    <span th:unless="${teacher.gender == 'F'}">Male</span>
+</td>
+<td th:switch="${#lists.size(teacher.courses)}">
+    <span th:case="'0'">NO COURSES YET!</span>
+    <span th:case="'1'" th:text="${teacher.courses[0]}"></span>
+    <div th:case="*">
+        <div th:each="course:${teacher.courses}" th:text="${course}"/>
+    </div>
+</td>
+```
+
+Условные выражения:
+```html
+<tr th:class="${row.even}? 'even' : 'odd'"></tr>
+<tr th:class="${row.even}? (${row.first}? 'first' : 'even') : 'odd'"></tr>
+<!--  `else` может отсутствовать в этом случае результат условного выражения будет `null`  -->
+<tr th:class="${row.even}? 'alt'"></tr>
+<!--  условный оператор `?:` заменяет проверку на `null`  -->
+<div th:object="${session.user}">
+    <p>Age: <span th:text="*{age}?: '(no age specified)'">27</span>.</p>
+</div>
+```

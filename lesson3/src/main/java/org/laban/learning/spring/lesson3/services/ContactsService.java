@@ -17,17 +17,34 @@ public class ContactsService {
         return contactsDatasource.contacts();
     }
 
-    public void addContact(ContactSample contactSample) {
-        contactsDatasource.addContact(Contact
-                        .builder()
-                        .firstName(contactSample.getFirstName())
-                        .lastName(contactSample.getLastName())
-                        .phone(contactSample.getPhone())
-                        .email(contactSample.getEmail())
-                        .build());
+    public Contact findContactById(long id) {
+        return contactsDatasource.findContactById(id);
+    }
+
+    public void addContact(ContactSample sample) {
+        contactsDatasource.addContact(createContactFromSample(sample));
     }
 
     public void deleteContactById(long id) {
         contactsDatasource.deleteContactById(id);
+    }
+
+    public void updateContact(ContactSample sample) {
+        var contact = contactsDatasource.findContactById(sample.getId());
+        if (contact == null) {
+            return;
+        }
+        contactsDatasource.updateContact(createContactFromSample(sample));
+    }
+
+    private Contact createContactFromSample(ContactSample sample) {
+        return Contact
+                .builder()
+                .id(sample.getId())
+                .firstName(sample.getFirstName())
+                .lastName(sample.getLastName())
+                .phone(sample.getPhone())
+                .email(sample.getEmail())
+                .build();
     }
 }

@@ -35,8 +35,18 @@ public class InMemoryContactsDatasource implements ContactsDatasource {
     }
 
     @Override
+    public Contact findContactById(long id) {
+        return contacts.get(id);
+    }
+
+    @Override
     public void addContact(Contact contact) {
         contacts.put(++ID_BASE, contact.withId(ID_BASE));
+    }
+
+    @Override
+    public void updateContact(Contact contact) {
+        contacts.put(contact.getId(), contact);
     }
 
     @Override

@@ -20,6 +20,12 @@
             <td th:text="${contact.email}">tagudur@yandex.ru</td>
             <td th:text="${contact.phone}">+375336020092</td>
             <td>
+                <form action="/contact/update" method="get">
+                    <input type="number" hidden="hidden" name="id" th:value="${contact.id}">
+                    <input type="submit" th:value="#{contacts.updatecontact}">
+                </form>
+            </td>
+            <td>
                 <form action="/contact/delete" method="get">
                     <input type="number" hidden="hidden" name="id" th:value="${contact.id}">
                     <input type="submit" th:value="#{contacts.deletecontact}">
@@ -27,6 +33,9 @@
             </td>
         </tr>
     </table>
+    <form action="/contact/add" method="get">
+        <input type="submit" th:value="#{contacts.addcontact}">
+    </form>
 
 </body>
 </html>

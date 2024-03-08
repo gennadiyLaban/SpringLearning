@@ -8,7 +8,7 @@ import lombok.*;
 @EqualsAndHashCode
 public class Contact {
     @With
-    private final long id;
+    private final Long id;
     private final String firstName;
     private final String lastName;
     private final String email;
