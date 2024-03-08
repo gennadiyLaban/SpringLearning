@@ -1,6 +1,7 @@
 package org.laban.learning.spring.lesson3.controller;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.laban.learning.spring.lesson3.services.ContactsService;
@@ -24,12 +25,18 @@ public class ContactsController {
         return "contacts";
     }
 
-    @GetMapping("/addcontact")
+    @GetMapping("contact/delete")
+    public String deleteContact(@RequestParam @NotNull Long id) {
+        contactsService.deleteContactById(id);
+        return "redirect:/";
+    }
+
+    @GetMapping("/contact/add")
     public String addContact(Model model) {
         return "addcontact";
     }
 
-    @PostMapping("/addcontact")
+    @PostMapping("/contact/add")
     public String createContact(@Valid ContactSample sample) {
         contactsService.addContact(sample);
         return "redirect:/";

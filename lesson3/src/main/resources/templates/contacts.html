@@ -18,7 +18,14 @@
             <td th:text="${contact.firstName}">Gennadiy</td>
             <td th:text="${contact.lastName}">Laban</td>
             <td th:text="${contact.email}">tagudur@yandex.ru</td>
-            <td th:text="${contact.phone}">+375336020092</td></tr>
+            <td th:text="${contact.phone}">+375336020092</td>
+            <td>
+                <form action="/contact/delete" method="get">
+                    <input type="number" hidden="hidden" name="id" th:value="${contact.id}">
+                    <input type="submit" th:value="#{contacts.deletecontact}">
+                </form>
+            </td>
+        </tr>
     </table>
 
 </body>

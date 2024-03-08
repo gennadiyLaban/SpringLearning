@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface ContactsDatasource {
     List<Contact> contacts();
-
     void addContact(Contact contact);
+    void deleteContactById(long id);
 }

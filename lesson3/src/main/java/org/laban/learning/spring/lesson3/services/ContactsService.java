@@ -26,4 +26,8 @@ public class ContactsService {
                         .email(contactSample.getEmail())
                         .build());
     }
+
+    public void deleteContactById(long id) {
+        contactsDatasource.deleteContactById(id);
+    }
 }

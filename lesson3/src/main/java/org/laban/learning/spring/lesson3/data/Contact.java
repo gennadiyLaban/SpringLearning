@@ -1,13 +1,11 @@
 package org.laban.learning.spring.lesson3.data;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.With;
+import lombok.*;
 
 @RequiredArgsConstructor
 @Builder
 @Getter
+@EqualsAndHashCode
 public class Contact {
     @With
     private final long id;
