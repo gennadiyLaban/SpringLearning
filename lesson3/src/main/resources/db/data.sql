@@ -1,0 +1,22 @@
+insert into lesson3.contacts (first_name, last_name, email, phone)
+values
+    ('Barry',   'Joyner',   'lectus@icloud.net',                      '+119424554770'),
+    ('Cara',    'Lynn',     'ut.odio@yahoo.edu',                      '+112318781251'),
+    ('Carla',   'Clarke',   'vivamus.non@hotmail.net',                '+16544852'),
+    ('Yuli',    'Rivera',   'libero.est@protonmail.ca',               '+16063337'),
+    ('Marcia',  'Meyer',    'dictum.eu.eleifend@aol.couk',            '+115437375281'),
+    ('Fallon',  'Price',    'lacinia.vitae@icloud.net',               '+18121533'),
+    ('Quentin', 'Savage',   'sed@aol.ca',                             '+118464207486'),
+    ('William', 'Leach',    'libero.proin@aol.edu',                   '+111264288636'),
+    ('Dexter',  'Cherry',   'sociis.natoque@aol.ca',                  '+119956778731'),
+    ('Alice',   'Hopper',   'nibh@yahoo.org',                         '+117024149554'),
+    ('Tate',    'Arnold',   'pretium.et@yahoo.ca',                    '+13875520'),
+    ('Merrill', 'Humphrey', 'odio.nam@icloud.edu',                    '+119963192357'),
+    ('Rowan',   'Hatfield', 'adipiscing@hotmail.edu',                 '+19839344'),
+    ('Ezekiel', 'Mejia',    'est.ac@icloud.ca',                       '+112769286956'),
+    ('Laurel',  'Mann',     'dignissim@hotmail.couk',                 '+15149769'),
+    ('Hanna',   'Malone',   'varius.ultrices@aol.org',                '+19825162'),
+    ('Abigail', 'Dillon',   'amet@hotmail.edu',                       '+16849276'),
+    ('Rose',    'Calderon', 'tempus.scelerisque.lorem@protonmail.ca', '+112111238728'),
+    ('Claudia', 'Pugh',     'feugiat.non@outlook.couk',               '+112605132246'),
+    ('August',  'Baird',    'diam@protonmail.org',                    '+17037542');

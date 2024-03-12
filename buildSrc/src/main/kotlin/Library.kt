@@ -80,6 +80,10 @@ fun DependencyHandler.testImplementation(library: Library): ExternalModuleDepend
     return addDepsLibrary(library, targetConfiguration = "testImplementation")
 }
 
+fun DependencyHandler.runtimeOnly(library: Library): ExternalModuleDependency {
+    return addDepsLibrary(library, targetConfiguration = "runtimeOnly")
+}
+
 internal fun DependencyHandler.addDepsLibrary(
     library: Library,
     targetConfiguration: String

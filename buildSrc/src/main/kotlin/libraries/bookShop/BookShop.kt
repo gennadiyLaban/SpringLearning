@@ -13,7 +13,7 @@ object BookShop {
 
     val libPostgresql = Global.Library.Postgresql
     val libLiquibase = Global.Library.Liquibase
-    val libSpringBootJdbcStarter = Global.Library.SpringBootJdbcStarter
+    val libSpringBootJdbcStarter = Global.Library.SpringBootDataJdbcStarter
     val libSpringBootJpaStarter = Global.Library.SpringBootDataJpaStarter
 
     val testLibSpringBootTestStarter = Global.Library.SpringBootTestStarter

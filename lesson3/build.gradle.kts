@@ -1,5 +1,3 @@
-import libraries.bookShop.BookShop
-
 plugins {
     java
     applyPlugin(Global.Plugin.KotlinJVM)
@@ -19,7 +17,8 @@ dependencies {
     implementation(Global.Library.SpringBootWebStarter)
     implementation(Global.Library.SpringBootThymeleafStarter)
     implementation(Global.Library.SpringBootValidationStarter)
-//    implementation(Global.Library.SpringBootJdbcStarter)
+    implementation(Global.Library.SpringBootDataJdbcStarter)
+    runtimeOnly(Global.Library.Postgresql)
 
     annotationProcessor(Global.Library.SpringBootConfigurationProcessor)
 
