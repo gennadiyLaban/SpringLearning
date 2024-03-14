@@ -38,14 +38,19 @@ object Global {
         )
         val SpringBootThymeleafStarter = Library("org.springframework.boot", "spring-boot-starter-thymeleaf")
         val SpringBootWebStarter = Library("org.springframework.boot", "spring-boot-starter-web")
-        val SpringBootJdbcStarter = Library(
+        val SpringBootDataJdbcStarter = Library(
             "org.springframework.boot",
-            "spring-boot-starter-jdbc",
+            "spring-boot-starter-data-jdbc",
             Version.SPRING_BOOT_PLUGIN
         )
         val SpringBootDataJpaStarter = Library(
             "org.springframework.boot",
             "spring-boot-starter-data-jpa",
+            Version.SPRING_BOOT_PLUGIN
+        )
+        val SpringBootValidationStarter = Library(
+            "org.springframework.boot",
+            "spring-boot-starter-validation",
             Version.SPRING_BOOT_PLUGIN
         )
         val SpringShellStarter = Library(

@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: "Lesson-3-Notebook"
+  messages:
+    basename: "strings"
+  datasource:
+    url: "jdbc:postgresql://127.0.0.1:5433/lesson3"
+    username: admin
+    password: admin
+    hikari:
+      schema: lesson3
+  sql:
+    init:
+      schema-locations: classpath:db/init.sql
+      data-locations: classpath:db/data.sql
+#      mode: embedded
+      mode: always
+
+server:
+  port: 8085
