@@ -15,21 +15,26 @@ java {
 dependencies {
     implementation(Global.Library.SpringBootStarter)
     implementation(Global.Library.SpringBootWebStarter)
-    implementation(Global.Library.SpringBootThymeleafStarter)
+    implementation(Global.Library.SpringBootDataJpaStarter)
     implementation(Global.Library.SpringBootValidationStarter)
-//    implementation(Global.Library.SpringBootDataJdbcStarter)
-//    runtimeOnly(Global.Library.Postgresql)
+    implementation(Global.Library.SpringDocOpenApiWebMvcUiStarter)
+    runtimeOnly(Global.Library.Postgresql)
 
     annotationProcessor(Global.Library.SpringBootConfigurationProcessor)
 
     compileOnly(Global.Library.Lombok)
     annotationProcessor(Global.Library.Lombok)
 
+    implementation(Global.Library.MapStructCore)
+    annotationProcessor(Global.Library.MapStructProcessor)
+
     implementation(Global.Library.ApacheCommonLang3)
 
     developmentOnly(Global.Library.SpringBootDevTools)
 
     testImplementation(kotlin("test"))
+    testImplementation(Global.Library.SpringBootTestStarter)
+    testImplementation(Global.Library.JavacrumbsJsonUnit)
 }
 
 tasks.withType<Test> {
