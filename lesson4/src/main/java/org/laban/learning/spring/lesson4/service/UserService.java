@@ -2,7 +2,7 @@ package org.laban.learning.spring.lesson4.service;
 
 import jakarta.annotation.Nonnull;
 import lombok.RequiredArgsConstructor;
-import org.laban.learning.spring.lesson4.exception.NotFoundException;
+import org.laban.learning.spring.lesson4.exception.UserNotFoundException;
 import org.laban.learning.spring.lesson4.mapper.UserMapper;
 import org.laban.learning.spring.lesson4.model.User;
 import org.laban.learning.spring.lesson4.repository.UserRepository;
@@ -27,7 +27,7 @@ public class UserService {
     public UserDTO findUserDTOById(@Nonnull Long id) {
         return findUserById(id)
                 .map(userMapper::userToUserDTO)
-                .orElseThrow(NotFoundException::new);
+                .orElseThrow(() -> new UserNotFoundException(id));
     }
 
     @Transactional(readOnly = true)
@@ -57,8 +57,8 @@ public class UserService {
     @Transactional
     public void updateUserByDTO(@Nonnull UserDTO userDTO) {
         var upsertUser = userMapper.userDTOtoUser(userDTO);
-        var existedUser = userRepository.findById(userDTO.getId())
-                .orElseThrow(NotFoundException::new);
+        var existedUser = userRepository.findById(upsertUser.getId())
+                .orElseThrow(() -> new UserNotFoundException(upsertUser.getId()));
         BeanUtils.copyNonNullProperties(upsertUser, existedUser);
     }
 
@@ -66,7 +66,7 @@ public class UserService {
     public void deleteUserById(Long id) {
         userRepository.findById(id)
                 .ifPresentOrElse(userRepository::delete, () -> {
-                            throw new NotFoundException();
+                            throw new UserNotFoundException(id);
                 });
     }
 }
