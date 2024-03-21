@@ -1,20 +1,18 @@
 package org.laban.learning.spring.lesson4.service;
 
 import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
 import org.laban.learning.spring.lesson4.exception.NotFoundException;
 import org.laban.learning.spring.lesson4.model.User;
 import org.laban.learning.spring.lesson4.repository.UserRepository;
+import org.laban.learning.spring.lesson4.utils.BeanUtils;
 import org.laban.learning.spring.lesson4.web.dto.UserDTO;
 import org.laban.learning.spring.lesson4.web.dto.UserListDTO;
 import org.laban.learning.spring.lesson4.web.dto.UserListRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Optional;
 
@@ -65,4 +63,33 @@ public class UserService {
     }
 
 
+    @Transactional
+    public UserDTO createUserByDTO(@Nonnull UserDTO request) { // todo: handle not unique username/email exception
+        var user = convertUserDTOtoEntity(request);
+        user = userRepository.save(user);
+        return convertUserToDTO(user);
+    }
+
+    private User convertUserDTOtoEntity(@Nonnull UserDTO userDTO) {
+        return User.builder()
+                .username(userDTO.getUsername())
+                .email(userDTO.getEmail())
+                .build();
+    }
+
+    @Transactional
+    public void updateUserByDTO(@Nonnull UserDTO userDTO) {
+        var upsertUser = convertUserDTOtoEntity(userDTO);
+        var existedUser = userRepository.findById(userDTO.getId())
+                .orElseThrow(NotFoundException::new);
+        BeanUtils.copyNonNullProperties(upsertUser, existedUser);
+    }
+
+    @Transactional
+    public void deleteUserById(Long id) {
+        userRepository.findById(id)
+                .ifPresentOrElse(userRepository::delete, () -> {
+                            throw new NotFoundException();
+                });
+    }
 }

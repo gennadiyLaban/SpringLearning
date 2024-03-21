@@ -7,8 +7,11 @@ import org.laban.learning.spring.lesson4.service.UserService;
 import org.laban.learning.spring.lesson4.web.dto.UserDTO;
 import org.laban.learning.spring.lesson4.web.dto.UserListDTO;
 import org.laban.learning.spring.lesson4.web.dto.UserListRequest;
+import org.laban.learning.spring.lesson4.web.validation.group.ValidationGroup;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RequiredArgsConstructor
 @RequestMapping("/user")
@@ -31,5 +34,35 @@ public class UserController {
                         .page(page)
                         .size(size)
                         .build()));
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> createUser(
+            @RequestBody @Valid UserDTO userDTO,
+            UriComponentsBuilder builder
+    ) {
+        var user = userService.createUserByDTO(userDTO);
+        return ResponseEntity.created(
+                builder.path("/user").path("/{id}").buildAndExpand(user.getId()).toUri()
+        ).build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateUser(
+            @PathVariable
+            @NotNull
+            Long id,
+            @RequestBody
+            @Validated(value = { ValidationGroup.Update.class })
+            UserDTO userDTO
+    ) {
+        userService.updateUserByDTO(userDTO);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable @NotNull Long id) {
+        userService.deleteUserById(id);
+        return ResponseEntity.ok().build();
     }
 }
