@@ -3,6 +3,7 @@ package org.laban.learning.spring.lesson4.service;
 import jakarta.annotation.Nonnull;
 import lombok.RequiredArgsConstructor;
 import org.laban.learning.spring.lesson4.exception.NotFoundException;
+import org.laban.learning.spring.lesson4.mapper.UserMapper;
 import org.laban.learning.spring.lesson4.model.User;
 import org.laban.learning.spring.lesson4.repository.UserRepository;
 import org.laban.learning.spring.lesson4.utils.BeanUtils;
@@ -20,11 +21,12 @@ import java.util.Optional;
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
     @Transactional(readOnly = true)
     public UserDTO findUserDTOById(@Nonnull Long id) {
         return findUserById(id)
-                .map(this::convertUserToDTO)
+                .map(userMapper::userToUserDTO)
                 .orElseThrow(NotFoundException::new);
     }
 
@@ -35,18 +37,8 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public UserListDTO findAll(@Nonnull UserListRequest request) {
-        var page = findAll(Pageable
-                .ofSize(request.getSize())
-                .withPage(request.getPage()));
-
-        return UserListDTO.builder()
-                .users(page.getContent().stream()
-                        .map(this::convertUserToDTO)
-                        .toList())
-                .page(page.getNumber())
-                .pageSize(page.getSize())
-                .pageCount(page.getTotalPages())
-                .build();
+        var page = findAll(userMapper.userListRequestToPageable(request));
+        return userMapper.userPageToUserListDTO(page);
     }
 
     @Transactional(readOnly = true)
@@ -54,32 +46,17 @@ public class UserService {
         return userRepository.findAll(pageable);
     }
 
-    private UserDTO convertUserToDTO(@Nonnull User user) {
-        return UserDTO.builder()
-                .id(user.getId())
-                .username(user.getUsername())
-                .email(user.getEmail())
-                .build();
-    }
-
 
     @Transactional
     public UserDTO createUserByDTO(@Nonnull UserDTO request) { // todo: handle not unique username/email exception
-        var user = convertUserDTOtoEntity(request);
-        user = userRepository.save(user);
-        return convertUserToDTO(user);
-    }
-
-    private User convertUserDTOtoEntity(@Nonnull UserDTO userDTO) {
-        return User.builder()
-                .username(userDTO.getUsername())
-                .email(userDTO.getEmail())
-                .build();
+        var upsertUser = userMapper.userDTOtoUser(request);
+        var createdUser = userRepository.save(upsertUser);
+        return userMapper.userToUserDTO(createdUser);
     }
 
     @Transactional
     public void updateUserByDTO(@Nonnull UserDTO userDTO) {
-        var upsertUser = convertUserDTOtoEntity(userDTO);
+        var upsertUser = userMapper.userDTOtoUser(userDTO);
         var existedUser = userRepository.findById(userDTO.getId())
                 .orElseThrow(NotFoundException::new);
         BeanUtils.copyNonNullProperties(upsertUser, existedUser);

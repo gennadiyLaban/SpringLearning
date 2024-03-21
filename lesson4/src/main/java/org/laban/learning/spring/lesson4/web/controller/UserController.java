@@ -57,12 +57,12 @@ public class UserController {
             UserDTO userDTO
     ) {
         userService.updateUserByDTO(userDTO);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable @NotNull Long id) {
         userService.deleteUserById(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }
