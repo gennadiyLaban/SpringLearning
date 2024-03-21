@@ -8,7 +8,7 @@ spring:
     username: admin
     password: admin
     hikari:
-      schema: lesson3
+      schema: lesson4
   sql:
     init:
       schema-locations: classpath:db/init.sql
@@ -19,6 +19,7 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: validate
+#      ddl-auto: create
 
 server:
   port: 8085
