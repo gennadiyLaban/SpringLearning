@@ -6,7 +6,6 @@ import org.laban.learning.spring.lesson4.model.Category;
 import org.laban.learning.spring.lesson4.model.Comment;
 import org.laban.learning.spring.lesson4.model.Post;
 import org.laban.learning.spring.lesson4.model.User;
-import org.laban.learning.spring.lesson4.repository.CategoryRepository;
 import org.laban.learning.spring.lesson4.repository.PostRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

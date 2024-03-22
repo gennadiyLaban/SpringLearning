@@ -7,9 +7,8 @@ import org.laban.learning.spring.lesson4.mapper.UserMapper;
 import org.laban.learning.spring.lesson4.model.User;
 import org.laban.learning.spring.lesson4.repository.UserRepository;
 import org.laban.learning.spring.lesson4.utils.BeanUtils;
-import org.laban.learning.spring.lesson4.web.dto.UserDTO;
-import org.laban.learning.spring.lesson4.web.dto.UserListDTO;
-import org.laban.learning.spring.lesson4.web.dto.UserListRequest;
+import org.laban.learning.spring.lesson4.web.dto.user.UserDTO;
+import org.laban.learning.spring.lesson4.web.dto.user.UserListDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -36,8 +35,8 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public UserListDTO findAll(@Nonnull UserListRequest request) {
-        var page = findAll(userMapper.userListRequestToPageable(request));
+    public UserListDTO findAllByDTO(@Nonnull Pageable pageable) {
+        var page = findAll(pageable);
         return userMapper.userPageToUserListDTO(page);
     }
 
@@ -48,7 +47,7 @@ public class UserService {
 
 
     @Transactional
-    public UserDTO createUserByDTO(@Nonnull UserDTO request) { // todo: handle not unique username/email exception
+    public UserDTO createUserByDTO(@Nonnull UserDTO request) {
         var upsertUser = userMapper.userDTOtoUser(request);
         var createdUser = userRepository.save(upsertUser);
         return userMapper.userToUserDTO(createdUser);
@@ -64,9 +63,10 @@ public class UserService {
 
     @Transactional
     public void deleteUserById(Long id) {
-        userRepository.findById(id)
-                .ifPresentOrElse(userRepository::delete, () -> {
-                            throw new UserNotFoundException(id);
-                });
+        if (userRepository.existsById(id)) {
+            userRepository.deleteById(id);
+        } else {
+            throw new UserNotFoundException(id);
+        }
     }
 }

@@ -21,5 +21,9 @@ spring:
       ddl-auto: validate
 #      ddl-auto: create
 
+logging:
+  level:
+    root: debug
+
 server:
   port: 8085

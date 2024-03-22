@@ -5,7 +5,7 @@ import lombok.SneakyThrows;
 import java.lang.reflect.Field;
 
 public class BeanUtils {
-    public BeanUtils() {
+    private BeanUtils() {
         throw new UnsupportedOperationException("This is utils class!");
     }
 
