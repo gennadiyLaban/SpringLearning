@@ -1,19 +1,18 @@
 package org.laban.learning.spring.lesson4.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldNameConstants;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
 import java.util.List;
 
+@FieldNameConstants
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -27,7 +26,6 @@ public class Post {
     @Column(nullable = false)
     private String title;
 
-    @NotNull
     @Column(columnDefinition = "TEXT")
     private String description;
 
@@ -38,6 +36,7 @@ public class Post {
     private List<Category> categories;
 
     @ManyToOne
+    @JoinColumn(updatable = false)
     private User user;
 
     @OneToMany(mappedBy = "post")

@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -23,15 +24,31 @@ public class CategoryService {
     private final CategoryMapper categoryMapper;
 
     @Transactional(readOnly = true)
-    public CategoryDTO findCategoryDTOById(@Nonnull Long id) {
+    public CategoryDTO getCategoryDTOById(@Nonnull Long id) {
+        return categoryMapper.categoryToCategoryDTO(getCategoryById(id));
+    }
+
+    @Transactional(readOnly = true)
+    public Category getCategoryById(@Nonnull Long id) {
         return findCategoryById(id)
-                .map(categoryMapper::categoryToCategoryDTO)
                 .orElseThrow(() -> new CategoryNotFoundException(id));
     }
 
     @Transactional(readOnly = true)
     public Optional<Category> findCategoryById(@Nonnull Long id) {
         return categoryRepository.findById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<List<Category>> findAllByIds(@Nonnull List<Long> ids) {
+        return Optional.of(categoryRepository.findAllById(ids))
+                .filter(categories -> !categories.isEmpty());
+    }
+
+    @Transactional(readOnly = true)
+    public List<Category> getAllByIds(@Nonnull List<Long> ids) {
+        return findAllByIds(ids)
+                .orElseThrow(() -> new CategoryNotFoundException(ids));
     }
 
     @Transactional(readOnly = true)
@@ -46,10 +63,10 @@ public class CategoryService {
     }
 
     @Transactional
-    public CategoryDTO createCategoryByDTO(@Nonnull CategoryDTO categoryDTO) {
+    public Long createCategoryByDTO(@Nonnull CategoryDTO categoryDTO) {
         var upsertCategory = categoryMapper.categoryDTOtoCategory(categoryDTO);
         var createdCategory = categoryRepository.save(upsertCategory);
-        return categoryMapper.categoryToCategoryDTO(createdCategory);
+        return createdCategory.getId();
     }
 
     @Transactional

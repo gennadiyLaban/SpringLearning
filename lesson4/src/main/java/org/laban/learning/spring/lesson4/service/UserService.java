@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -23,15 +24,31 @@ public class UserService {
     private final UserMapper userMapper;
 
     @Transactional(readOnly = true)
-    public UserDTO findUserDTOById(@Nonnull Long id) {
+    public UserDTO getUserDTOById(@Nonnull Long id) {
+        return userMapper.userToUserDTO(getUserById(id));
+    }
+
+    @Transactional(readOnly = true)
+    public User getUserById(@Nonnull Long id) {
         return findUserById(id)
-                .map(userMapper::userToUserDTO)
                 .orElseThrow(() -> new UserNotFoundException(id));
     }
 
     @Transactional(readOnly = true)
     public Optional<User> findUserById(@Nonnull Long id) {
         return userRepository.findById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public List<User> getAllByIds(@Nonnull List<Long> ids) {
+        return findAllByIds(ids)
+                .orElseThrow(() -> new UserNotFoundException(ids));
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<List<User>> findAllByIds(@Nonnull List<Long> ids) {
+        return Optional.of(userRepository.findAllById(ids))
+                .filter(users -> !users.isEmpty());
     }
 
     @Transactional(readOnly = true)
@@ -45,12 +62,11 @@ public class UserService {
         return userRepository.findAll(pageable);
     }
 
-
     @Transactional
-    public UserDTO createUserByDTO(@Nonnull UserDTO request) {
+    public Long createUserByDTO(@Nonnull UserDTO request) {
         var upsertUser = userMapper.userDTOtoUser(request);
         var createdUser = userRepository.save(upsertUser);
-        return userMapper.userToUserDTO(createdUser);
+        return createdUser.getId();
     }
 
     @Transactional

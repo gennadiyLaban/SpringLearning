@@ -2,7 +2,9 @@ package org.laban.learning.spring.lesson4.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldNameConstants;
 
+@FieldNameConstants
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

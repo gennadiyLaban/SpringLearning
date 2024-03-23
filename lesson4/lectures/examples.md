@@ -166,15 +166,15 @@
 #### 4.7 Составление запросов
 * `@Builder.Defaults` - `lombok` - позволяет задать дефолтное значение для билдера. В этом случае код задания значения будет восприниматься как дефолтное значение.
    - ```java 
-     import java.util.ArrayList;      
-     
-     @Builder
-     public class FooData {
-        @Builder.Default
-        private List<String> someStrings = new ArrayList<>(); // В случае, если при создании объекта поле `someStrings`
-                                                              // не будет задано, в поле проставится значение `new ArrayList<>()`
-     }
-     ```
+import java.util.ArrayList;      
+
+@Builder
+public class FooData {
+   @Builder.Default
+   private final List<String> someStrings = new ArrayList<>(); // В случае, если при создании объекта поле `someStrings`
+                                                         // не будет задано, в поле проставится значение `new ArrayList<>()`
+}
+```
 * `JpaRepository<>` - в репозиториях отнаследованных от `JpaRepository<>` можно создавать методы, через название которых можно задать семантическое составление запроса, например:
    - ```java
      public interface FooRepository extends JpaRepository<Foo, Long> {
@@ -320,21 +320,153 @@
      ```
    - реализация валидации:
    - ```java
-       public class OrderFilterValidator implements ConstaraintValidator<FooFilterValid, FooFilter> { // <аннотация, тип проверяемого значения>
-        
-         @Override
-         public boolean isValid(OrderFilter value, ConstraintValidatorContext context) {
-             if (ObjectUtils.anyNull(value.getPageNumber(), value.getPageSize())) {
-                 return false;
-             }   
-             if ((value.getMinCost() == null && value.getMaxCost() != null) 
-                     || (value.getMinCost() != null && value.getMaxCoxt() == null)) {
-                 return false;
-             }
-             return true;
-         }
-       }
-      ```
+  public class OrderFilterValidator implements ConstaraintValidator<FooFilterValid, FooFilter> { // <аннотация, тип проверяемого значения>
+   
+    @Override
+    public boolean isValid(OrderFilter value, ConstraintValidatorContext context) {
+        if (ObjectUtils.anyNull(value.getPageNumber(), value.getPageSize())) {
+            return false;
+        }
+        return (value.getMinCost() != null || value.getMaxCost() == null)
+                && (value.getMinCost() == null || value.getMaxCoxt() != null);
+    }
+  }public class OrderFilterValidator implements ConstaraintValidator<FooFilterValid, FooFilter> { // <аннотация, тип проверяемого значения>
+   
+    @Override
+    public boolean isValid(OrderFilter value, ConstraintValidatorContext context) {
+        if (ObjectUtils.anyNull(value.getPageNumber(), value.getPageSize())) {
+            return false;
+        }
+        return (value.getMinCost() != null || value.getMaxCost() == null)
+                && (value.getMinCost() == null || value.getMaxCoxt() !=null);
+    }
+  }public class OrderFilterValidator implements ConstaraintValidator<FooFilterValid, FooFilter> { // <аннотация, тип проверяемого значения>
+   
+    @Override
+    public boolean isValid(OrderFilter value, ConstraintValidatorContext context) {
+        if (ObjectUtils.anyNull(value.getPageNumber(), value.getPageSize())) {
+            return false;
+        }
+        return (value.getMinCost() != null || value.getMaxCost() == null)
+                && (value.getMinCost() == null || value.getMaxCoxt()!=null);
+    }
+  }public class OrderFilterValidator implements ConstaraintValidator<FooFilterValid, FooFilter> { // <аннотация, тип проверяемого значения>
+   
+    @Override
+    public boolean isValid(OrderFilter value, ConstraintValidatorContext context) {
+        if (ObjectUtils.anyNull(value.getPageNumber(), value.getPageSize())) {
+            return false;
+        }
+        return (value.getMinCost() != null || value.getMaxCost() == null)
+                && (value.getMinCost() ==null || value.getMaxCoxt()!=null);
+    }
+  }public class OrderFilterValidator implements ConstaraintValidator<FooFilterValid, FooFilter> { // <аннотация, тип проверяемого значения>
+   
+    @Override
+    public boolean isValid(OrderFilter value, ConstraintValidatorContext context) {
+        if (ObjectUtils.anyNull(value.getPageNumber(), value.getPageSize())) {
+            return false;
+        }
+        return (value.getMinCost() != null || value.getMaxCost() == null)
+                && (value.getMinCost()==null || value.getMaxCoxt()!=null);
+    }
+  }public class OrderFilterValidator implements ConstaraintValidator<FooFilterValid, FooFilter> { // <аннотация, тип проверяемого значения>
+   
+    @Override
+    public boolean isValid(OrderFilter value, ConstraintValidatorContext context) {
+        if (ObjectUtils.anyNull(value.getPageNumber(), value.getPageSize())) {
+            return false;
+        }
+        return (value.getMinCost() != null || value.getMaxCost() == null) 
+                && (value.getMinCost()==null || value.getMaxCoxt()!=null);
+    }
+  }public class OrderFilterValidator implements ConstaraintValidator<FooFilterValid, FooFilter> { // <аннотация, тип проверяемого значения>
+   
+    @Override
+    public boolean isValid(OrderFilter value, ConstraintValidatorContext context) {
+        if (ObjectUtils.anyNull(value.getPageNumber(), value.getPageSize())) {
+            return false;
+        }
+        return (value.getMinCost() != null || value.getMaxCost() ==null) 
+                && (value.getMinCost()==null || value.getMaxCoxt()!=null);
+    }
+  }public class OrderFilterValidator implements ConstaraintValidator<FooFilterValid, FooFilter> { // <аннотация, тип проверяемого значения>
+   
+    @Override
+    public boolean isValid(OrderFilter value, ConstraintValidatorContext context) {
+        if (ObjectUtils.anyNull(value.getPageNumber(), value.getPageSize())) {
+            return false;
+        }
+        return (value.getMinCost() != null || value.getMaxCost()==null) 
+                && (value.getMinCost()==null || value.getMaxCoxt()!=null);
+    }
+  }public class OrderFilterValidator implements ConstaraintValidator<FooFilterValid, FooFilter> { // <аннотация, тип проверяемого значения>
+   
+    @Override
+    public boolean isValid(OrderFilter value, ConstraintValidatorContext context) {
+        if (ObjectUtils.anyNull(value.getPageNumber(), value.getPageSize())) {
+            return false;
+        }
+        return (value.getMinCost() !=null || value.getMaxCost()==null) 
+                && (value.getMinCost()==null || value.getMaxCoxt()!=null);
+    }
+  }public class OrderFilterValidator implements ConstaraintValidator<FooFilterValid, FooFilter> { // <аннотация, тип проверяемого значения>
+   
+    @Override
+    public boolean isValid(OrderFilter value, ConstraintValidatorContext context) {
+        if (ObjectUtils.anyNull(value.getPageNumber(), value.getPageSize())) {
+            return false;
+        }
+        return (value.getMinCost()!=null || value.getMaxCost()==null) 
+                && (value.getMinCost()==null || value.getMaxCoxt()!=null);
+    }
+  }public class OrderFilterValidator implements ConstaraintValidator<FooFilterValid, FooFilter> { // <аннотация, тип проверяемого значения>
+   
+    @Override
+    public boolean isValid(OrderFilter value, ConstraintValidatorContext context) {
+        if (ObjectUtils.anyNull(value.getPageNumber(), value.getPageSize())) {
+            return false;
+        }   
+        return (value.getMinCost()!=null || value.getMaxCost()==null) 
+                && (value.getMinCost()==null || value.getMaxCoxt()!=null);
+    }
+  }public class OrderFilterValidator implements ConstaraintValidator<FooFilterValid, FooFilter> { // <аннотация, тип проверяемого значения>
+   
+    @Override
+    public boolean isValid(OrderFilter value, ConstraintValidatorContext context) {
+        if (ObjectUtils.anyNull(value.getPageNumber(), value.getPageSize())) {
+            return false;
+        }   
+        return (value.getMinCost()!=null || value.getMaxCost()==null) 
+                && (value.getMinCost()==null || value.getMaxCoxt()!=null);return true;
+    }
+  }public class OrderFilterValidator implements ConstaraintValidator<FooFilterValid, FooFilter> { // <аннотация, тип проверяемого значения>
+   
+    @Override
+    public boolean isValid(OrderFilter value, ConstraintValidatorContext context) {
+        if (ObjectUtils.anyNull(value.getPageNumber(), value.getPageSize())) {
+            return false;
+        }   
+        return (value.getMinCost()!=null || value.getMaxCost()==null) 
+                && (value.getMinCost()==null || value.getMaxCoxt()!=null);
+        return true;
+    }
+  }public class OrderFilterValidator implements ConstaraintValidator<FooFilterValid, FooFilter> { // <аннотация, тип проверяемого значения>
+   
+    @Override
+    public boolean isValid(OrderFilter value, ConstraintValidatorContext context) {
+        if (ObjectUtils.anyNull(value.getPageNumber(), value.getPageSize())) {
+            return false;
+        }   
+        if ((value.getMinCost() == null && value.getMaxCost() != null) 
+                || (value.getMinCost() != null && value.getMaxCoxt() == null)) {
+            return (value.getMinCost()!=null || value.getMaxCost()==null) 
+                && (value.getMinCost()==null || value.getMaxCoxt()!=null);
+        }
+        return true;
+    }
+  }
+```
    - аннотировать модель, которую нужно проверить
    - ```java
        @Data
@@ -394,4 +526,18 @@
     user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE, 
     post_id BIGINT NOT NULL REFERENCES posts(id) ON DELETE CASCADE
   );
+  ```
+* ```java
+   private static Specification<Post> categorySpecificationOf(@Nonnull PostListRequest request) {
+        return (root, query, cb) -> {
+            List<Long> categoryIds = request.getCategories();
+            if (CollectionUtils.isEmpty(categoryIds)) {
+                return null;
+            }
+            return root
+                    .<Post, Category>join(Post.Fields.categories) // Post.Fields.categories - коллекция List<Category>
+                    .get(Category.Fields.id)
+                    .in(categoryIds);
+        };
+    }
   ```
