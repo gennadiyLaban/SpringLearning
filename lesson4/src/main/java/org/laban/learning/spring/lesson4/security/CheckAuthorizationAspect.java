@@ -7,7 +7,9 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.jetbrains.annotations.Nullable;
 import org.laban.learning.spring.lesson4.exception.AccessDeniedException;
 import org.laban.learning.spring.lesson4.exception.InternalServerError;
+import org.laban.learning.spring.lesson4.model.Comment;
 import org.laban.learning.spring.lesson4.model.Post;
+import org.laban.learning.spring.lesson4.web.dto.comment.CommentRequestDTO;
 import org.laban.learning.spring.lesson4.web.dto.post.PostRequestDTO;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -57,6 +59,10 @@ public class CheckAuthorizationAspect {
             requestedUserId = ((PostRequestDTO) arg).getUserId();
         } else if (argType.equals(Post.class)) {
             requestedUserId = ((Post) arg).getUser().getId();
+        } else if (argType.equals(CommentRequestDTO.class)) {
+            requestedUserId = ((CommentRequestDTO) arg).getUserId();
+        } else if (argType.equals(Comment.class)) {
+            requestedUserId = ((Comment) arg).getUser().getId();
         }
         return requestedUserId;
     }

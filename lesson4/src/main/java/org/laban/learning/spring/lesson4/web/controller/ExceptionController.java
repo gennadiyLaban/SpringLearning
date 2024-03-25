@@ -3,10 +3,7 @@ package org.laban.learning.spring.lesson4.web.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.laban.learning.spring.lesson4.exception.AccessDeniedException;
-import org.laban.learning.spring.lesson4.exception.CategoryNotFoundException;
-import org.laban.learning.spring.lesson4.exception.PostNotFoundException;
-import org.laban.learning.spring.lesson4.exception.UserNotFoundException;
+import org.laban.learning.spring.lesson4.exception.*;
 import org.laban.learning.spring.lesson4.utils.ErrorResponseUtils;
 import org.laban.learning.spring.lesson4.web.dto.ErrorBodyDTO;
 import org.springframework.http.HttpStatus;
@@ -84,5 +81,14 @@ public class ExceptionController {
             HttpServletRequest request
     ) {
         return ErrorResponseUtils.buildError(HttpStatus.UNAUTHORIZED, request, exception.getMessage());
+    }
+
+    @ExceptionHandler({CommentNotFoundException.class})
+    public ResponseEntity<ErrorBodyDTO> commentNotFoundException(
+            CommentNotFoundException exception,
+            HttpServletRequest request
+    ) {
+        var message = MessageFormat.format("Comment with id={0} not found!", exception.getCommentId());
+        return ErrorResponseUtils.buildError(HttpStatus.NOT_FOUND, request, message);
     }
 }
