@@ -63,7 +63,7 @@ public class CommentService {
         return commentRepository.save(upsertComment).getId();
     }
 
-    @CheckAuthorization(paramName = "request")
+    @CheckAuthorization(paramName = "request", checkedEntity = Comment.class)
     @Transactional
     public void updateCommentByDTO(CommentRequestDTO request) {
         var upsertComment = commentMapper.commentRequestDTOtoComment(request);
@@ -71,8 +71,9 @@ public class CommentService {
         BeanUtils.copyNonNullProperties(upsertComment, existedComment);
     }
 
+    @CheckAuthorization(paramName = "id", checkedEntity = Comment.class)
     @Transactional
     public void deleteCommentById(@Nonnull Long id) {
-        commentRepository.deleteWithAuthorization(getCommentById(id));
+        commentRepository.deleteById(id);
     }
 }

@@ -77,7 +77,7 @@ public class PostService {
         return createdPost.getId();
     }
 
-    @CheckAuthorization(paramName = "request")
+    @CheckAuthorization(paramName = "request", checkedEntity = Post.class)
     @Transactional
     public void updatePostByDTO(@Nonnull PostRequestDTO request) {
         var upsertPost = postMapper.postRequestDTOtoPost(request);
@@ -85,8 +85,9 @@ public class PostService {
         BeanUtils.copyNonNullProperties(upsertPost, existedPost);
     }
 
+    @CheckAuthorization(paramName = "id", checkedEntity = Post.class)
     @Transactional
     public void deletePostById(@Nonnull Long id) {
-        postRepository.deleteWithAuthorization(getPostById(id));
+        postRepository.deleteById(id);
     }
 }
