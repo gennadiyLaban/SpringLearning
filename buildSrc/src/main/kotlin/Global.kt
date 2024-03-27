@@ -30,14 +30,26 @@ object Global {
         val SpringSecurityWeb  = Library("org.springframework.security", "spring-security-web", Version.SPRING_SECURITY)
         val SpringSecurityConfig = Library("org.springframework.security", "spring-security-config", Version.SPRING_SECURITY)
 
-        val SpringBootStarter = Library("org.springframework.boot", "spring-boot-starter")
+        val SpringBootStarter = Library(
+            "org.springframework.boot",
+            "spring-boot-starter",
+            Version.SPRING_BOOT_PLUGIN
+        )
         val SpringBootConfigurationProcessor = Library(
             "org.springframework.boot",
             "spring-boot-configuration-processor",
             Version.SPRING_BOOT_PLUGIN
         )
-        val SpringBootThymeleafStarter = Library("org.springframework.boot", "spring-boot-starter-thymeleaf")
-        val SpringBootWebStarter = Library("org.springframework.boot", "spring-boot-starter-web")
+        val SpringBootThymeleafStarter = Library(
+            "org.springframework.boot",
+            "spring-boot-starter-thymeleaf",
+            Version.SPRING_BOOT_PLUGIN
+        )
+        val SpringBootWebStarter = Library(
+            "org.springframework.boot",
+            "spring-boot-starter-web",
+            Version.SPRING_BOOT_PLUGIN
+        )
         val SpringBootDataJdbcStarter = Library(
             "org.springframework.boot",
             "spring-boot-starter-data-jdbc",
@@ -53,16 +65,24 @@ object Global {
             "spring-boot-starter-validation",
             Version.SPRING_BOOT_PLUGIN
         )
-        val SpringShellStarter = Library(
-            "org.springframework.shell",
-            "spring-shell-starter",
-            Version.SPRING_BOOT_PLUGIN
-        )
         val SpringBootDevTools = Library(
             "org.springframework.boot",
             "spring-boot-devtools",
             Version.SPRING_BOOT_PLUGIN
         )
+
+        val SpringDocOpenApiWebMvcUiStarter = Library(
+            "org.springdoc",
+            "springdoc-openapi-starter-webmvc-ui",
+            Version.SPRING_DOC_OPEN_API_WEB_MVC_UI
+        )
+
+        val SpringShellStarter = Library(
+            "org.springframework.shell",
+            "spring-shell-starter",
+            Version.SPRING_BOOT_PLUGIN
+        )
+
 
         val ServletApi = Library("jakarta.servlet:", "jakarta.servlet-api", Version.SERVLET_API)
 
@@ -90,10 +110,14 @@ object Global {
             Version.HIBERNATE_VALIDATOR
         )
 
+        val MapStructCore = Library("org.mapstruct", "mapstruct", Version.MAP_STRUCT)
+        val MapStructProcessor = Library("org.mapstruct", "mapstruct-processor", Version.MAP_STRUCT)
+
         val SnakeYaml = Library("org.yaml", "snakeyaml", Version.SnakeYaml)
         val ApacheCommonLang3 = Library("org.apache.commons", "commons-lang3", Version.ApacheCommonLang3)
 
         val SpringBootTestStarter = Library("org.springframework.boot", "spring-boot-starter-test")
+        val JavacrumbsJsonUnit = Library("net.javacrumbs.json-unit", "json-unit", Version.JAVACRUMBS_JSON_UNIT)
     }
 
 
@@ -107,6 +131,8 @@ object Global {
 
         const val SPRING_BOOT_PLUGIN = "3.1.2"
         const val SPRING_DEP_MANAGEMENT_PLUGIN = "1.1.3"
+
+        const val SPRING_DOC_OPEN_API_WEB_MVC_UI = "2.2.0"
 
         const val SERVLET_API = "6.0.0"
 
@@ -127,7 +153,11 @@ object Global {
         const val JAKARTA_VALIDATION_API = "3.0.2"
         const val HIBERNATE_VALIDATOR = "8.0.0.Final"
 
+        const val MAP_STRUCT = "1.5.3.Final"
+
         const val SnakeYaml = "2.0"
         const val ApacheCommonLang3 = "3.12.0"
+
+        const val JAVACRUMBS_JSON_UNIT = "2.38.0"
     }
 }

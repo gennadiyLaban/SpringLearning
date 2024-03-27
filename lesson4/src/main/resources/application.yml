@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: "Lesson-4"
+  messages:
+    basename: "strings"
+  datasource:
+    url: "jdbc:postgresql://127.0.0.1:5433/lesson4"
+    username: admin
+    password: admin
+    hikari:
+      schema: lesson4
+  sql:
+    init:
+      schema-locations: classpath:db/init.sql
+      data-locations: classpath:db/data.sql
+#      mode: embedded
+      mode: always
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+#      ddl-auto: create
+
+logging:
+  level:
+    root: debug
+
+server:
+  port: 8085

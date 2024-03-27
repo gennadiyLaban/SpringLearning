@@ -41,3 +41,21 @@ WHERE id = ?
 ```postgresql
 DELETE FROM contacts WHERE id = ?
 ```
+
+Пример таблицы отношений @ManyToOne
+
+```postgresql
+  CREATE TABLE comments
+  (                            -- создание таблицы
+      id      BIGSERIAL PRIMARY KEY,
+      body    TEXT   NOT NULL, -- текст без ограничения по длинне
+      -- REFERENCES users(id) - говорит о тому, что поле user_id - внешний ключ 
+      -- ссылающийся на первичный ключ `id` таблицы `users`
+      -- 
+      -- ON DELETE CASCADE - говорит о том, что при удалении 
+      -- записи из таблицы `users`, где первичный ключ `id` совпадает с внешним ключом
+      -- `user_id` из таблицы `comments`, такую запись из таблицы `comments` тоже нужно удалить
+      user_id BIGINT NOT NULL REFERENCES users (id) ON DELETE CASCADE,
+      post_id BIGINT NOT NULL REFERENCES posts (id) ON DELETE CASCADE
+  );
+  ```
