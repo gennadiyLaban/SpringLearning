@@ -17,7 +17,11 @@ dependencies {
     implementation(Global.Library.SpringBootWebStarter)
     implementation(Global.Library.SpringBootDataJpaStarter)
     implementation(Global.Library.SpringBootValidationStarter)
+    implementation(Global.Library.SpringBootChacheStarter)
+    implementation(Global.Library.SpringBootDataRedisStarter)
+    implementation(Global.Library.LettuceCoreForRedis)
     implementation(Global.Library.SpringDocOpenApiWebMvcUiStarter)
+
     runtimeOnly(Global.Library.Postgresql)
 
     annotationProcessor(Global.Library.SpringBootConfigurationProcessor)

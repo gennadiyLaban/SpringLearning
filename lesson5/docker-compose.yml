@@ -12,3 +12,7 @@ services:
     logging:
       options:
         max-size: 100m
+  redis:
+    image: redis:7.0.15
+    ports:
+      - "6379:6379"

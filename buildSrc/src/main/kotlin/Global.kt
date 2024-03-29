@@ -65,6 +65,16 @@ object Global {
             "spring-boot-starter-validation",
             Version.SPRING_BOOT_PLUGIN
         )
+        val SpringBootChacheStarter = Library(
+            "org.springframework.boot",
+            "spring-boot-starter-cache",
+            Version.SPRING_BOOT_PLUGIN
+        )
+        val SpringBootDataRedisStarter = Library(
+            "org.springframework.boot",
+            "spring-boot-starter-data-redis",
+            Version.SPRING_BOOT_PLUGIN
+        )
         val SpringBootDevTools = Library(
             "org.springframework.boot",
             "spring-boot-devtools",
@@ -109,6 +119,9 @@ object Global {
             "hibernate-validator-annotation-processor",
             Version.HIBERNATE_VALIDATOR
         )
+
+        // client for redis
+        val LettuceCoreForRedis = Library("io.lettuce", "lettuce-core", Version.LETTUCE_CORE)
 
         val MapStructCore = Library("org.mapstruct", "mapstruct", Version.MAP_STRUCT)
         val MapStructProcessor = Library("org.mapstruct", "mapstruct-processor", Version.MAP_STRUCT)
@@ -159,5 +172,7 @@ object Global {
         const val ApacheCommonLang3 = "3.12.0"
 
         const val JAVACRUMBS_JSON_UNIT = "2.38.0"
+
+        const val LETTUCE_CORE = "6.3.1.RELEASE"
     }
 }
