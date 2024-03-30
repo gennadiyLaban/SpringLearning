@@ -1,10 +1,7 @@
 package org.laban.learning.spring.lesson5.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -12,6 +9,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Builder
 @Getter
+@EqualsAndHashCode
 @Entity(name = "categories")
 public class Category implements Serializable {
     @Id

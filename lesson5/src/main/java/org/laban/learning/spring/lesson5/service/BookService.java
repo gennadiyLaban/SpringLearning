@@ -12,8 +12,10 @@ import org.laban.learning.spring.lesson5.model.Category;
 import org.laban.learning.spring.lesson5.properties.AppCacheProperties;
 import org.laban.learning.spring.lesson5.repository.BookRepository;
 import org.laban.learning.spring.lesson5.repository.CategoryRepository;
+import org.laban.learning.spring.lesson5.utils.BeanUtils;
 import org.laban.learning.spring.lesson5.web.dto.BookDTO;
 import org.laban.learning.spring.lesson5.web.dto.BookListDTO;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -31,17 +33,22 @@ public class BookService {
     private final BookRepository bookRepository;
     private final CategoryRepository categoryRepository;
     private final BookMapper bookMapper;
+    private final CacheManager cacheManager;
 
     @Transactional(readOnly = true)
     public BookDTO findBookDtoById(@Nonnull Long id) {
-        return findBookById(id)
-                .map(bookMapper::bookToBookDTO)
-                .orElseThrow(() -> new BookNotFoundException(id));
+        return bookMapper.bookToBookDTO(getBookById(id));
     }
 
     @Transactional(readOnly = true)
     public Optional<Book> findBookById(@Nonnull Long id) {
         return bookRepository.findById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public Book getBookById(@Nonnull Long id) {
+        return findBookById(id)
+                .orElseThrow(() -> new BookNotFoundException(id));
     }
 
     @Cacheable(value = AppCacheProperties.CacheNames.FIND_DTO_BY_NAME_AND_AUTHOR, key = "#name + #author")
@@ -84,6 +91,36 @@ public class BookService {
     @Transactional
     public Long createBook(@Nonnull Book upsertBook) {
         return bookRepository.save(upsertBook).getId();
+    }
+
+    @Transactional
+    public void updateBookByDto(@Nonnull BookDTO upsertBook) {
+        updateBook(bookMapper.bookDTOtoBook(
+                upsertBook, getOrCreateCategoryByName(upsertBook.getCategory())
+        ));
+    }
+
+    @Transactional
+    public void updateBook(@Nonnull Book upsertBook) {
+        var existedBook = getBookById(upsertBook.getId());
+        var oldNameAndAuthorKey = existedBook.getName() + existedBook.getAuthor();
+        var oldCategory = existedBook.getCategory();
+
+        BeanUtils.copyNonNullProperties(upsertBook, existedBook);
+        existedBook = bookRepository.save(existedBook);
+
+        var newCategory = existedBook.getCategory();
+        Optional.ofNullable(cacheManager.getCache(AppCacheProperties.CacheNames.FIND_ALL_DTO_BY_CATEGORY))
+                .ifPresent(cache -> {
+                    cache.evict(oldCategory.getName());
+                    if (!oldCategory.equals(newCategory)) {
+                        cache.evict(newCategory.getName());
+                    }
+                });
+        Optional.ofNullable(cacheManager.getCache(AppCacheProperties.CacheNames.FIND_DTO_BY_NAME_AND_AUTHOR))
+                .ifPresent(cache -> {
+                    cache.evict(oldNameAndAuthorKey);
+                });
     }
 
 

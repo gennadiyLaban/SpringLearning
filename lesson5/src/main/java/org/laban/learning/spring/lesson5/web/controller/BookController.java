@@ -1,13 +1,14 @@
 package org.laban.learning.spring.lesson5.web.controller;
 
 import jakarta.annotation.Nonnull;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.laban.learning.spring.lesson5.service.BookService;
 import org.laban.learning.spring.lesson5.web.dto.BookDTO;
 import org.laban.learning.spring.lesson5.web.dto.BookListDTO;
+import org.laban.learning.spring.lesson5.web.validation.group.ValidationGroup;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -39,7 +40,7 @@ public class BookController {
 
     @PostMapping
     public ResponseEntity<Void> createBook(
-            @RequestBody @Valid BookDTO request,
+            @RequestBody @Validated(ValidationGroup.Create.class) BookDTO request,
             UriComponentsBuilder builder
     ) {
         return ResponseEntity.created(builder.path("/book").path("/{id}").buildAndExpand(
@@ -47,5 +48,12 @@ public class BookController {
         ).toUri()).build();
     }
 
-
+    @PutMapping
+    public ResponseEntity<Void> updateBook(
+            @RequestBody @Validated(ValidationGroup.Update.class)
+            BookDTO request
+    ) {
+        bookService.updateBookByDto(request);
+        return ResponseEntity.noContent().build();
+    }
 }

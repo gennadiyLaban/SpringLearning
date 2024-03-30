@@ -2,7 +2,7 @@
 GET http://localhost:8085/api/v1/book/15
 
 ### findBookByNameAndAuthor
-GET http://localhost:8085/api/v1/book/search?name=FourthBook&author=FirstAuthor
+GET http://localhost:8085/api/v1/book/search?name=FirstBook&author=FirstAuthor
 
 ### findAllByCategory Fantazy
 GET http://localhost:8085/api/v1/book/list/category?categoryName=Fantazy
@@ -12,6 +12,9 @@ GET http://localhost:8085/api/v1/book/list/category?categoryName=Science%20ficti
 
 ### findAllByCategory History
 GET http://localhost:8085/api/v1/book/list/category?categoryName=History
+
+### findAllByCategory Drama
+GET http://localhost:8085/api/v1/book/list/category?categoryName=Drama
 
 ### createBook with exist category
 POST http://localhost:8085/api/v1/book
@@ -30,5 +33,38 @@ Content-Type: application/json
 {
   "author": "FirstAuthor",
   "name": "EleventhBook",
+  "category": "Drama"
+}
+
+### updateBook update author and name
+PUT http://localhost:8085/api/v1/book
+Content-Type: application/json
+
+{
+  "id": 2,
+  "author": "_FirstAuthor",
+  "name": "_FirstBook",
+  "category": "Fantazy"
+}
+
+### updateBook update existed category
+PUT http://localhost:8085/api/v1/book
+Content-Type: application/json
+
+{
+  "id": 2,
+  "author": "FirstAuthor",
+  "name": "FirstBook",
+  "category": "Science fiction"
+}
+
+### updateBook update new category
+PUT http://localhost:8085/api/v1/book
+Content-Type: application/json
+
+{
+  "id": 2,
+  "author": "FirstAuthor",
+  "name": "FirstBook",
   "category": "Drama"
 }
