@@ -123,6 +123,20 @@ public class BookService {
                 });
     }
 
+    @Transactional
+    public void deleteBook(@Nonnull Long id) {
+        var existedBook = getBookById(id);
+        var oldNameAndAuthorKey = existedBook.getName() + existedBook.getAuthor();
+        var oldCategory = existedBook.getCategory();
+
+        bookRepository.delete(existedBook);
+
+        Optional.ofNullable(cacheManager.getCache(AppCacheProperties.CacheNames.FIND_DTO_BY_NAME_AND_AUTHOR))
+                .ifPresent(cache -> cache.evict(oldNameAndAuthorKey));
+        Optional.ofNullable(cacheManager.getCache(AppCacheProperties.CacheNames.FIND_ALL_DTO_BY_CATEGORY))
+                .ifPresent(cache -> cache.evict(oldCategory.getName()));
+    }
+
 
     @Nonnull
     private Category getOrCreateCategoryByName(@Nonnull String categoryName) {

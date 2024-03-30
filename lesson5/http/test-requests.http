@@ -68,3 +68,6 @@ Content-Type: application/json
   "name": "FirstBook",
   "category": "Drama"
 }
+
+###
+DELETE http://localhost:8085/api/v1/book/2
