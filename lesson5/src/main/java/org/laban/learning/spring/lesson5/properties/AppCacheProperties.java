@@ -24,6 +24,7 @@ public class AppCacheProperties {
     }
 
     public interface CacheNames {
-        String FIND_ALL = "findAllCache";
+        String FIND_DTO_BY_NAME_AND_AUTHOR = "findDtoByNameAndAuthor";
+        String FIND_ALL_DTO_BY_CATEGORY = "findAllDtoByCategory";
     }
 }

@@ -34,7 +34,7 @@ dependencies {
 
     implementation(Global.Library.ApacheCommonLang3)
 
-    developmentOnly(Global.Library.SpringBootDevTools)
+//    developmentOnly(Global.Library.SpringBootDevTools)
 
     testImplementation(kotlin("test"))
     testImplementation(Global.Library.SpringBootTestStarter)

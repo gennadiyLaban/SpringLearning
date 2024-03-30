@@ -34,5 +34,7 @@ spring:
 app:
   cache:
     caches:
-      findAllCache:
-        expire: 10s
+      findDtoByNameAndAuthor:
+        expire: 20s
+      findAllDtoByCategory:
+        expire: 20s
