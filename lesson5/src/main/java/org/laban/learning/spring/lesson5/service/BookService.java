@@ -4,6 +4,7 @@ import jakarta.annotation.Nonnull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.laban.learning.spring.lesson5.exception.BookByNameAndAuthorNotFound;
+import org.laban.learning.spring.lesson5.exception.BookNotFoundException;
 import org.laban.learning.spring.lesson5.exception.CategoryNameNotFound;
 import org.laban.learning.spring.lesson5.mapper.BookMapper;
 import org.laban.learning.spring.lesson5.model.Book;
@@ -14,6 +15,7 @@ import org.laban.learning.spring.lesson5.repository.CategoryRepository;
 import org.laban.learning.spring.lesson5.web.dto.BookDTO;
 import org.laban.learning.spring.lesson5.web.dto.BookListDTO;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +31,18 @@ public class BookService {
     private final BookRepository bookRepository;
     private final CategoryRepository categoryRepository;
     private final BookMapper bookMapper;
+
+    @Transactional(readOnly = true)
+    public BookDTO findBookDtoById(@Nonnull Long id) {
+        return findBookById(id)
+                .map(bookMapper::bookToBookDTO)
+                .orElseThrow(() -> new BookNotFoundException(id));
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<Book> findBookById(@Nonnull Long id) {
+        return bookRepository.findById(id);
+    }
 
     @Cacheable(value = AppCacheProperties.CacheNames.FIND_DTO_BY_NAME_AND_AUTHOR, key = "#name + #author")
     @Transactional(readOnly = true)
@@ -57,6 +71,21 @@ public class BookService {
                 .orElseThrow(() -> new CategoryNameNotFound(categoryName));
         return bookRepository.findBooksByCategory(category);
     }
+
+    @CacheEvict(value = AppCacheProperties.CacheNames.FIND_ALL_DTO_BY_CATEGORY, key = "#upsertBook.category")
+    @Transactional
+    public Long createBookByDto(@Nonnull BookDTO upsertBook) {
+        return createBook(bookMapper.bookDTOtoBook(
+                upsertBook,
+                getOrCreateCategoryByName(upsertBook.getCategory())
+        ));
+    }
+
+    @Transactional
+    public Long createBook(@Nonnull Book upsertBook) {
+        return bookRepository.save(upsertBook).getId();
+    }
+
 
     @Nonnull
     private Category getOrCreateCategoryByName(@Nonnull String categoryName) {

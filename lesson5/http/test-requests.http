@@ -1,14 +1,34 @@
-###
-GET http://localhost:8085/api/v1/book/list
+### findBookById
+GET http://localhost:8085/api/v1/book/15
 
-###
-GET http://localhost:8085/api/v1/book/search?name=A%20Song%20of%20Ice%20and%20Fire&author=George%20R.%20R.%20Martin
+### findBookByNameAndAuthor
+GET http://localhost:8085/api/v1/book/search?name=FourthBook&author=FirstAuthor
 
-### findAllByCategory
+### findAllByCategory Fantazy
 GET http://localhost:8085/api/v1/book/list/category?categoryName=Fantazy
 
-###
+### findAllByCategory Science fiction
 GET http://localhost:8085/api/v1/book/list/category?categoryName=Science%20fiction
 
-###
+### findAllByCategory History
 GET http://localhost:8085/api/v1/book/list/category?categoryName=History
+
+### createBook with exist category
+POST http://localhost:8085/api/v1/book
+Content-Type: application/json
+
+{
+  "author": "SecondAuthor",
+  "name": "16Book",
+  "category": "History"
+}
+
+### createBook with new category
+POST http://localhost:8085/api/v1/book
+Content-Type: application/json
+
+{
+  "author": "FirstAuthor",
+  "name": "EleventhBook",
+  "category": "Drama"
+}
