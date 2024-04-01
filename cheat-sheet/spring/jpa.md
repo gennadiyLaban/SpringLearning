@@ -1,5 +1,7 @@
 #### JPA
 
+* `@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "personNumber", "isActive" }) })` -
+* `@UniqueConstraint` -
 * `@Entity(name = "orders)` - jpa-аннотация показывает что данный класс является моделью, которая представляет собой
   таблицу в базе данных
 * `@Id @GeneratedValue(strategy = GenerationType.IDENTITY)` - данная комбинация над полем класса показывает, что поле

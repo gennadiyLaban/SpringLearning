@@ -20,6 +20,7 @@ object Global {
         val KotlinJVM = Plugin("org.jetbrains.kotlin.jvm", Version.KOTLIN)
         val SpringBoot = Plugin("org.springframework.boot", Version.SPRING_BOOT_PLUGIN)
         val SpringDependencyManagement = Plugin("io.spring.dependency-management", Version.SPRING_DEP_MANAGEMENT_PLUGIN)
+        val ErrorProne = Plugin("net.ltgt.errorprone", Version.ERROR_PRONE_PLUGIN)
     }
 
     object Library {
@@ -63,6 +64,16 @@ object Global {
         val SpringBootValidationStarter = Library(
             "org.springframework.boot",
             "spring-boot-starter-validation",
+            Version.SPRING_BOOT_PLUGIN
+        )
+        val SpringBootChacheStarter = Library(
+            "org.springframework.boot",
+            "spring-boot-starter-cache",
+            Version.SPRING_BOOT_PLUGIN
+        )
+        val SpringBootDataRedisStarter = Library(
+            "org.springframework.boot",
+            "spring-boot-starter-data-redis",
             Version.SPRING_BOOT_PLUGIN
         )
         val SpringBootDevTools = Library(
@@ -110,6 +121,9 @@ object Global {
             Version.HIBERNATE_VALIDATOR
         )
 
+        // client for redis
+        val LettuceCoreForRedis = Library("io.lettuce", "lettuce-core", Version.LETTUCE_CORE)
+
         val MapStructCore = Library("org.mapstruct", "mapstruct", Version.MAP_STRUCT)
         val MapStructProcessor = Library("org.mapstruct", "mapstruct-processor", Version.MAP_STRUCT)
 
@@ -118,6 +132,8 @@ object Global {
 
         val SpringBootTestStarter = Library("org.springframework.boot", "spring-boot-starter-test")
         val JavacrumbsJsonUnit = Library("net.javacrumbs.json-unit", "json-unit", Version.JAVACRUMBS_JSON_UNIT)
+
+        val ErrorProne = Library("com.google.errorprone", "error_prone_core", Version.ERROR_PRONE_LIBRARY)
     }
 
 
@@ -159,5 +175,10 @@ object Global {
         const val ApacheCommonLang3 = "3.12.0"
 
         const val JAVACRUMBS_JSON_UNIT = "2.38.0"
+
+        const val LETTUCE_CORE = "6.3.1.RELEASE"
+
+        const val ERROR_PRONE_PLUGIN = "3.1.0"
+        const val ERROR_PRONE_LIBRARY = "2.26.1"
     }
 }

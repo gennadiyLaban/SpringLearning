@@ -84,6 +84,10 @@ fun DependencyHandler.runtimeOnly(library: Library): ExternalModuleDependency {
     return addDepsLibrary(library, targetConfiguration = "runtimeOnly")
 }
 
+fun DependencyHandler.errorProne(library: Library): ExternalModuleDependency {
+    return addDepsLibrary(library, targetConfiguration = "errorprone")
+}
+
 internal fun DependencyHandler.addDepsLibrary(
     library: Library,
     targetConfiguration: String
