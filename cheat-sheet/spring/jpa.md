@@ -39,6 +39,7 @@
 * `JPQL` - язык запросов в `jpa`, который позволяет обращаться не к столбцам таблицы бд, а к полям `@Entity`
 * `@Query` - аннотация над методом в классе-наследнике `JapRepository<>` позволяет написать кастомный запрос на
   языке `JPQL` или `SQL`
+* `Example<>` - класс, с помощью которого можно запрашивать данные в `JpaRepository<>`.
 
 * `ACID`
     - `Атомарность (Atomicity)` - транзакция считается атомарной если все её операции выполняются как единое целое. Если
@@ -231,4 +232,25 @@ private List<Foo> getByProduct(String productName);
 // SQL
 @Query(value = "SELECT * FROM foos foo WHERE foo.product = :productName", nativeQuery = true)
 private List<Foo> getByProduct(String productName);
+```
+* Пример `Example<>`
+```java
+
+@Service
+@RequiredArgConstructor
+public class Service {
+  private final FooRepository repository;
+
+  public FooEntity findByName(String name) {
+    FooEntity probe = new Entity();
+    probe.setName(name);
+
+    ExampleMatcher matcher = ExampleMatcher.matching()
+            .withIgnoreNullValues()
+            .withIgnorePaths("id", "date");
+    Example<FooEntity> example = Example.of(probe, matcher);
+    return repository.findOne(probe);
+  }
+
+}
 ```
