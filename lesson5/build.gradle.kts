@@ -1,8 +1,11 @@
+import net.ltgt.gradle.errorprone.errorprone
+
 plugins {
     java
     applyPlugin(Global.Plugin.KotlinJVM)
     applyPlugin(Global.Plugin.SpringBoot)
     applyPlugin(Global.Plugin.SpringDependencyManagement)
+    applyPlugin(Global.Plugin.ErrorProne)
 }
 
 group = "org.laban"
@@ -34,12 +37,20 @@ dependencies {
 
     implementation(Global.Library.ApacheCommonLang3)
 
-//    developmentOnly(Global.Library.SpringBootDevTools)
+    errorProne(Global.Library.ErrorProne)
 
     testImplementation(kotlin("test"))
     testImplementation(Global.Library.SpringBootTestStarter)
     testImplementation(Global.Library.JavacrumbsJsonUnit)
 }
+
+
+tasks.withType<JavaCompile> {
+    options.errorprone {
+        disableWarningsInGeneratedCode.set(true)
+    }
+}
+
 
 tasks.withType<Test> {
     useJUnitPlatform()

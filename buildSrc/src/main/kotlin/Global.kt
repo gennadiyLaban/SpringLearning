@@ -20,6 +20,7 @@ object Global {
         val KotlinJVM = Plugin("org.jetbrains.kotlin.jvm", Version.KOTLIN)
         val SpringBoot = Plugin("org.springframework.boot", Version.SPRING_BOOT_PLUGIN)
         val SpringDependencyManagement = Plugin("io.spring.dependency-management", Version.SPRING_DEP_MANAGEMENT_PLUGIN)
+        val ErrorProne = Plugin("net.ltgt.errorprone", Version.ERROR_PRONE_PLUGIN)
     }
 
     object Library {
@@ -131,6 +132,8 @@ object Global {
 
         val SpringBootTestStarter = Library("org.springframework.boot", "spring-boot-starter-test")
         val JavacrumbsJsonUnit = Library("net.javacrumbs.json-unit", "json-unit", Version.JAVACRUMBS_JSON_UNIT)
+
+        val ErrorProne = Library("com.google.errorprone", "error_prone_core", Version.ERROR_PRONE_LIBRARY)
     }
 
 
@@ -174,5 +177,8 @@ object Global {
         const val JAVACRUMBS_JSON_UNIT = "2.38.0"
 
         const val LETTUCE_CORE = "6.3.1.RELEASE"
+
+        const val ERROR_PRONE_PLUGIN = "3.1.0"
+        const val ERROR_PRONE_LIBRARY = "2.26.1"
     }
 }
