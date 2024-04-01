@@ -1,0 +1,29 @@
+server:
+  port: 8085
+
+logging:
+  level:
+    root: debug
+
+spring:
+  application:
+    name: "Lesson-6"
+  messages:
+    basename: "strings"
+  datasource:
+    url: "jdbc:postgresql://127.0.0.1:5433/lesson6"
+    username: admin
+    password: admin
+    hikari:
+      schema: lesson6
+  sql:
+    init:
+      schema-locations: classpath:db/init.sql
+#      data-locations: classpath:db/data.sql
+      #      mode: embedded
+      mode: always
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+#      ddl-auto: create
