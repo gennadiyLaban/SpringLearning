@@ -1,9 +1,9 @@
-package org.laban.learning.spring.lesson6.orderservice.kafka;
+package org.laban.learning.spring.lesson6.orderstatusservice.kafka;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.laban.learning.spring.lesson6.common.kafkamessage.OrderStatusEvent;
-import org.laban.learning.spring.lesson6.orderservice.service.OrderService;
+import org.laban.learning.spring.lesson6.common.kafkamessage.OrderEvent;
+import org.laban.learning.spring.lesson6.orderstatusservice.service.OrderProcessingService;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
@@ -15,22 +15,22 @@ import java.util.UUID;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class KafkaListenerComponent {
-    private final OrderService orderService;
+public class KafkaOrderEventListener {
+    private final OrderProcessingService orderProceedService;
 
     @KafkaListener(
-            topics = "${app.kafka.kafkaOrderStatusTopic}",
+            topics = "${app.kafka.kafkaOrderTopic}",
             groupId = "${app.kafka.kafkaGroupId}",
-            containerFactory = "kafkaOrderStatusEventConcurrentKafkaListenerContainerFactory"
+            containerFactory = "kafkaOrderEventConcurrentKafkaListenerContainerFactory"
     )
-    public void listenOrderStatusEvent(
-            @Payload OrderStatusEvent event,
+    public void listenOrderEvent(
+            @Payload OrderEvent event,
             @Header(value = KafkaHeaders.RECEIVED_KEY) UUID key,
             @Header(value = KafkaHeaders.RECEIVED_TOPIC) String topic,
             @Header(value = KafkaHeaders.PARTITION) Integer partition,
             @Header(value = KafkaHeaders.RECEIVED_TIMESTAMP) Long timestamp
     ) {
-        orderService.readStatus(event);
+        orderProceedService.proceedOrderEvent(event);
         log.info("Key: {}; Partition: {}; Topic: {}, Timestamp: {}", key, partition, topic, timestamp);
     }
 }

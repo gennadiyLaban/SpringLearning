@@ -1,4 +1,4 @@
-package org.laban.learning.spring.lesson6.orderservice.configuration;
+package org.laban.learning.spring.lesson6.orderstatusservice.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -27,7 +27,7 @@ public class KafkaConfiguration {
     private String kafkaMessageGroupId;
 
     @Bean
-    public ProducerFactory<String, OrderEvent> kafkaOrderEventProducerFactory(ObjectMapper objectMapper) {
+    public ProducerFactory<String, OrderStatusEvent> kafkaOrderStatusEventProducerFactory(ObjectMapper objectMapper) {
         Map<String, Object> config = new HashMap<>();
 
         config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
@@ -38,12 +38,12 @@ public class KafkaConfiguration {
     }
 
     @Bean
-    public KafkaTemplate<String, OrderEvent> kafkaOrderEventTemplate(ProducerFactory<String, OrderEvent> kafkaMessageProducerFactory) {
+    public KafkaTemplate<String, OrderStatusEvent> kafkaOrderStatusEventTemplate(ProducerFactory<String, OrderStatusEvent> kafkaMessageProducerFactory) {
         return new KafkaTemplate<>(kafkaMessageProducerFactory);
     }
 
     @Bean
-    public ConsumerFactory<String, OrderStatusEvent> kafkaOrderStatusEventConsumerFactory(ObjectMapper objectMapper) {
+    public ConsumerFactory<String, OrderEvent> kafkaOrderEventConsumerFactory(ObjectMapper objectMapper) {
         Map<String, Object> config = new HashMap<>();
 
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
@@ -55,12 +55,12 @@ public class KafkaConfiguration {
         return new DefaultKafkaConsumerFactory<>(config, new StringDeserializer(), new JsonDeserializer<>(objectMapper));
     }
 
-    @Bean("kafkaOrderStatusEventConcurrentKafkaListenerContainerFactory")
-    public ConcurrentKafkaListenerContainerFactory<String, OrderStatusEvent> kafkaOrderStatusEventConcurrentKafkaListenerContainerFactory(
-            ConsumerFactory<String, OrderStatusEvent> kafkaOrderStatusEventConsumerFactory
+    @Bean("kafkaOrderEventConcurrentKafkaListenerContainerFactory")
+    public ConcurrentKafkaListenerContainerFactory<String, OrderEvent> kafkaOrderEventConcurrentKafkaListenerContainerFactory(
+            ConsumerFactory<String, OrderEvent> kafkaOOrderEventConsumerFactory
     ) {
-        var factory = new ConcurrentKafkaListenerContainerFactory<String, OrderStatusEvent>();
-        factory.setConsumerFactory(kafkaOrderStatusEventConsumerFactory);
+        var factory = new ConcurrentKafkaListenerContainerFactory<String, OrderEvent>();
+        factory.setConsumerFactory(kafkaOOrderEventConsumerFactory);
 
         return factory;
     }
