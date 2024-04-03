@@ -14,3 +14,7 @@
 * что значит "асинхронные HTTP-запросы"??
 * Виды и протоколы авторизации и аутентификации
 * Поднять тесты с `Postgresql` с помощью `Testcontainers`
+* Узнать больше о `Kafka`
+  - что такое `JsonDeserializer.TRUSTED_PACKAGES`? зачем оно нужно?
+  - разобраться с файлами конфигурации `docker-compose.yml` для `Kafka`
+* Вспомнить о `Clickhouse`
