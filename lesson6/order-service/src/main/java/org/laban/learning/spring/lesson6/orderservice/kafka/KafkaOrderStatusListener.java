@@ -25,12 +25,12 @@ public class KafkaOrderStatusListener {
     )
     public void listenOrderStatusEvent(
             @Payload OrderStatusEvent event,
-            @Header(value = KafkaHeaders.RECEIVED_KEY) UUID key,
-            @Header(value = KafkaHeaders.RECEIVED_TOPIC) String topic,
-            @Header(value = KafkaHeaders.PARTITION) Integer partition,
-            @Header(value = KafkaHeaders.RECEIVED_TIMESTAMP) Long timestamp
+            @Header(value = KafkaHeaders.RECEIVED_KEY, required = false) UUID key,
+            @Header(value = KafkaHeaders.RECEIVED_TOPIC, required = false) String topic,
+            @Header(value = KafkaHeaders.PARTITION, required = false) Integer partition,
+            @Header(value = KafkaHeaders.RECEIVED_TIMESTAMP, required = false) Long timestamp
     ) {
-        orderService.readStatus(event);
         log.info("Key: {}; Partition: {}; Topic: {}, Timestamp: {}", key, partition, topic, timestamp);
+        orderService.readStatus(event);
     }
 }

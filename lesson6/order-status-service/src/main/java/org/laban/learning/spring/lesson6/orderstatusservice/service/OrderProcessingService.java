@@ -23,7 +23,7 @@ public class OrderProcessingService {
         log.info("Received message: {}", event);
         var instant = Instant.now();
         kafkaOrderStatusTemplate.send(orderStatusTopic, OrderStatusEvent.builder()
-                .status(instant.toEpochMilli() / 2 == 0 ? "CREATED" : "PROCESSING")
+                .status(instant.toEpochMilli() % 2 == 0 ? "CREATED" : "PROCESSING")
                 .date(instant)
                 .build());
     }

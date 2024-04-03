@@ -1,18 +1,18 @@
 package org.laban.learning.spring.lesson6.orderservice.web.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.laban.learning.spring.lesson6.common.kafkamessage.OrderEvent;
 
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Getter
 public class Order {
-    @NotEmpty
+    @NotBlank
     private String product;
 
     @NotNull
