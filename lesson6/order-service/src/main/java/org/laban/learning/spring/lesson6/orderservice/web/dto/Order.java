@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Positive;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.laban.learning.spring.lesson6.common.kafkamessage.OrderEvent;
 
 @RequiredArgsConstructor
 @Builder
@@ -17,4 +18,11 @@ public class Order {
     @NotNull
     @Positive
     private Integer quantity;
+
+    public OrderEvent toEvent() {
+        return OrderEvent.builder()
+                .product(product)
+                .quantity(quantity)
+                .build();
+    }
 }

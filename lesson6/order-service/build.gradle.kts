@@ -22,6 +22,7 @@ dependencies {
     implementation(Global.Library.SpringBootWebStarter)
     implementation(Global.Library.SpringBootValidationStarter)
     implementation(Global.Library.SpringDocOpenApiWebMvcUiStarter)
+    implementation(Global.Library.SpringKafka)
 
     annotationProcessor(Global.Library.SpringBootConfigurationProcessor)
 

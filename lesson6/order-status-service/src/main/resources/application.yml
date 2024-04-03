@@ -10,3 +10,5 @@ spring:
     name: "Lesson-6-order-service"
   messages:
     basename: "strings"
+  kafka:
+    bootstrap-servers: localhost:9092

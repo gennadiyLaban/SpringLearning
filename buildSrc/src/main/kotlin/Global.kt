@@ -95,6 +95,12 @@ object Global {
             Version.SPRING_DOC_OPEN_API_WEB_MVC_UI
         )
 
+        val SpringKafka = Library(
+            "org.springframework.kafka",
+            "spring-kafka",
+            Version.SPRING_BOOT_PLUGIN
+        )
+
         val SpringShellStarter = Library(
             "org.springframework.shell",
             "spring-shell-starter",
