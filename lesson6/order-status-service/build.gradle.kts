@@ -1,8 +1,10 @@
 import net.ltgt.gradle.errorprone.errorprone
 
 plugins {
-    `java-library`
+    java
     applyPlugin(Global.Plugin.KotlinJVM)
+    applyPlugin(Global.Plugin.SpringBoot)
+    applyPlugin(Global.Plugin.SpringDependencyManagement)
     applyPlugin(Global.Plugin.ErrorProne)
 }
 
@@ -14,6 +16,14 @@ java {
 }
 
 dependencies {
+    implementation(Global.Modules.Lesson6)
+
+    implementation(Global.Library.SpringBootStarter)
+    implementation(Global.Library.SpringBootWebStarter)
+    implementation(Global.Library.SpringBootValidationStarter)
+
+    annotationProcessor(Global.Library.SpringBootConfigurationProcessor)
+
     compileOnly(Global.Library.Lombok)
     annotationProcessor(Global.Library.Lombok)
 
@@ -22,6 +32,7 @@ dependencies {
     errorProne(Global.Library.ErrorProne)
 
     testImplementation(kotlin("test"))
+    testImplementation(Global.Library.SpringBootTestStarter)
     testImplementation(Global.Library.JavacrumbsJsonUnit)
 }
 

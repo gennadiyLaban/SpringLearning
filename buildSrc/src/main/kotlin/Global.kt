@@ -14,6 +14,13 @@ object Global {
             val Time = ProjectModule("$root:time")
             val Utils = ProjectModule("$root:utils")
         }
+        object Lesson6 : ProjectModule("lesson6") {
+            private val root: String
+                get() = name
+
+            val OrderService = ProjectModule("$root:order-service")
+            val OrderStatusService = ProjectModule("$root:order-status-service")
+        }
     }
 
     object Plugin {
