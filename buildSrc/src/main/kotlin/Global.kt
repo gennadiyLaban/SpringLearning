@@ -14,6 +14,13 @@ object Global {
             val Time = ProjectModule("$root:time")
             val Utils = ProjectModule("$root:utils")
         }
+        object Lesson6 : ProjectModule("lesson6") {
+            private val root: String
+                get() = name
+
+            val OrderService = ProjectModule("$root:order-service")
+            val OrderStatusService = ProjectModule("$root:order-status-service")
+        }
     }
 
     object Plugin {
@@ -86,6 +93,12 @@ object Global {
             "org.springdoc",
             "springdoc-openapi-starter-webmvc-ui",
             Version.SPRING_DOC_OPEN_API_WEB_MVC_UI
+        )
+
+        val SpringKafka = Library(
+            "org.springframework.kafka",
+            "spring-kafka",
+            Version.SPRING_BOOT_PLUGIN
         )
 
         val SpringShellStarter = Library(
