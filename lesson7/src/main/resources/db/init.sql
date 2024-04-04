@@ -1,0 +1,3 @@
+CREATE SCHEMA IF NOT EXISTS lesson7;
+ALTER ROLE admin IN DATABASE lesson7 SET SEARCH_PATH = lesson7,public;
+SET SEARCH_PATH = lesson7,public;
