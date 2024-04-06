@@ -12,4 +12,10 @@ spring:
     basename: "strings"
   data:
     mongodb:
-      uri: mongodb://root:root@localhost:27017/lesson7?authSource=admin
+#      uri: mongodb://root:root@localhost:27017/lesson7?authSource=admin
+      host: localhost
+      port: 27017
+      username: admin
+      password: admin
+      database: lesson7
+      authentication-database: admin
