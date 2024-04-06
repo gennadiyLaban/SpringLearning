@@ -3,6 +3,7 @@ package org.laban.learning.spring.lesson7.web.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.laban.learning.spring.lesson7.exception.TaskNotFoundException;
 import org.laban.learning.spring.lesson7.exception.UserNotFoundException;
 import org.laban.learning.spring.lesson7.utils.ErrorResponseUtils;
 import org.laban.learning.spring.lesson7.web.dto.ErrorBodyDTO;
@@ -53,6 +54,18 @@ public class ExceptionController {
                 HttpStatus.NOT_FOUND,
                 request,
                 MessageFormat.format("User with id=''{0}'' not found!", exception.getUserId())
+        );
+    }
+
+    @ExceptionHandler({TaskNotFoundException.class})
+    public ResponseEntity<ErrorBodyDTO> handleUserNotFoundExceptionException(
+            TaskNotFoundException exception,
+            HttpServletRequest request
+    ) {
+        return ErrorResponseUtils.buildError(
+                HttpStatus.NOT_FOUND,
+                request,
+                MessageFormat.format("Task with id=''{0}'' not found!", exception.getTaskId())
         );
     }
 }

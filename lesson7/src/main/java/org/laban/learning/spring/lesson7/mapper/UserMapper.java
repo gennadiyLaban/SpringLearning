@@ -8,6 +8,8 @@ import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UserMapper {
@@ -21,4 +23,9 @@ public interface UserMapper {
 
     User userDTOtoUser(UserDTO userDTO);
 
+    default Set<UserDTO> userSetToUserDTOset(Set<User> users) {
+        return users.stream()
+                .map(this::userToUserDTO)
+                .collect(Collectors.toSet());
+    }
 }

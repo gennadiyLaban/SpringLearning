@@ -10,7 +10,10 @@ import org.laban.learning.spring.lesson7.utils.BeanUtils;
 import org.laban.learning.spring.lesson7.web.dto.UserDTO;
 import org.laban.learning.spring.lesson7.web.dto.UserListDTO;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.Collection;
 
 @RequiredArgsConstructor
 @Service
@@ -67,5 +70,9 @@ public class UserService {
                 .filter(exists -> exists)
                 .switchIfEmpty(Mono.error(new UserNotFoundException(userId)))
                 .then(userRepository.deleteById(userId));
+    }
+
+    public Flux<User> findAllUsersByIds(@Nonnull Collection<String> userIds) {
+        return userRepository.findAllById(userIds);
     }
 }

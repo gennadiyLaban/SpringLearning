@@ -24,4 +24,7 @@ Content-Type: application/json
 }
 
 ### deleteUserById
-DELETE http://localhost:8085/api/v1/user?userId=user-1
+DELETE http://localhost:8085/api/v1/user?userId=user-2
+
+### findTaskById
+GET http://localhost:8085/api/v1/task?taskId=task-3
