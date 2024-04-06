@@ -51,4 +51,15 @@ public class UserController {
     private String encode(String value) {
         return URLEncoder.encode(value, StandardCharsets.UTF_8);
     }
+
+    @PutMapping
+    public Mono<ResponseEntity<Void>> updateUser(
+            @Validated(ValidationGroup.Update.class)
+            @RequestBody
+            UserDTO userDTO
+    ) {
+        return userService.updateUserByDTO(userDTO)
+                .thenReturn(ResponseEntity.noContent().build());
+    }
+
 }

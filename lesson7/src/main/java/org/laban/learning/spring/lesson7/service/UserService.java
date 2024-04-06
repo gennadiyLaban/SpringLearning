@@ -6,6 +6,7 @@ import org.laban.learning.spring.lesson7.exception.UserNotFoundException;
 import org.laban.learning.spring.lesson7.mapper.UserMapper;
 import org.laban.learning.spring.lesson7.model.User;
 import org.laban.learning.spring.lesson7.repository.UserRepository;
+import org.laban.learning.spring.lesson7.utils.BeanUtils;
 import org.laban.learning.spring.lesson7.web.dto.UserDTO;
 import org.laban.learning.spring.lesson7.web.dto.UserListDTO;
 import org.springframework.stereotype.Service;
@@ -18,9 +19,17 @@ public class UserService {
     private final UserMapper userMapper;
 
     public Mono<UserDTO> findUserDTOById(@Nonnull String userId) {
-        return userRepository.findById(userId)
-                .map(userMapper::userToUserDTO)
+        return getUserById(userId)
+                .map(userMapper::userToUserDTO);
+    }
+
+    public Mono<User> getUserById(@Nonnull String userId) {
+        return findUserById(userId)
                 .switchIfEmpty(Mono.error(new UserNotFoundException(userId)));
+    }
+
+    public Mono<User> findUserById(@Nonnull String userId) {
+        return userRepository.findById(userId);
     }
 
     public Mono<UserListDTO> findAllUserDTOs() {
@@ -34,5 +43,22 @@ public class UserService {
                 .map(userMapper::userDTOtoUser)
                 .flatMap(userRepository::save)
                 .map(User::getId);
+    }
+
+    public Mono<Void> updateUserByDTO(UserDTO userDTO) {
+        return Mono.just(userDTO)
+                .map(userMapper::userDTOtoUser)
+                .flatMap(upsertUser -> Mono.zip(
+                        getUserById(upsertUser.getId()),
+                        Mono.just(upsertUser)
+                ))
+                .map(users -> {
+                    var existedUser = users.getT1();
+                    var upsertUser = users.getT2();
+                    BeanUtils.copyNonNullProperties(upsertUser, existedUser);
+                    return existedUser;
+                })
+                .flatMap(userRepository::save)
+                .then();
     }
 }
