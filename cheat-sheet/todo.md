@@ -19,3 +19,4 @@
   - разобраться с файлами конфигурации `docker-compose.yml` для `Kafka`
   - Kafka Listeners - Explained - прочитать, разобраться
 * Вспомнить о `Clickhouse`
+* Узнать больше о `MongoDB` и её интеграции в `Spring`
