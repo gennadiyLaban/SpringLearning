@@ -4,8 +4,10 @@ import jakarta.annotation.Nonnull;
 import lombok.RequiredArgsConstructor;
 import org.laban.learning.spring.lesson7.exception.UserNotFoundException;
 import org.laban.learning.spring.lesson7.mapper.UserMapper;
+import org.laban.learning.spring.lesson7.model.User;
 import org.laban.learning.spring.lesson7.repository.UserRepository;
 import org.laban.learning.spring.lesson7.web.dto.UserDTO;
+import org.laban.learning.spring.lesson7.web.dto.UserListDTO;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -15,10 +17,22 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
-    public Mono<UserDTO> findUserById(@Nonnull String userId) {
+    public Mono<UserDTO> findUserDTOById(@Nonnull String userId) {
         return userRepository.findById(userId)
                 .map(userMapper::userToUserDTO)
                 .switchIfEmpty(Mono.error(new UserNotFoundException(userId)));
     }
 
+    public Mono<UserListDTO> findAllUserDTOs() {
+        return userRepository.findAll()
+                .collectList()
+                .map(userMapper::userListToUserListDTO);
+    }
+
+    public Mono<String> createUserByDTO(@Nonnull UserDTO userDTO) {
+        return Mono.just(userDTO)
+                .map(userMapper::userDTOtoUser)
+                .flatMap(userRepository::save)
+                .map(User::getId);
+    }
 }
