@@ -45,7 +45,7 @@ public class UserService {
                 .map(User::getId);
     }
 
-    public Mono<Void> updateUserByDTO(UserDTO userDTO) {
+    public Mono<Void> updateUserByDTO(@Nonnull UserDTO userDTO) {
         return Mono.just(userDTO)
                 .map(userMapper::userDTOtoUser)
                 .flatMap(upsertUser -> Mono.zip(
@@ -60,5 +60,12 @@ public class UserService {
                 })
                 .flatMap(userRepository::save)
                 .then();
+    }
+
+    public Mono<Void> deleteUserById(@Nonnull String userId) {
+        return userRepository.existsById(userId)
+                .filter(exists -> exists)
+                .switchIfEmpty(Mono.error(new UserNotFoundException(userId)))
+                .then(userRepository.deleteById(userId));
     }
 }

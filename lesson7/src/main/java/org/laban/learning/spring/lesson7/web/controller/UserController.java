@@ -62,4 +62,9 @@ public class UserController {
                 .thenReturn(ResponseEntity.noContent().build());
     }
 
+    @DeleteMapping
+    public Mono<ResponseEntity<Void>> deleteUser(@RequestParam String userId) {
+        return userService.deleteUserById(userId)
+                .thenReturn(ResponseEntity.noContent().build());
+    }
 }

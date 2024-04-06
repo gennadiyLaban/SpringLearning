@@ -22,3 +22,6 @@ Content-Type: application/json
   "name": "User-update",
   "email": "user-update@ya.ru"
 }
+
+### deleteUserById
+DELETE http://localhost:8085/api/v1/user?userId=user-1
