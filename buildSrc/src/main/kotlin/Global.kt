@@ -58,6 +58,11 @@ object Global {
             "spring-boot-starter-web",
             Version.SPRING_BOOT_PLUGIN
         )
+        val SpringBootWebFluxStarter = Library(
+            "org.springframework.boot",
+            "spring-boot-starter-webflux",
+            Version.SPRING_BOOT_PLUGIN
+        )
         val SpringBootDataJdbcStarter = Library(
             "org.springframework.boot",
             "spring-boot-starter-data-jdbc",
@@ -66,6 +71,11 @@ object Global {
         val SpringBootDataJpaStarter = Library(
             "org.springframework.boot",
             "spring-boot-starter-data-jpa",
+            Version.SPRING_BOOT_PLUGIN
+        )
+        val SpringBootMongoDbReactiveStarter = Library(
+            "org.springframework.boot",
+            "spring-boot-starter-data-mongodb-reactive",
             Version.SPRING_BOOT_PLUGIN
         )
         val SpringBootValidationStarter = Library(

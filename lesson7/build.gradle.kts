@@ -17,12 +17,10 @@ java {
 
 dependencies {
     implementation(Global.Library.SpringBootStarter)
-    implementation(Global.Library.SpringBootWebStarter)
-//    implementation(Global.Library.SpringBootDataJpaStarter)
     implementation(Global.Library.SpringBootValidationStarter)
-    implementation(Global.Library.SpringDocOpenApiWebMvcUiStarter)
-
-//    runtimeOnly(Global.Library.Postgresql)
+    implementation(Global.Library.SpringBootWebStarter)
+    implementation(Global.Library.SpringBootWebFluxStarter)
+    implementation(Global.Library.SpringBootMongoDbReactiveStarter)
 
     annotationProcessor(Global.Library.SpringBootConfigurationProcessor)
 
