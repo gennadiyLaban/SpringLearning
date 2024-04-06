@@ -3,6 +3,7 @@ package org.laban.learning.spring.lesson7.web.controller;
 import lombok.RequiredArgsConstructor;
 import org.laban.learning.spring.lesson7.service.TaskService;
 import org.laban.learning.spring.lesson7.web.dto.TaskDTO;
+import org.laban.learning.spring.lesson7.web.dto.TaskListDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,12 @@ public class TaskController {
     @GetMapping
     public Mono<ResponseEntity<TaskDTO>> findTaskById(@RequestParam String taskId) {
         return taskService.findTaskDTObyId(taskId)
+                .map(ResponseEntity::ok);
+    }
+
+    @GetMapping("/list")
+    public Mono<ResponseEntity<TaskListDTO>> findAllTasks() {
+        return taskService.findAllTasks()
                 .map(ResponseEntity::ok);
     }
 

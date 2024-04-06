@@ -9,6 +9,7 @@ import org.laban.learning.spring.lesson7.model.Task;
 import org.laban.learning.spring.lesson7.model.User;
 import org.laban.learning.spring.lesson7.repository.TaskRepository;
 import org.laban.learning.spring.lesson7.web.dto.TaskDTO;
+import org.laban.learning.spring.lesson7.web.dto.TaskListDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import reactor.core.publisher.Mono;
@@ -31,6 +32,14 @@ public class TaskService {
                 .flatMap(this::insertUsersForTask)
                 .map(taskMapper::taskToTaskDTO)
                 .switchIfEmpty(Mono.error(new TaskNotFoundException(taskId)));
+    }
+
+    public Mono<TaskListDTO> findAllTasks() {
+        return taskRepository
+                .findAll()
+                .flatMap(this::insertUsersForTask)
+                .collectList()
+                .map(taskMapper::taskListToTaskListDTO);
     }
 
     private Mono<Task> insertUsersForTask(@Nonnull Task task) {
