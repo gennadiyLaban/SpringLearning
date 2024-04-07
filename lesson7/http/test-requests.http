@@ -27,6 +27,7 @@ Content-Type: application/json
 DELETE http://localhost:8085/api/v1/user?userId=user-2
 
 
+
 ### findTaskById
 GET http://localhost:8085/api/v1/task?taskId=task-1
 
@@ -66,3 +67,6 @@ Content-Type: application/json
     "user-2"
   ]
 }
+
+### deleteTaskById
+DELETE http://localhost:8085/api/v1/task?taskId=task-1

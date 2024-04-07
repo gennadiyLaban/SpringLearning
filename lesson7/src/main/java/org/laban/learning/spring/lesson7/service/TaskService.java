@@ -78,7 +78,7 @@ public class TaskService {
                 .defaultIfEmpty(emptyUser(userId));
     }
 
-    private Mono<Task> insertObservers(Task task) {
+    private Mono<Task> insertObservers(@Nonnull Task task) {
         var observersIds = task.getObserverIds();
         if (CollectionUtils.isEmpty(observersIds)) {
             task.setObservers(Collections.emptySet());
@@ -105,7 +105,7 @@ public class TaskService {
         return User.builder().id(userId).build();
     }
 
-    public Mono<String> createTask(TaskDTO taskDTO) {
+    public Mono<String> createTask(@Nonnull TaskDTO taskDTO) {
         return Mono.just(taskDTO)
                 .map(taskMapper::taskDTOtoTask)
                 .flatMap(this::validateUsersExist)
@@ -117,7 +117,7 @@ public class TaskService {
                 .map(Task::getId);
     }
 
-    private Mono<Task> validateUsersExist(Task task) {
+    private Mono<Task> validateUsersExist(@Nonnull Task task) {
         var userIds = new HashSet<String>();
         if (!CollectionUtils.isEmpty(task.getObserverIds())) {
             userIds.addAll(task.getObserverIds());
@@ -136,7 +136,7 @@ public class TaskService {
                 .then(Mono.just(task));
     }
 
-    public Mono<String> updateTask(TaskDTO taskDTO) {
+    public Mono<String> updateTask(@Nonnull TaskDTO taskDTO) {
         return Mono.just(taskDTO)
                 .map(taskMapper::taskDTOtoTask)
                 .flatMap(upsertTask -> Mono.zip(
@@ -152,5 +152,12 @@ public class TaskService {
                 .flatMap(this::validateUsersExist)
                 .flatMap(taskRepository::save)
                 .map(Task::getId);
+    }
+
+    public Mono<Void> deleteTaskById(@Nonnull String taskId) {
+        return taskRepository.existsById(taskId)
+                .filter(exists -> exists)
+                .switchIfEmpty(Mono.error(new TaskNotFoundException(taskId)))
+                .then(taskRepository.deleteById(taskId));
     }
 }

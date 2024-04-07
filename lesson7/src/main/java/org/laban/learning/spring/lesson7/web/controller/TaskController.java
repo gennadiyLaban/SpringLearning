@@ -52,6 +52,12 @@ public class TaskController {
                 .map(taskId -> ResponseEntity.noContent().build());
     }
 
+    @DeleteMapping
+    public Mono<ResponseEntity<Void>> deleteTask(@RequestParam String taskId) {
+        return taskService.deleteTaskById(taskId)
+                .thenReturn(ResponseEntity.noContent().build());
+    }
+
     private String encode(String value) {
         return URLEncoder.encode(value, StandardCharsets.UTF_8);
     }
