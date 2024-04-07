@@ -48,10 +48,6 @@ public class UserController {
                                 .build());
     }
 
-    private String encode(String value) {
-        return URLEncoder.encode(value, StandardCharsets.UTF_8);
-    }
-
     @PutMapping
     public Mono<ResponseEntity<Void>> updateUser(
             @Validated(ValidationGroup.Update.class)
@@ -66,5 +62,9 @@ public class UserController {
     public Mono<ResponseEntity<Void>> deleteUser(@RequestParam String userId) {
         return userService.deleteUserById(userId)
                 .thenReturn(ResponseEntity.noContent().build());
+    }
+
+    private String encode(String value) {
+        return URLEncoder.encode(value, StandardCharsets.UTF_8);
     }
 }

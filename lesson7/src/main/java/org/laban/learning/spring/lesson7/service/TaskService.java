@@ -8,12 +8,15 @@ import org.laban.learning.spring.lesson7.mapper.TaskMapper;
 import org.laban.learning.spring.lesson7.model.Task;
 import org.laban.learning.spring.lesson7.model.User;
 import org.laban.learning.spring.lesson7.repository.TaskRepository;
+import org.laban.learning.spring.lesson7.repository.UserRepository;
 import org.laban.learning.spring.lesson7.web.dto.TaskDTO;
 import org.laban.learning.spring.lesson7.web.dto.TaskListDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.Instant;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.stream.Collectors;
@@ -25,6 +28,7 @@ public class TaskService {
     private final TaskMapper taskMapper;
 
     private final UserService userService;
+    private final UserRepository userRepository;
 
     public Mono<TaskDTO> findTaskDTObyId(@Nonnull String taskId) {
         return taskRepository
@@ -94,4 +98,52 @@ public class TaskService {
     private User emptyUser(@Nonnull String userId) {
         return User.builder().id(userId).build();
     }
+
+    public Mono<String> createTask(TaskDTO taskDTO) {
+        return Mono.just(taskDTO)
+                .map(taskMapper::taskDTOtoTask)
+                .flatMap(this::validateUsersExisted)
+                .map(task -> {
+                    var instant = Instant.now();
+                    return task.withCreatedAt(instant).withUpdatedAt(instant);
+                })
+                .flatMap(taskRepository::save)
+                .map(Task::getId);
+    }
+
+    private Mono<Task> validateUsersExisted(Task task) {
+        var userIds = new HashSet<String>();
+        if (!CollectionUtils.isEmpty(task.getObserverIds())) {
+            userIds.addAll(task.getObserverIds());
+        }
+        if (StringUtils.isNotBlank(task.getAuthorId())) {
+            userIds.add(task.getAuthorId());
+        }
+        if (StringUtils.isNotBlank(task.getAssigneeId())) {
+            userIds.add(task.getAssigneeId());
+        }
+
+        return Flux.fromIterable(userIds)
+                .flatMap(userId -> userRepository.existsById(userId)
+                        .filter(exists -> !exists)
+                        .flatMap(notExists -> Mono.error(new TaskNotFoundException(userId))))
+                .then(Mono.just(task));
+    }
+
+//    public Mono<String> createTask(TaskDTO taskDTO) {
+//        return Mono.just(taskDTO)
+//                .map(taskMapper::taskDTOtoTask)
+//                .flatMap(upsertTask -> Mono.zip(
+//                        taskRepository.findById(upsertTask.getId()),
+//                        Mono.just(upsertTask)
+//                ))
+//                .map(tasks -> {
+//                    var existedTask = tasks.getT1();
+//                    var upsertTask = tasks.getT2();
+//                    BeanUtils.copyNonNullProperties(upsertTask, existedTask);
+//                    return existedTask;
+//                })
+//                .flatMap(taskRepository::save)
+//                .map(Task::getId);
+//    }
 }

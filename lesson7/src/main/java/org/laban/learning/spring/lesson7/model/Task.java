@@ -3,6 +3,7 @@ package org.laban.learning.spring.lesson7.model;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.With;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.ReadOnlyProperty;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -19,7 +20,9 @@ public class Task {
     private final String id ;
     private final String name;
     private final String description;
+    @With
     private final Instant createdAt;
+    @With
     private final Instant updatedAt;
     private final TaskStatus status;
     private final String authorId;

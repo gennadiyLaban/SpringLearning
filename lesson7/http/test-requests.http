@@ -27,7 +27,24 @@ Content-Type: application/json
 DELETE http://localhost:8085/api/v1/user?userId=user-2
 
 ### findTaskById
-GET http://localhost:8085/api/v1/task?taskId=task-3
+GET http://localhost:8085/api/v1/task?taskId=66118c38268b3919dd8e0cb9
 
 ### findAllTasks
 GET http://localhost:8085/api/v1/task/list
+
+### createTask
+POST http://localhost:8085/api/v1/task
+Content-Type: application/json
+
+{
+  "name": "TaskNew",
+  "description": "DescriptionNew",
+  "status": "IN_PROGRESS",
+  "authorId": "user-3",
+  "assigneeId": "user-1",
+  "createdAt": "2023-04-06T15:54:42.179Z",
+  "updatedAt": "2023-04-06T15:54:42.179Z",
+  "observerIds": [
+    "user-2"
+  ]
+}

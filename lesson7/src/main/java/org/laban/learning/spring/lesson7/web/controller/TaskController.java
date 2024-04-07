@@ -4,12 +4,15 @@ import lombok.RequiredArgsConstructor;
 import org.laban.learning.spring.lesson7.service.TaskService;
 import org.laban.learning.spring.lesson7.web.dto.TaskDTO;
 import org.laban.learning.spring.lesson7.web.dto.TaskListDTO;
+import org.laban.learning.spring.lesson7.web.validation.group.ValidationGroup;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
+
+import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 @RequiredArgsConstructor
 @RestController
@@ -27,6 +30,20 @@ public class TaskController {
     public Mono<ResponseEntity<TaskListDTO>> findAllTasks() {
         return taskService.findAllTasks()
                 .map(ResponseEntity::ok);
+    }
+
+    @PostMapping
+    public Mono<ResponseEntity<Void>> createTask(
+            @Validated(ValidationGroup.Create.class)
+            @RequestBody
+            TaskDTO taskDTO
+    ) {
+        return taskService.createTask(taskDTO)
+                .map(taskId -> ResponseEntity.created(URI.create("/api/v1/task?taskId=" + encode(taskId))).build());
+    }
+
+    private String encode(String value) {
+        return URLEncoder.encode(value, StandardCharsets.UTF_8);
     }
 
 }

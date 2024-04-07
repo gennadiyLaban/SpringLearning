@@ -35,6 +35,6 @@
     + updateTask()
     + addObserverToTask()
     + deleteTaskById()
-* `TaskStatus` - `enum` со значениями TODO, IN_PROGRESS, DONE
+* `TaskStatus` - `enum` со значениями `TODO`, `IN_PROGRESS`, `DONE`
 * Маппинг сущностей должен быть реализован через `MapStruct`
 * Все `@RestController` должны возвращать `Mono` или `Flux`

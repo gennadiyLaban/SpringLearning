@@ -29,7 +29,7 @@ public class TaskDTO {
     @NotBlank
     private final String authorId;
     private final String assigneeId;
-    private final Set<String> observerIds;
+    private final Set<@NotBlank String> observerIds;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private final Instant createdAt;
