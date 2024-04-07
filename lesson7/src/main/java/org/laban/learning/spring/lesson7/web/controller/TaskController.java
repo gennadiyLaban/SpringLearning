@@ -20,8 +20,8 @@ import java.nio.charset.StandardCharsets;
 public class TaskController {
     private final TaskService taskService;
 
-    @GetMapping
-    public Mono<ResponseEntity<TaskDTO>> findTaskById(@RequestParam String taskId) {
+    @GetMapping("/{taskId}")
+    public Mono<ResponseEntity<TaskDTO>> findTaskById(@PathVariable String taskId) {
         return taskService.getTaskDTObyId(taskId)
                 .map(ResponseEntity::ok);
     }
@@ -42,18 +42,20 @@ public class TaskController {
                 .map(taskId -> ResponseEntity.created(URI.create("/api/v1/task?taskId=" + encode(taskId))).build());
     }
 
-    @PutMapping
+    @PutMapping("/{taskId}")
     public Mono<ResponseEntity<Void>> updateTask(
+            @PathVariable
+            String taskId,
             @Validated(ValidationGroup.Update.class)
             @RequestBody
             TaskDTO taskDTO
     ) {
         return taskService.updateTask(taskDTO)
-                .map(taskId -> ResponseEntity.noContent().build());
+                .map(updatedTaskId -> ResponseEntity.noContent().build());
     }
 
-    @DeleteMapping
-    public Mono<ResponseEntity<Void>> deleteTask(@RequestParam String taskId) {
+    @DeleteMapping("/{taskId}")
+    public Mono<ResponseEntity<Void>> deleteTask(@PathVariable String taskId) {
         return taskService.deleteTaskById(taskId)
                 .thenReturn(ResponseEntity.noContent().build());
     }

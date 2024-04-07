@@ -29,7 +29,9 @@ DELETE http://localhost:8085/api/v1/user?userId=user-2
 
 
 ### findTaskById
-GET http://localhost:8085/api/v1/task?taskId=task-1
+######################################################################################################
+######################################################################################################
+GET http://localhost:8085/api/v1/task/task-1
 
 ### findAllTasks
 GET http://localhost:8085/api/v1/task/list
@@ -51,11 +53,11 @@ Content-Type: application/json
 }
 
 ### updateTask
-PUT http://localhost:8085/api/v1/task
+PUT http://localhost:8085/api/v1/task/task-1
 Content-Type: application/json
 
 {
-  "id": "user-1",
+  "id": "task-1",
   "name": "TaskUpdate",
   "description": "DescriptionUpdate",
   "status": "TODO",
@@ -69,4 +71,4 @@ Content-Type: application/json
 }
 
 ### deleteTaskById
-DELETE http://localhost:8085/api/v1/task?taskId=task-1
+DELETE http://localhost:8085/api/v1/task/task-1
