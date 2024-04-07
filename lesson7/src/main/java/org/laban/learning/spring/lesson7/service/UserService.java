@@ -75,4 +75,8 @@ public class UserService {
     public Flux<User> findAllUsersByIds(@Nonnull Collection<String> userIds) {
         return userRepository.findAllById(userIds);
     }
+
+    public Mono<Boolean> existsById(@Nonnull String userId) {
+        return userRepository.existsById(userId);
+    }
 }

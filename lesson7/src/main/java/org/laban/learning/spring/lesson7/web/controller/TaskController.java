@@ -22,7 +22,7 @@ public class TaskController {
 
     @GetMapping
     public Mono<ResponseEntity<TaskDTO>> findTaskById(@RequestParam String taskId) {
-        return taskService.findTaskDTObyId(taskId)
+        return taskService.getTaskDTObyId(taskId)
                 .map(ResponseEntity::ok);
     }
 
@@ -40,6 +40,16 @@ public class TaskController {
     ) {
         return taskService.createTask(taskDTO)
                 .map(taskId -> ResponseEntity.created(URI.create("/api/v1/task?taskId=" + encode(taskId))).build());
+    }
+
+    @PutMapping
+    public Mono<ResponseEntity<Void>> updateTask(
+            @Validated(ValidationGroup.Update.class)
+            @RequestBody
+            TaskDTO taskDTO
+    ) {
+        return taskService.updateTask(taskDTO)
+                .map(taskId -> ResponseEntity.noContent().build());
     }
 
     private String encode(String value) {

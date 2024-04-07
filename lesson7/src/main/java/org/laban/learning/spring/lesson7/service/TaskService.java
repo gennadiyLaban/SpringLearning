@@ -8,7 +8,7 @@ import org.laban.learning.spring.lesson7.mapper.TaskMapper;
 import org.laban.learning.spring.lesson7.model.Task;
 import org.laban.learning.spring.lesson7.model.User;
 import org.laban.learning.spring.lesson7.repository.TaskRepository;
-import org.laban.learning.spring.lesson7.repository.UserRepository;
+import org.laban.learning.spring.lesson7.utils.BeanUtils;
 import org.laban.learning.spring.lesson7.web.dto.TaskDTO;
 import org.laban.learning.spring.lesson7.web.dto.TaskListDTO;
 import org.springframework.stereotype.Service;
@@ -28,14 +28,20 @@ public class TaskService {
     private final TaskMapper taskMapper;
 
     private final UserService userService;
-    private final UserRepository userRepository;
 
-    public Mono<TaskDTO> findTaskDTObyId(@Nonnull String taskId) {
-        return taskRepository
-                .findById(taskId)
-                .flatMap(this::insertUsersForTask)
-                .map(taskMapper::taskToTaskDTO)
+    public Mono<TaskDTO> getTaskDTObyId(@Nonnull String taskId) {
+        return getTaskById(taskId)
+                .map(taskMapper::taskToTaskDTO);
+    }
+
+    public Mono<Task> getTaskById(@Nonnull String taskId) {
+        return findTaskById(taskId)
                 .switchIfEmpty(Mono.error(new TaskNotFoundException(taskId)));
+    }
+
+    public Mono<Task> findTaskById(@Nonnull String taskId) {
+        return taskRepository.findById(taskId)
+                .flatMap(this::insertUsersForTask);
     }
 
     public Mono<TaskListDTO> findAllTasks() {
@@ -102,7 +108,7 @@ public class TaskService {
     public Mono<String> createTask(TaskDTO taskDTO) {
         return Mono.just(taskDTO)
                 .map(taskMapper::taskDTOtoTask)
-                .flatMap(this::validateUsersExisted)
+                .flatMap(this::validateUsersExist)
                 .map(task -> {
                     var instant = Instant.now();
                     return task.withCreatedAt(instant).withUpdatedAt(instant);
@@ -111,7 +117,7 @@ public class TaskService {
                 .map(Task::getId);
     }
 
-    private Mono<Task> validateUsersExisted(Task task) {
+    private Mono<Task> validateUsersExist(Task task) {
         var userIds = new HashSet<String>();
         if (!CollectionUtils.isEmpty(task.getObserverIds())) {
             userIds.addAll(task.getObserverIds());
@@ -124,26 +130,27 @@ public class TaskService {
         }
 
         return Flux.fromIterable(userIds)
-                .flatMap(userId -> userRepository.existsById(userId)
+                .flatMap(userId -> userService.existsById(userId)
                         .filter(exists -> !exists)
                         .flatMap(notExists -> Mono.error(new TaskNotFoundException(userId))))
                 .then(Mono.just(task));
     }
 
-//    public Mono<String> createTask(TaskDTO taskDTO) {
-//        return Mono.just(taskDTO)
-//                .map(taskMapper::taskDTOtoTask)
-//                .flatMap(upsertTask -> Mono.zip(
-//                        taskRepository.findById(upsertTask.getId()),
-//                        Mono.just(upsertTask)
-//                ))
-//                .map(tasks -> {
-//                    var existedTask = tasks.getT1();
-//                    var upsertTask = tasks.getT2();
-//                    BeanUtils.copyNonNullProperties(upsertTask, existedTask);
-//                    return existedTask;
-//                })
-//                .flatMap(taskRepository::save)
-//                .map(Task::getId);
-//    }
+    public Mono<String> updateTask(TaskDTO taskDTO) {
+        return Mono.just(taskDTO)
+                .map(taskMapper::taskDTOtoTask)
+                .flatMap(upsertTask -> Mono.zip(
+                        getTaskById(upsertTask.getId()),
+                        Mono.just(upsertTask)
+                ))
+                .map(tasks -> {
+                    var existedTask = tasks.getT1();
+                    var upsertTask = tasks.getT2();
+                    BeanUtils.copyNonNullProperties(upsertTask, existedTask);
+                    return existedTask;
+                })
+                .flatMap(this::validateUsersExist)
+                .flatMap(taskRepository::save)
+                .map(Task::getId);
+    }
 }
