@@ -51,12 +51,21 @@ public class TaskController {
             TaskDTO taskDTO
     ) {
         return taskService.updateTask(taskDTO)
-                .map(updatedTaskId -> ResponseEntity.noContent().build());
+                .thenReturn(ResponseEntity.noContent().build());
     }
 
     @DeleteMapping("/{taskId}")
     public Mono<ResponseEntity<Void>> deleteTask(@PathVariable String taskId) {
         return taskService.deleteTaskById(taskId)
+                .thenReturn(ResponseEntity.noContent().build());
+    }
+
+    @PatchMapping("/{taskId}/observers/add")
+    public Mono<ResponseEntity<Void>> addUserAsTaskObserver(
+            @PathVariable String taskId,
+            @RequestParam String userId
+    ) {
+        return taskService.addUserAsTaskObserver(taskId, userId)
                 .thenReturn(ResponseEntity.noContent().build());
     }
 

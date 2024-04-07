@@ -72,3 +72,6 @@ Content-Type: application/json
 
 ### deleteTaskById
 DELETE http://localhost:8085/api/v1/task/task-1
+
+### addUserAsTaskObserver
+PATCH http://localhost:8085/api/v1/task/task-1/observers/add?userId=user-1

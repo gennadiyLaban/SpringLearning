@@ -4,6 +4,7 @@ import jakarta.annotation.Nonnull;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.laban.learning.spring.lesson7.exception.TaskNotFoundException;
+import org.laban.learning.spring.lesson7.exception.UserNotFoundException;
 import org.laban.learning.spring.lesson7.mapper.TaskMapper;
 import org.laban.learning.spring.lesson7.model.Task;
 import org.laban.learning.spring.lesson7.model.User;
@@ -132,11 +133,11 @@ public class TaskService {
         return Flux.fromIterable(userIds)
                 .flatMap(userId -> userService.existsById(userId)
                         .filter(exists -> !exists)
-                        .flatMap(notExists -> Mono.error(new TaskNotFoundException(userId))))
+                        .flatMap(notExists -> Mono.error(new UserNotFoundException(userId))))
                 .then(Mono.just(task));
     }
 
-    public Mono<String> updateTask(@Nonnull TaskDTO taskDTO) {
+    public Mono<Void> updateTask(@Nonnull TaskDTO taskDTO) {
         return Mono.just(taskDTO)
                 .map(taskMapper::taskDTOtoTask)
                 .flatMap(upsertTask -> Mono.zip(
@@ -151,7 +152,7 @@ public class TaskService {
                 })
                 .flatMap(this::validateUsersExist)
                 .flatMap(taskRepository::save)
-                .map(Task::getId);
+                .then();
     }
 
     public Mono<Void> deleteTaskById(@Nonnull String taskId) {
@@ -159,5 +160,21 @@ public class TaskService {
                 .filter(exists -> exists)
                 .switchIfEmpty(Mono.error(new TaskNotFoundException(taskId)))
                 .then(taskRepository.deleteById(taskId));
+    }
+
+    public Mono<Void> addUserAsTaskObserver(String taskId, String userId) {
+        return Mono.zip(
+                getTaskById(taskId),
+                userService.existsById(userId),
+                (task, userExists) -> {
+                    if (!userExists) {
+                        throw new UserNotFoundException(userId);
+                    }
+                    var observers = new HashSet<>(task.getObserverIds());
+                    observers.add(userId);
+                    return task.withObserverIds(observers);
+                })
+                .flatMap(taskRepository::save)
+                .then();
     }
 }

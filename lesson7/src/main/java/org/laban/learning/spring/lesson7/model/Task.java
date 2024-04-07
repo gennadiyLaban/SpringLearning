@@ -27,6 +27,7 @@ public class Task {
     private final TaskStatus status;
     private final String authorId;
     private final String assigneeId;
+    @With
     private final Set<String> observerIds;
 
     @Setter
