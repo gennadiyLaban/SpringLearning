@@ -1,7 +1,15 @@
 insert into users (username, email, password)
 values
     ('tagudur',           'tagudur@yandex.ru',   'tagudr'),
-    ('natali',            'natali@gmail.com',    'natali');
+    ('natali',            'natali@gmail.com',    'natali'),
+    ('admin',            'admin@mail.ru',    'natali');
+
+insert into role_records(user_id, role_type)
+values
+    (1, 'ROLE_USER'),
+    (1, 'ROLE_MODERATOR'),
+    (2, 'ROLE_USER'),
+    (3, 'ROLE_ADMIN');
 
 insert into categories (name)
 values

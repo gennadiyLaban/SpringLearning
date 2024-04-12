@@ -1,11 +1,12 @@
 #### 8.10 Практическая работа
 
 1. Защитить приложение `Новости`, созданное в модуле `lesson4`:
-   * Добавить сущность `enum RoleTyep.class` со значениями: `ROLE_ADMIN`, `ROLE_USER`, `ROLE_MODERATOR`.
+   * Добавить сущность `enum RoleType.class` со значениями: `ROLE_ADMIN`, `ROLE_USER`, `ROLE_MODERATOR`.
    * Создать сущность `@Entity RoleRecord.class`, которая будет хранить связанные с `User.class` роли в системе (`RoleType.class`)
      - Каждый `User.class` может обладать одной или несколькими ролями
    * Для `User.class`:
-     - добавить поле `String password` в зашифрованном виде
+     - добавить поле `String password` 
+       +  поле должно быть в зашифрованном виде
      - добавить поле `Set<RoleType> roles`, которое будет подтягиваться из `RoleRecord.class`
      - защитить `endpoint` `findAll`:
        + использовать этот метод может только `User.class` с ролью `ROLE_ADMIN`
