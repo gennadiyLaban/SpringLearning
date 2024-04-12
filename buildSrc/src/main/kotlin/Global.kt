@@ -78,6 +78,11 @@ object Global {
             "spring-boot-starter-data-mongodb-reactive",
             Version.SPRING_BOOT_PLUGIN
         )
+        val SpringBootSecurityStarter = Library(
+            "org.springframework.boot",
+            "spring-boot-starter-security",
+            Version.SPRING_BOOT_PLUGIN
+        )
         val SpringBootValidationStarter = Library(
             "org.springframework.boot",
             "spring-boot-starter-validation",

@@ -1,7 +1,7 @@
-insert into users (username, email)
+insert into users (username, email, password)
 values
-    ('tagudur',           'tagudur@yandex.ru'),
-    ('natali',            'natali@gmail.com');
+    ('tagudur',           'tagudur@yandex.ru',   'tagudr'),
+    ('natali',            'natali@gmail.com',    'natali');
 
 insert into categories (name)
 values

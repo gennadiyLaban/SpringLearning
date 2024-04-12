@@ -17,6 +17,7 @@ dependencies {
     implementation(Global.Library.SpringBootWebStarter)
     implementation(Global.Library.SpringBootDataJpaStarter)
     implementation(Global.Library.SpringBootValidationStarter)
+    implementation(Global.Library.SpringBootSecurityStarter)
     implementation(Global.Library.SpringDocOpenApiWebMvcUiStarter)
     runtimeOnly(Global.Library.Postgresql)
 
@@ -29,8 +30,6 @@ dependencies {
     annotationProcessor(Global.Library.MapStructProcessor)
 
     implementation(Global.Library.ApacheCommonLang3)
-
-    developmentOnly(Global.Library.SpringBootDevTools)
 
     testImplementation(kotlin("test"))
     testImplementation(Global.Library.SpringBootTestStarter)
