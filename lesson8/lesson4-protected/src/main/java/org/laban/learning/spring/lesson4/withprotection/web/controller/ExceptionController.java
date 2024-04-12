@@ -8,6 +8,7 @@ import org.laban.learning.spring.lesson4.withprotection.utils.ErrorResponseUtils
 import org.laban.learning.spring.lesson4.withprotection.web.dto.ErrorBodyDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -44,6 +45,19 @@ public class ExceptionController {
         return ErrorResponseUtils.buildError(HttpStatus.INTERNAL_SERVER_ERROR, request, exception.getMessage());
     }
 
+    @ExceptionHandler({AccessDeniedException.class})
+    public ResponseEntity<ErrorBodyDTO> handleAccessDeniedException(
+            AccessDeniedException exception,
+            HttpServletRequest request
+    ) {
+        log.error(
+                MessageFormat.format("Access denied! path: ''{0}''; method: ''{1}''",
+                        request.getServletPath(), request.getMethod()),
+                exception
+        );
+        return ErrorResponseUtils.buildError(HttpStatus.UNAUTHORIZED, request, exception.getMessage());
+    }
+
     @ExceptionHandler({UserNotFoundException.class})
     public ResponseEntity<ErrorBodyDTO> userNotFoundException(
             UserNotFoundException exception,
@@ -75,9 +89,9 @@ public class ExceptionController {
         return ErrorResponseUtils.buildError(HttpStatus.NOT_FOUND, request, message);
     }
 
-    @ExceptionHandler({AccessDeniedException.class})
+    @ExceptionHandler({CustomAccessDeniedException.class})
     public ResponseEntity<ErrorBodyDTO> accessDeniedException(
-            AccessDeniedException exception,
+            CustomAccessDeniedException exception,
             HttpServletRequest request
     ) {
         return ErrorResponseUtils.buildError(HttpStatus.UNAUTHORIZED, request, exception.getMessage());

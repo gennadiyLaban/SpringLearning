@@ -25,7 +25,7 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public UserDTO getUserDTOById(@Nonnull Long id) {
-        return userMapper.userToUserDTO(getUserById(id));
+        return userMapper.userToRestrictUserDTO(getUserById(id));
     }
 
     @Transactional(readOnly = true)
@@ -37,6 +37,11 @@ public class UserService {
     @Transactional(readOnly = true)
     public Optional<User> findUserById(@Nonnull Long id) {
         return userRepository.findById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<User> findUserByUsername(@Nonnull String username) {
+        return userRepository.findUserByUsername(username);
     }
 
     @Transactional(readOnly = true)

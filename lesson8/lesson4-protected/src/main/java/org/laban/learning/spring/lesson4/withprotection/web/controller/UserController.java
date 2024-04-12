@@ -1,6 +1,5 @@
 package org.laban.learning.spring.lesson4.withprotection.web.controller;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.laban.learning.spring.lesson4.withprotection.service.UserService;
@@ -9,16 +8,18 @@ import org.laban.learning.spring.lesson4.withprotection.web.dto.user.UserListDTO
 import org.laban.learning.spring.lesson4.withprotection.web.validation.group.ValidationGroup;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RequiredArgsConstructor
-@RequestMapping("/user")
+@RequestMapping("api/v1/user")
 @RestController
 public class UserController {
     private final UserService userService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> userById(@PathVariable @NotNull Long id) {
         return ResponseEntity.ok(userService.getUserDTOById(id));
@@ -36,7 +37,8 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<Void> createUser(
-            @RequestBody @Valid UserDTO userDTO,
+            @RequestBody @Validated({ValidationGroup.Create.class})
+            UserDTO userDTO,
             UriComponentsBuilder builder
     ) {
         var createdId = userService.createUserByDTO(userDTO);

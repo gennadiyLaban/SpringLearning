@@ -2,7 +2,7 @@ insert into users (username, email, password)
 values
     ('tagudur',           'tagudur@yandex.ru',   'tagudr'),
     ('natali',            'natali@gmail.com',    'natali'),
-    ('admin',            'admin@mail.ru',    'natali');
+    ('admin',            'admin@mail.ru',        'admin');
 
 insert into role_records(user_id, role_type)
 values

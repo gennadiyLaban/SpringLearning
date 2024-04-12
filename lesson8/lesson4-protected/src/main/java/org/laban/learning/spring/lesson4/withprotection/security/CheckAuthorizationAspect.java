@@ -7,7 +7,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.jetbrains.annotations.Nullable;
-import org.laban.learning.spring.lesson4.withprotection.exception.AccessDeniedException;
+import org.laban.learning.spring.lesson4.withprotection.exception.CustomAccessDeniedException;
 import org.laban.learning.spring.lesson4.withprotection.exception.InternalServerError;
 import org.laban.learning.spring.lesson4.withprotection.model.Comment;
 import org.laban.learning.spring.lesson4.withprotection.model.Post;
@@ -39,13 +39,13 @@ public class CheckAuthorizationAspect {
         try {
             authUserId = Long.parseLong(userIdHeader);
         } catch (NumberFormatException exception) {
-            throw new AccessDeniedException("Missing authorization header");
+            throw new CustomAccessDeniedException("Missing authorization header");
         }
 
         Long targetEntityId = extractTargetEntityId(joinPoint, checkAuthorization);
         Long entityUserId = extractUserIdByTargetEntity(checkAuthorization.checkedEntity(), targetEntityId);
         if (!authUserId.equals(entityUserId)) {
-            throw new AccessDeniedException("Wrong authorization header");
+            throw new CustomAccessDeniedException("Wrong authorization header");
         }
     }
 
