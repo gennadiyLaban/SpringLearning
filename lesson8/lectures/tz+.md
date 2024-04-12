@@ -4,9 +4,26 @@
    * Добавить сущность `enum RoleTyep.class` со значениями: `ROLE_ADMIN`, `ROLE_USER`, `ROLE_MODERATOR`.
    * Создать сущность `@Entity RoleRecord.class`, которая будет хранить связанные с `User.class` роли в системе (`RoleType.class`)
      - Каждый `User.class` может обладать одной или несколькими ролями
+   * Создать сущность `@Entity UserCredentials.class`, которая:
+     - хранит поле `String username` в открытом виде
+     - хранит поле `String password` в зашифрованном виде
+     - хранит поле `String jwtToken` в зашифрованном виде
+     - создать `protected endpoint`: `api/v1/user/{id}/credentials`, доступ к которому имеет только `owner` данного `UserCredentials.class`
+     - создать `protected endpoint`: `api/v1/user/{id}/credentials/update`, доступ к которому имеет только `owner` данного `UserCredentials.class`
+     - запретить `User.class`, даже с ролью `ROLE_ADMIN` или `ROLE_MODERATOR` удалять или запрашивать не принадлежащие им `UserCredentials.class`
+   * Создать `Auth API`:
+     - `api/v1/auth/registration` - создание нового `User.class`, доступно неавторизованному пользователю
+       + аутентификация не требуется
+     - `api/v1/auth/signin` - получение `JWT-token` и `Refresh-token` через `Basic-authentication` для взаимодействия с защищённым `api`
+       + аутентификация не требуется
+     - `api/v1/auth/refresh` - обмен полученного ранее `Refresh-token` на новый `JWT-token` и `Refresh-token`
+       + аутентификация не требуется 
+     - `api/v1/auth/logout` - выход из системы: инвалидация `JWT-token` и `Refresh-token`
+       + `User.class` должен быть аутентифицирован
    * Для `User.class`:
-     - добавить поле `String password` в зашифрованном виде
-     - добавить поле `Set<RoleType> roles`, которое будет подтягиваться из `RoleRecord.class`
+     - поле `String username` теперь подтягивается из `UserCredentials.class`
+     - создать поле `Set<RoleType> roles`, которое будет подтягиваться из `RoleRecord.class`
+     - удалить `endpoint` `create` - создание `User.class` должно происходить через `auth api`
      - защитить `endpoint` `findAll`:
        + использовать этот метод может только `User.class` с ролью `ROLE_ADMIN`
      - защитить `endpoint` `findById`:
