@@ -62,7 +62,7 @@ public class UserController {
             UserDTO userDTO,
             @AuthenticationPrincipal AppUserDetails userDetails
     ) {
-        userService.updateUserByDTO(userDetails, userDTO);
+        userService.updateUserByDTO(userDTO);
         return ResponseEntity.noContent().build();
     }
 
