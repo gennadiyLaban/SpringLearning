@@ -49,4 +49,7 @@ public interface PostMapper {
 
     @Mapping(target = "user", ignore = true)
     Post postRequestDTOtoPost(PostRequestDTO request);
+
+    @Mapping(target = "user", source = "userId")
+    Post postRequestDTOtoPost(PostRequestDTO request, Long userId);
 }

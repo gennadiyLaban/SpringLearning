@@ -8,13 +8,14 @@ import org.laban.learning.spring.lesson4.withprotection.mapper.CommentMapper;
 import org.laban.learning.spring.lesson4.withprotection.model.Comment;
 import org.laban.learning.spring.lesson4.withprotection.repository.CommentRepository;
 import org.laban.learning.spring.lesson4.withprotection.repository.PostRepository;
-import org.laban.learning.spring.lesson4.withprotection.security.authorization.CheckAuthorization;
+import org.laban.learning.spring.lesson4.withprotection.security.AppUserDetails;
 import org.laban.learning.spring.lesson4.withprotection.utils.BeanUtils;
 import org.laban.learning.spring.lesson4.withprotection.web.dto.comment.CommentDTO;
 import org.laban.learning.spring.lesson4.withprotection.web.dto.comment.CommentListDTO;
 import org.laban.learning.spring.lesson4.withprotection.web.dto.comment.CommentRequestDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,19 +60,20 @@ public class CommentService {
 
     @Transactional
     public Long createCommentByDTO(CommentRequestDTO request) {
-        var upsertComment = commentMapper.commentRequestDTOtoComment(request);
+        var userDetails = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        var upsertComment = commentMapper.commentRequestDTOtoComment(request, userDetails.getId());
+
         return commentRepository.save(upsertComment).getId();
     }
 
-    @CheckAuthorization(paramName = "request", checkedEntity = Comment.class)
     @Transactional
     public void updateCommentByDTO(CommentRequestDTO request) {
         var upsertComment = commentMapper.commentRequestDTOtoComment(request);
         var existedComment = getCommentById(upsertComment.getId());
+
         BeanUtils.copyNonNullProperties(upsertComment, existedComment);
     }
 
-    @CheckAuthorization(paramName = "id", checkedEntity = Comment.class)
     @Transactional
     public void deleteCommentById(@Nonnull Long id) {
         commentRepository.deleteById(id);

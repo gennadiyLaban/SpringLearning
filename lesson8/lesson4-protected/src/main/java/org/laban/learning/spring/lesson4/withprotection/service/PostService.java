@@ -28,8 +28,6 @@ public class PostService {
     private final PostRepository postRepository;
     private final PostMapper postMapper;
 
-    private final UserService userService;
-
     @Transactional(readOnly = true)
     public PostDTO findPostDTObyId(@Nonnull Long id) {
         return postMapper.postToPostDTO(getPostById(id));
@@ -76,10 +74,10 @@ public class PostService {
     @Transactional
     public Long createPostByDTO(@Nonnull PostRequestDTO request) {
         var userDetails = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        var user = userService.getUserById(userDetails.getId());
 
-        var upsertPost = postMapper.postRequestDTOtoPost(request).withUser(user);
+        var upsertPost = postMapper.postRequestDTOtoPost(request, userDetails.getId());
         var createdPost = postRepository.save(upsertPost);
+
         return createdPost.getId();
     }
 

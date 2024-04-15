@@ -42,7 +42,7 @@ public class CommentController {
     ) {
         var createdId = commentService.createCommentByDTO(request);
         return ResponseEntity.created(
-                builder.path("/category").path("/{id}").buildAndExpand(createdId).toUri()
+                builder.path("/comment").path("/{id}").buildAndExpand(createdId).toUri()
         ).build();
     }
 

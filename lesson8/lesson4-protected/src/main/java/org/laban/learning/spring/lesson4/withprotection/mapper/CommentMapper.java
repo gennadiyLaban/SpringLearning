@@ -35,5 +35,9 @@ public interface CommentMapper {
     @Mapping(target = "postId", source = "postId")
     CommentListDTO commentPageToCommentListDTO(Long postId, Page<Comment> page);
 
+    @Mapping(target = "user", ignore = true)
     Comment commentRequestDTOtoComment(CommentRequestDTO request);
+
+    @Mapping(target = "user", source = "userId")
+    Comment commentRequestDTOtoComment(CommentRequestDTO request, Long userId);
 }
