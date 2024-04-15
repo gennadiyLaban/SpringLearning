@@ -78,4 +78,10 @@ public class CommentService {
     public void deleteCommentById(@Nonnull Long id) {
         commentRepository.deleteById(id);
     }
+
+    @Transactional(readOnly = true)
+    public boolean isCommentOwner(@Nonnull Long userId, @Nonnull Long commentId) {
+        return commentRepository.isCommentOwner(userId, commentId)
+                .orElseThrow(() -> new CommentNotFoundException(commentId));
+    }
 }
