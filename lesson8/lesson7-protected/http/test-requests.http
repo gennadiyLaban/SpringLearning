@@ -1,0 +1,77 @@
+### findUserById
+GET http://localhost:8085/api/v1/user?userId=user-1
+
+### findAllUsers
+GET http://localhost:8085/api/v1/user/list
+
+### createUser
+POST http://localhost:8085/api/v1/user
+Content-Type: application/json
+
+{
+  "name": "User-new",
+  "email": "user-new@ya.ru"
+}
+
+### updateUser
+PUT http://localhost:8085/api/v1/user
+Content-Type: application/json
+
+{
+  "id": "user-1",
+  "name": "User-update",
+  "email": "user-update@ya.ru"
+}
+
+### deleteUserById
+DELETE http://localhost:8085/api/v1/user?userId=user-2
+
+
+
+### findTaskById
+######################################################################################################
+######################################################################################################
+GET http://localhost:8085/api/v1/task/task-1
+
+### findAllTasks
+GET http://localhost:8085/api/v1/task/list
+
+### createTask
+POST http://localhost:8085/api/v1/task
+Content-Type: application/json
+
+{
+  "name": "TaskNew",
+  "description": "DescriptionNew",
+  "status": "IN_PROGRESS",
+  "authorId": "user-3",
+  "assigneeId": "user-1",
+  "createdAt": "2023-04-06T15:54:42.179Z",
+  "updatedAt": "2023-04-06T15:54:42.179Z",
+  "observerIds": [
+  ]
+}
+
+### updateTask
+PUT http://localhost:8085/api/v1/task/task-1
+Content-Type: application/json
+
+{
+  "id": "task-1",
+  "name": "TaskUpdate",
+  "description": "DescriptionUpdate",
+  "status": "TODO",
+  "authorId": "user-3",
+  "assigneeId": "user-1",
+  "createdAt": "2023-04-06T15:54:42.179Z",
+  "updatedAt": "2023-04-06T15:54:42.179Z",
+  "observerIds": [
+    "user-2"
+  ]
+}
+
+### deleteTaskById
+DELETE http://localhost:8085/api/v1/task/task-1
+
+### addUserAsTaskObserver
+PATCH http://localhost:8085/api/v1/task/task-1/observers/add?userId=user-1
