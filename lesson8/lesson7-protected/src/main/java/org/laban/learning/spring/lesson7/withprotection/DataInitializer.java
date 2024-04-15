@@ -1,6 +1,7 @@
 package org.laban.learning.spring.lesson7.withprotection;
 
 import lombok.RequiredArgsConstructor;
+import org.laban.learning.spring.lesson7.withprotection.model.RoleType;
 import org.laban.learning.spring.lesson7.withprotection.model.Task;
 import org.laban.learning.spring.lesson7.withprotection.model.TaskStatus;
 import org.laban.learning.spring.lesson7.withprotection.model.User;
@@ -8,6 +9,7 @@ import org.laban.learning.spring.lesson7.withprotection.repository.TaskRepositor
 import org.laban.learning.spring.lesson7.withprotection.repository.UserRepository;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
@@ -24,6 +26,7 @@ public class DataInitializer {
 
     private final UserRepository userRepository;
     private final TaskRepository taskRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @EventListener(ApplicationStartedEvent.class)
     public void initDefaultUser() {
@@ -36,9 +39,15 @@ public class DataInitializer {
 
     private List<User> createUsers() {
         return List.of(
-                User.builder().id(ID_USER_1).name("User1").email("user1@yandex.ru").build(),
-                User.builder().id(ID_USER_2).name("User2").email("user2@mail.ru").build(),
-                User.builder().id(ID_USER_3).name("User3").email("user3@gmail.com").build()
+                User.builder().id(ID_USER_1).name("User1").email("user1@yandex.ru")
+                        .password(passwordEncoder.encode("User1"))
+                        .roles(Set.of(RoleType.ROLE_USER)).build(),
+                User.builder().id(ID_USER_2).name("User2").email("user2@mail.ru")
+                        .password(passwordEncoder.encode("User2"))
+                        .roles(Set.of(RoleType.ROLE_USER)).build(),
+                User.builder().id(ID_USER_3).name("User3").email("user3@gmail.com")
+                        .password(passwordEncoder.encode("User3"))
+                        .roles(Set.of(RoleType.ROLE_MANAGER)).build()
         );
     }
 

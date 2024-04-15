@@ -18,8 +18,8 @@ java {
 dependencies {
     implementation(Global.Library.SpringBootStarter)
     implementation(Global.Library.SpringBootValidationStarter)
-    implementation(Global.Library.SpringBootWebStarter)
     implementation(Global.Library.SpringBootWebFluxStarter)
+    implementation(Global.Library.SpringBootSecurityStarter)
     implementation(Global.Library.SpringBootMongoDbReactiveStarter)
 
     annotationProcessor(Global.Library.SpringBootConfigurationProcessor)

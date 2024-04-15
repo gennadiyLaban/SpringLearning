@@ -3,16 +3,16 @@ package org.laban.learning.spring.lesson7.withprotection.mapper;
 import org.laban.learning.spring.lesson7.withprotection.model.User;
 import org.laban.learning.spring.lesson7.withprotection.web.dto.UserDTO;
 import org.laban.learning.spring.lesson7.withprotection.web.dto.UserListDTO;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@DecoratedWith(UserMapperDelegate.class)
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UserMapper {
+    @Mapping(target = "password", ignore = true)
     UserDTO userToUserDTO(User user);
 
     default UserListDTO userListToUserListDTO(List<User> users) {

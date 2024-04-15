@@ -35,6 +35,10 @@ public class UserService {
         return userRepository.findById(userId);
     }
 
+    public Mono<User> findUserByName(@Nonnull String username) {
+        return userRepository.findUserByName(username);
+    }
+
     public Mono<UserListDTO> findAllUserDTOs() {
         return userRepository.findAll()
                 .collectList()
