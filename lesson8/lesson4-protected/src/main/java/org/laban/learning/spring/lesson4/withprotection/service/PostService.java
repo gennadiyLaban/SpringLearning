@@ -94,4 +94,11 @@ public class PostService {
     public void deletePostById(@Nonnull Long id) {
         postRepository.deleteById(id);
     }
+
+    @Transactional(readOnly = true)
+    public boolean isPostOwner(@Nonnull Long userId, @Nonnull Long postId) {
+        return postRepository
+                .isPostOwner(userId, postId)
+                .orElseThrow(() -> new PostNotFoundException(postId));
+    }
 }

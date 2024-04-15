@@ -1,5 +1,13 @@
 ### findPostById
-GET http://localhost:8085/post/4
+GET http://localhost:8085/api/v1/post/4
+Authorization: Basic dGFndWR1cjp0YWd1ZHVy              # by tagudur:tagudur
+#Authorization: Basic bmF0YWxpOm5hdGFsaQ==              # by natali:natali
+#Authorization: Basic bmF0YWxpXzEyMzpuYXRhbGlfMTIz      # by natali_123:natali_123
+#Authorization: Basic YWRtaW46YWRtaW4=                  # by admin:admin
+#Authorization: Basic bmV3VXNlcjpuZXdVc2Vy              # by newUser:newUser
+
+### findPostById
+GET http://localhost:8085/api/v1/post/list
 #Authorization: Basic dGFndWR1cjp0YWd1ZHVy              # by tagudur:tagudur
 #Authorization: Basic bmF0YWxpOm5hdGFsaQ==              # by natali:natali
 #Authorization: Basic bmF0YWxpXzEyMzpuYXRhbGlfMTIz      # by natali_123:natali_123
@@ -7,7 +15,7 @@ GET http://localhost:8085/post/4
 #Authorization: Basic bmV3VXNlcjpuZXdVc2Vy              # by newUser:newUser
 
 ### createPost
-POST http://localhost:8085/post
+POST http://localhost:8085/api/v1/post
 Content-Type: application/json
 #Authorization: Basic dGFndWR1cjp0YWd1ZHVy              # by tagudur:tagudur
 #Authorization: Basic bmF0YWxpOm5hdGFsaQ==              # by natali:natali
@@ -23,7 +31,7 @@ Content-Type: application/json
 }
 
 ### updatePost
-PUT http://localhost:8085/post/4
+PUT http://localhost:8085/api/v1/post/4
 Content-Type: application/json
 #Authorization: Basic dGFndWR1cjp0YWd1ZHVy              # by tagudur:tagudur
 #Authorization: Basic bmF0YWxpOm5hdGFsaQ==              # by natali:natali
@@ -37,3 +45,11 @@ Content-Type: application/json
   "description": "updatePostDescription",
   "body": "updatePostBody"
 }
+
+### deletePost
+DELETE http://localhost:8085/api/v1/post/4
+#Authorization: Basic dGFndWR1cjp0YWd1ZHVy              # by tagudur:tagudur
+#Authorization: Basic bmF0YWxpOm5hdGFsaQ==              # by natali:natali
+#Authorization: Basic bmF0YWxpXzEyMzpuYXRhbGlfMTIz      # by natali_123:natali_123
+#Authorization: Basic YWRtaW46YWRtaW4=                  # by admin:admin
+#Authorization: Basic bmV3VXNlcjpuZXdVc2Vy              # by newUser:newUser
