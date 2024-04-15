@@ -1,0 +1,64 @@
+### findUserById tagudur:tagudur ROLE_USER,ROLE_MODERATOR
+GET http://localhost:8085/api/v1/user/1
+#Authorization: Basic dGFndWR1cjp0YWd1ZHVy              # by tagudur:tagudur
+#Authorization: Basic bmF0YWxpOm5hdGFsaQ==              # by natali:natali
+#Authorization: Basic bmF0YWxpXzEyMzpuYXRhbGlfMTIz      # by natali_123:natali_123
+#Authorization: Basic YWRtaW46YWRtaW4=                  # by admin:admin
+#Authorization: Basic bmV3VXNlcjpuZXdVc2Vy              # by newUser:newUser
+
+### findUserById natali:natali ROLE_USER
+GET http://localhost:8085/api/v1/user/2
+#Authorization: Basic dGFndWR1cjp0YWd1ZHVy              # by tagudur:tagudur
+#Authorization: Basic bmF0YWxpOm5hdGFsaQ==              # by natali:natali
+#Authorization: Basic bmF0YWxpXzEyMzpuYXRhbGlfMTIz      # by natali_123:natali_123
+#Authorization: Basic YWRtaW46YWRtaW4=                  # by admin:admin
+#Authorization: Basic bmV3VXNlcjpuZXdVc2Vy              # by newUser:newUser
+
+### findUserById admin:admin ROLE_ADMIN
+GET http://localhost:8085/api/v1/user/3
+#Authorization: Basic dGFndWR1cjp0YWd1ZHVy              # by tagudur:tagudur
+#Authorization: Basic bmF0YWxpOm5hdGFsaQ==              # by natali:natali
+#Authorization: Basic bmF0YWxpXzEyMzpuYXRhbGlfMTIz      # by natali_123:natali_123
+#Authorization: Basic YWRtaW46YWRtaW4=                  # by admin:admin
+#Authorization: Basic bmV3VXNlcjpuZXdVc2Vy              # by newUser:newUser
+
+### findUserById newUser:newUser ROLE_USER,ROLE_MODERATOR
+GET http://localhost:8085/api/v1/user/4
+#Authorization: Basic dGFndWR1cjp0YWd1ZHVy              # by tagudur:tagudur
+#Authorization: Basic bmF0YWxpOm5hdGFsaQ==              # by natali:natali
+#Authorization: Basic bmF0YWxpXzEyMzpuYXRhbGlfMTIz      # by natali_123:natali_123
+#Authorization: Basic YWRtaW46YWRtaW4=                  # by admin:admin
+#Authorization: Basic bmV3VXNlcjpuZXdVc2Vy              # by newUser:newUser
+
+### createUser newUser:newUser ROLE_USER,ROLE_MODERATOR
+POST http://localhost:8085/api/v1/user
+Content-Type: application/json
+
+{
+  "username": "newUser",
+  "email": "newUser@ya.ru",
+  "password": "newUser",
+  "roles": [
+    "ROLE_USER"
+  ]
+}
+
+### updateUser natali
+PUT http://localhost:8085/api/v1/user/2
+#Authorization: Basic dGFndWR1cjp0YWd1ZHVy              # by tagudur:tagudur
+#Authorization: Basic bmF0YWxpOm5hdGFsaQ==              # by natali:natali
+#Authorization: Basic bmF0YWxpXzEyMzpuYXRhbGlfMTIz      # by natali_123:natali_123
+#Authorization: Basic YWRtaW46YWRtaW4=                  # by admin:admin
+#Authorization: Basic bmV3VXNlcjpuZXdVc2Vy              # by newUser:newUser
+Content-Type: application/json
+
+{
+  "id": 2,
+  "username": "natali_123",
+  "email": "natali_123@gmail.com",
+  "password": "natali_123",
+  "roles": [
+    "ROLE_USER",
+    "ROLE_MODERATOR"
+  ]
+}

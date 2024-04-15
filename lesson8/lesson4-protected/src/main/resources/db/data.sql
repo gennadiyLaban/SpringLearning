@@ -1,8 +1,11 @@
 insert into users (username, email, password)
 values
-    ('tagudur',           'tagudur@yandex.ru',   'tagudr'),
-    ('natali',            'natali@gmail.com',    'natali'),
-    ('admin',            'admin@mail.ru',        'admin');
+    -- tagudur:tagudur
+    ('tagudur',           'tagudur@yandex.ru',   '$2a$12$xtnTZs8Ze5Ul4yuWHBhk4.FBjnVfU5WK0XdW3tIrxbDI6heFi72tC'),
+    -- natali:natali
+    ('natali',            'natali@gmail.com',    '$2a$12$u9P0qy0YF9ex3h6mzMXtjeEUVnRttMomANI5z04hFU73ux2DZrTGa'),
+    -- admin:admin
+    ('admin',            'admin@mail.ru',        '$2a$12$iBcYNyib2HCo7OC9MmzBWudAZgrQdzU/q9fitFjTjAjqZRAwiYWZC');
 
 insert into role_records(user_id, role_type)
 values

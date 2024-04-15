@@ -8,14 +8,17 @@
      - добавить поле `String password` 
        +  поле должно быть в зашифрованном виде
      - добавить поле `Set<RoleType> roles`, которое будет подтягиваться из `RoleRecord.class`
+     - дополнить `endpoint` `create`:
+       + при создании передавать `Set<RoleType.class>`
+       + при создании передавать `String password`
      - защитить `endpoint` `findAll`:
        + использовать этот метод может только `User.class` с ролью `ROLE_ADMIN`
      - защитить `endpoint` `findById`:
        + `User.class` может запрашивать информацию о себе
        + запрашивать `User.class` может другой `User.class` с ролью `ROLE_ADMIN` или `ROLE_MODERATOR`
      - защитить `endpoint` `update`:
-       + `User.class` может обновлять информацию о себе
-       + обновлять `User.class` может другой `User.class` с ролью `ROLE_ADMIN` или `ROLE_MODERATOR`
+       + `User.class` может обновлять информацию о себе (**включая** `password` и `username`)
+       + обновлять `User.class` может другой `User.class` с ролью `ROLE_ADMIN` или `ROLE_MODERATOR` (**исключая** `password` и `username`)
      -  защитить `endpoint` `delete`:
        + `User.class` может удалить свой профиль
        + удалять `User.class` может другой `User.class` с ролью `ROLE_ADMIN` или `ROLE_MODERATOR`

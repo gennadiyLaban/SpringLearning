@@ -2,6 +2,7 @@ package org.laban.learning.spring.lesson4.withprotection.web.controller;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.laban.learning.spring.lesson4.withprotection.security.AppUserDetails;
 import org.laban.learning.spring.lesson4.withprotection.service.UserService;
 import org.laban.learning.spring.lesson4.withprotection.web.dto.user.UserDTO;
 import org.laban.learning.spring.lesson4.withprotection.web.dto.user.UserListDTO;
@@ -9,6 +10,7 @@ import org.laban.learning.spring.lesson4.withprotection.web.validation.group.Val
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -19,7 +21,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class UserController {
     private final UserService userService;
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'MODERATOR', 'ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> userById(@PathVariable @NotNull Long id) {
         return ResponseEntity.ok(userService.getUserDTOById(id));
@@ -49,12 +51,12 @@ public class UserController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateUser(
-            @PathVariable Long id,
             @RequestBody
             @Validated(value = { ValidationGroup.Update.class })
-            UserDTO userDTO
+            UserDTO userDTO,
+            @AuthenticationPrincipal AppUserDetails userDetails
     ) {
-        userService.updateUserByDTO(userDTO);
+        userService.updateUserByDTO(userDetails, userDTO);
         return ResponseEntity.noContent().build();
     }
 

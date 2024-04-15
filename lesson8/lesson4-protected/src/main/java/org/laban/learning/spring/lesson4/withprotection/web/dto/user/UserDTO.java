@@ -2,6 +2,7 @@ package org.laban.learning.spring.lesson4.withprotection.web.dto.user;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
@@ -15,10 +16,17 @@ import java.util.Set;
 public class UserDTO {
     @NotNull(groups = { ValidationGroup.Update.class })
     private Long id;
-    @NotBlank
+
+    @NotBlank(groups = { ValidationGroup.Create.class })
     private String username;
-    @NotBlank
+
+    @NotBlank(groups = { ValidationGroup.Create.class })
     @Email
     private String email;
-    private Set<RoleType> roles;
+
+    @NotBlank(groups = { ValidationGroup.Create.class })
+    private String password;
+
+    @NotEmpty(groups = { ValidationGroup.Create.class })
+    private Set<@NotNull RoleType> roles;
 }
