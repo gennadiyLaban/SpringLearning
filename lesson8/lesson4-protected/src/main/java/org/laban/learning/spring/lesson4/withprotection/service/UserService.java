@@ -6,6 +6,7 @@ import org.laban.learning.spring.lesson4.withprotection.exception.UserNotFoundEx
 import org.laban.learning.spring.lesson4.withprotection.mapper.UserMapper;
 import org.laban.learning.spring.lesson4.withprotection.model.User;
 import org.laban.learning.spring.lesson4.withprotection.repository.UserRepository;
+import org.laban.learning.spring.lesson4.withprotection.security.authorization.CheckAuthorization;
 import org.laban.learning.spring.lesson4.withprotection.utils.BeanUtils;
 import org.laban.learning.spring.lesson4.withprotection.web.dto.user.UserDTO;
 import org.laban.learning.spring.lesson4.withprotection.web.dto.user.UserListDTO;
@@ -23,6 +24,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
+    @CheckAuthorization.UserGet(paramName = "id")
     @Transactional(readOnly = true)
     public UserDTO getUserDTOById(@Nonnull Long id) {
         return userMapper.userToRestrictUserDTO(getUserById(id));
@@ -56,6 +58,7 @@ public class UserService {
                 .filter(users -> !users.isEmpty());
     }
 
+    @CheckAuthorization.UserList
     @Transactional(readOnly = true)
     public UserListDTO findAllByDTO(@Nonnull Pageable pageable) {
         var page = findAll(pageable);
@@ -74,6 +77,7 @@ public class UserService {
         return createdUser.getId();
     }
 
+    @CheckAuthorization.UserUpdate(paramName = "userDTO")
     @Transactional
     public void updateUserByDTO(@Nonnull UserDTO userDTO) {
         var upsertUser = userMapper.userDTOtoUser(userDTO);
@@ -83,6 +87,7 @@ public class UserService {
         BeanUtils.copyNonNullProperties(upsertUser, existedUser);
     }
 
+    @CheckAuthorization.UserDelete(paramName = "id")
     @Transactional
     public void deleteUserById(Long id) {
         if (userRepository.existsById(id)) {

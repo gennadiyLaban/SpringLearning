@@ -9,7 +9,6 @@ import org.laban.learning.spring.lesson4.withprotection.web.dto.user.UserListDTO
 import org.laban.learning.spring.lesson4.withprotection.web.validation.group.ValidationGroup;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +22,7 @@ import java.text.MessageFormat;
 public class UserController {
     private final UserService userService;
 
-    @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN') || (hasRole('USER') && #userDetails.getId() == #id)")
+//    @PreAuthorize("@userAuthManager.hasPermissionForGetById(#userDetails, #id)")
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> userById(
             @PathVariable @NotNull Long id,
@@ -32,11 +31,12 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserDTOById(id));
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("@userAuthManager.hasPermissionForGetUserList(#userDetails)")
     @GetMapping("/list")
     public ResponseEntity<UserListDTO> userList(
             @RequestParam(defaultValue = "0") Integer page,
-            @RequestParam(defaultValue = "2147483647") Integer size
+            @RequestParam(defaultValue = "2147483647") Integer size,
+            @AuthenticationPrincipal AppUserDetails userDetails
     ) {
         return ResponseEntity.ok(
                 userService.findAllByDTO(Pageable.ofSize(size).withPage(page))
@@ -54,7 +54,7 @@ public class UserController {
         ).build();
     }
 
-    @PreAuthorize("@userAuthManager.hasPermissionForUpdate(#userDetails, #userDTO)")
+//    @PreAuthorize("@userAuthManager.hasPermissionForUpdate(#userDetails, #userDTO)")
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateUser(
             @RequestBody
@@ -66,7 +66,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN') || (hasRole('USER') && #userDetails.getId() == #id)")
+//    @PreAuthorize("@userAuthManager.hasPermissionForDelete(#userDetails, #id)")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(
             @PathVariable Long id,

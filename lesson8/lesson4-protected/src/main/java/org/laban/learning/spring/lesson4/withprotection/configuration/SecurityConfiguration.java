@@ -54,7 +54,7 @@ public class SecurityConfiguration {
         return http
                 .authorizeHttpRequests((auth) -> {
                     auth
-                            .requestMatchers(HttpMethod.POST, "api/v1/user").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/api/v1/user").permitAll()
                             .anyRequest().authenticated();
                 })
                 .exceptionHandling(configurer -> configurer

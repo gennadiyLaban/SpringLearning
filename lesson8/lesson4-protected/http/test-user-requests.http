@@ -60,6 +60,8 @@ PUT http://localhost:8085/api/v1/user/2
 #Authorization: Basic bmV3VXNlcjpuZXdVc2Vy              # by newUser:newUser
 Content-Type: application/json
 
+# !!! only admin can change `roles`
+# !!! only user-owner can change `username` and `password`
 {
   "id": 2,
   "username": "natali_123",

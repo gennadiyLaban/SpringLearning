@@ -6,19 +6,13 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.jetbrains.annotations.Nullable;
-import org.laban.learning.spring.lesson4.withprotection.exception.CustomAccessDeniedException;
 import org.laban.learning.spring.lesson4.withprotection.exception.InternalServerError;
-import org.laban.learning.spring.lesson4.withprotection.model.Comment;
-import org.laban.learning.spring.lesson4.withprotection.model.Post;
-import org.laban.learning.spring.lesson4.withprotection.service.CommentService;
-import org.laban.learning.spring.lesson4.withprotection.service.PostService;
-import org.laban.learning.spring.lesson4.withprotection.web.dto.comment.CommentRequestDTO;
-import org.laban.learning.spring.lesson4.withprotection.web.dto.post.PostRequestDTO;
+import org.laban.learning.spring.lesson4.withprotection.security.AppUserDetails;
+import org.laban.learning.spring.lesson4.withprotection.web.dto.user.UserDTO;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.Objects;
 
@@ -26,48 +20,61 @@ import java.util.Objects;
 @Aspect
 @Component
 public class CheckAuthorizationAspect {
-    private static final String USER_ID_HEADER = "User_id";
+    private final UserAuthManager userAuthManager;
 
-    private final PostService postService;
-    private final CommentService commentService;
+    @Before("@annotation(userGet)")
+    public void checkUserGetAuthorization(JoinPoint joinPoint, CheckAuthorization.UserGet userGet) {
+        var principal = getPrincipal();
+        var targetUserId = extractTargetUserId(joinPoint, userGet.paramName());
 
-    @Before("@annotation(checkAuthorization)")
-    public void checkPostAuthority(JoinPoint joinPoint, CheckAuthorization checkAuthorization) {
-        var requestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        var userIdHeader = requestAttributes.getRequest().getHeader(USER_ID_HEADER);
-        Long authUserId;
-        try {
-            authUserId = Long.parseLong(userIdHeader);
-        } catch (NumberFormatException exception) {
-            throw new CustomAccessDeniedException("Missing authorization header");
-        }
-
-        Long targetEntityId = extractTargetEntityId(joinPoint, checkAuthorization);
-        Long entityUserId = extractUserIdByTargetEntity(checkAuthorization.checkedEntity(), targetEntityId);
-        if (!authUserId.equals(entityUserId)) {
-            throw new CustomAccessDeniedException("Wrong authorization header");
-        }
+        handleDecision(userAuthManager.hasPermissionForGetById(principal, targetUserId));
     }
 
-    @Nonnull
-    private Long extractTargetEntityId(JoinPoint joinPoint, CheckAuthorization checkAuthorization) {
-        var checkedParamName = checkAuthorization.paramName();
-        var checkedEntityType = checkAuthorization.checkedEntity();
-        if (checkedParamName.isBlank()) {
+    @Before("@annotation(userList)")
+    public void checkUserGetAuthorization(JoinPoint joinPoint, CheckAuthorization.UserList userList) {
+        var principal = getPrincipal();
+
+        handleDecision(userAuthManager.hasPermissionForGetUserList(principal));
+    }
+
+    @Before("@annotation(userDelete)")
+    public void checkUserGetAuthorization(JoinPoint joinPoint, CheckAuthorization.UserDelete userDelete) {
+        var principal = getPrincipal();
+        var targetUserId = extractTargetUserId(joinPoint, userDelete.paramName());
+
+        handleDecision(userAuthManager.hasPermissionForDelete(principal, targetUserId));
+    }
+
+    @Before("@annotation(userUpdate)")
+    public void checkUserGetAuthorization(JoinPoint joinPoint, CheckAuthorization.UserUpdate userUpdate) {
+        var principal = getPrincipal();
+        var targetParam = extractTargetParam(joinPoint, userUpdate.paramName());
+
+        if (!targetParam.argType.equals(UserDTO.class)) {
             throw new InternalServerError("Unexpected error during authorization");
         }
 
-        var signature = (MethodSignature) joinPoint.getSignature();
-        var paramNames = signature.getParameterNames();
-        var argIndex = indexOf(paramNames, checkedParamName);
-        var argType = signature.getParameterTypes()[argIndex];
-        var argValue = Objects.requireNonNull(joinPoint.getArgs()[argIndex]);
+        handleDecision(userAuthManager.hasPermissionForUpdate(principal, (UserDTO) targetParam.argValue));
+    }
 
+    private void handleDecision(boolean granted) {
+        if (!granted) {
+            throw new AccessDeniedException("Access Denied");
+        }
+    }
+
+    private AppUserDetails getPrincipal() {
+        return (AppUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+
+    @Nonnull
+    private Long extractTargetUserId(JoinPoint joinPoint, String paramName) {
+        var param = extractTargetParam(joinPoint, paramName);
         Long requestedUserId = null;
-        if (checkedEntityType.equals(Post.class)) {
-            requestedUserId = extractPostId(argType, argValue);
-        } else if (checkedEntityType.equals(Comment.class)) {
-            requestedUserId = extractCommentId(argType, argValue);
+        if (param.argType.equals(Long.class)) {
+            requestedUserId = (Long) param.argValue;
+        } else if (param.argType.equals(UserDTO.class)) {
+            requestedUserId = ((UserDTO) param.argValue).getId();
         }
 
         if (requestedUserId == null) {
@@ -76,43 +83,18 @@ public class CheckAuthorizationAspect {
         return requestedUserId;
     }
 
-    @Nullable
-    private Long extractPostId(Class<?> argType, Object argValue) {
-        if (argType.equals(Long.class)) {
-            return (Long) argValue;
-        } else if (argType.equals(PostRequestDTO.class)) {
-            return ((PostRequestDTO) argValue).getId();
-        } else if (argType.equals(Post.class)) {
-            return ((Post) argValue).getId();
-        }
-        return null;
-    }
-
-    @Nullable
-    private Long extractCommentId(Class<?> argType, Object argValue) {
-        if (argType.equals(Long.class)) {
-            return (Long) argValue;
-        } else if (argType.equals(CommentRequestDTO.class)) {
-            return ((CommentRequestDTO) argValue).getId();
-        } else if (argType.equals(Comment.class)) {
-            return ((Comment) argValue).getId();
-        }
-        return null;
-    }
-
-    @Nonnull
-    private Long extractUserIdByTargetEntity(@Nonnull Class<?> checkedEntityType, @Nonnull Long entityId) {
-        Long entityUserId = null;
-        if (checkedEntityType.equals(Post.class)) {
-            entityUserId = postService.getPostById(entityId).getUser().getId();
-        } else if (checkedEntityType.equals(Comment.class)) {
-            entityUserId = commentService.getCommentById(entityId).getUser().getId();
-        }
-
-        if (entityUserId == null) {
+    private Param extractTargetParam(JoinPoint joinPoint, String paramName) {
+        if (paramName.isBlank()) {
             throw new InternalServerError("Unexpected error during authorization");
         }
-        return entityUserId;
+
+        var signature = (MethodSignature) joinPoint.getSignature();
+        var paramNames = signature.getParameterNames();
+        var argIndex = indexOf(paramNames, paramName);
+        var argType = signature.getParameterTypes()[argIndex];
+        var argValue = Objects.requireNonNull(joinPoint.getArgs()[argIndex]);
+
+        return new Param(argType, argValue);
     }
 
     private int indexOf(String[] paramNames, String target) {
@@ -124,5 +106,9 @@ public class CheckAuthorizationAspect {
             }
         }
         return index;
+    }
+
+    private record Param(Class<?> argType, Object argValue) {
+
     }
 }

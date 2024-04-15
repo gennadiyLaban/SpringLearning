@@ -9,6 +9,20 @@ import java.util.Objects;
 
 @Component
 public class UserAuthManager {
+    public boolean hasPermissionForGetById(AppUserDetails user, Long userId) {
+        var hasUserRole = user.getRoles().contains(RoleType.ROLE_USER);
+        var hasModeratorRole = user.getRoles().contains(RoleType.ROLE_MODERATOR);
+        var hasAdminRole = user.getRoles().contains(RoleType.ROLE_ADMIN);
+        var selfUpdate = user.getId().equals(userId);
+
+        return hasModeratorRole || hasAdminRole
+                || (hasUserRole && selfUpdate);
+    }
+
+    public boolean hasPermissionForGetUserList(AppUserDetails user) {
+        return user.getRoles().contains(RoleType.ROLE_ADMIN);
+    }
+
     public boolean hasPermissionForUpdate(AppUserDetails user, UserDTO value) {
         var hasUserRole = user.getRoles().contains(RoleType.ROLE_USER);
         var hasModeratorRole = user.getRoles().contains(RoleType.ROLE_MODERATOR);
@@ -24,5 +38,15 @@ public class UserAuthManager {
         }
 
         return hasAdminRole || !Objects.nonNull(value.getRoles()); // only user-admin can update user roles
+    }
+
+    public boolean hasPermissionForDelete(AppUserDetails user, Long userId) {
+        var hasUserRole = user.getRoles().contains(RoleType.ROLE_USER);
+        var hasModeratorRole = user.getRoles().contains(RoleType.ROLE_MODERATOR);
+        var hasAdminRole = user.getRoles().contains(RoleType.ROLE_ADMIN);
+        var selfUpdate = user.getId().equals(userId);
+
+        return hasModeratorRole || hasAdminRole
+                || (hasUserRole && selfUpdate);
     }
 }
