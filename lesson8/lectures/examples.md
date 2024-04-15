@@ -286,4 +286,7 @@ public class RedisConfiguration {
 * `@EnableReactiveMethodSecurity` - 
 * `ServerHttpSecurity.class` - похоже на потоковую реализацию `HttpSecurity`
 * `ReactiveUserDetailsService` - похоже на такую же реализацию для непотокового способа
-* 
+
+
+#### 8.10 Практическая работа
+* `RoleHierarchy` - The simple interface of a role hierarchy.

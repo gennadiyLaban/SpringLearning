@@ -15,15 +15,21 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
+import java.text.MessageFormat;
+
 @RequiredArgsConstructor
 @RequestMapping("api/v1/user")
 @RestController
 public class UserController {
     private final UserService userService;
 
-    @PreAuthorize("hasAnyRole('USER', 'MODERATOR', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('MODERATOR', 'ADMIN') || (hasRole('USER') && #userDetails.getId() == #id)")
     @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> userById(@PathVariable @NotNull Long id) {
+    public ResponseEntity<UserDTO> userById(
+            @PathVariable @NotNull Long id,
+            @AuthenticationPrincipal AppUserDetails userDetails
+    ) {
         return ResponseEntity.ok(userService.getUserDTOById(id));
     }
 
@@ -45,7 +51,7 @@ public class UserController {
     ) {
         var createdId = userService.createUserByDTO(userDTO);
         return ResponseEntity.created(
-                builder.path("/user").path("/{id}").buildAndExpand(createdId).toUri()
+                URI.create(MessageFormat.format("/api/v1/user/{0}", createdId))
         ).build();
     }
 
