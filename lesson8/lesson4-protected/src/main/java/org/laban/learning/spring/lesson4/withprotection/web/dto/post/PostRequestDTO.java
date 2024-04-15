@@ -1,7 +1,9 @@
 package org.laban.learning.spring.lesson4.withprotection.web.dto.post;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
 import lombok.Builder;
 import lombok.Data;
 import org.laban.learning.spring.lesson4.withprotection.web.validation.group.ValidationGroup;
@@ -11,14 +13,18 @@ import java.util.List;
 @Builder
 @Data
 public class PostRequestDTO {
-    @NotNull(groups = {ValidationGroup.Update.class})
+    @Null(groups = { ValidationGroup.Create.class })
+    @NotNull(groups = { ValidationGroup.Update.class })
     private Long id;
-    @NotBlank
+
+    @NotBlank(groups = { ValidationGroup.Create.class })
     private String title;
+
     private String description;
-    @NotBlank
+
+    @NotBlank(groups = { ValidationGroup.Create.class })
     private String body;
-    private List<Long> categories;
-    @NotNull
-    private Long userId;
+
+    @NotEmpty(groups = { ValidationGroup.Create.class })
+    private List<@NotNull Long> categories;
 }

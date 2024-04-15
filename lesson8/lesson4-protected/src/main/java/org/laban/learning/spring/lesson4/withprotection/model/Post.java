@@ -1,10 +1,7 @@
 package org.laban.learning.spring.lesson4.withprotection.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldNameConstants;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -35,6 +32,7 @@ public class Post {
     @ManyToMany
     private List<Category> categories;
 
+    @With
     @ManyToOne
     @JoinColumn(updatable = false)
     private User user;

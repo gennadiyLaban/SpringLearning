@@ -47,6 +47,6 @@ public interface PostMapper {
                 .toList();
     }
 
-    @Mapping(target = "user", source = "userId")
+    @Mapping(target = "user", ignore = true)
     Post postRequestDTOtoPost(PostRequestDTO request);
 }

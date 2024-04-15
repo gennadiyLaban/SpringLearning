@@ -6,7 +6,7 @@ import org.laban.learning.spring.lesson4.withprotection.exception.PostNotFoundEx
 import org.laban.learning.spring.lesson4.withprotection.mapper.PostMapper;
 import org.laban.learning.spring.lesson4.withprotection.model.Post;
 import org.laban.learning.spring.lesson4.withprotection.repository.PostRepository;
-import org.laban.learning.spring.lesson4.withprotection.security.authorization.CheckAuthorization;
+import org.laban.learning.spring.lesson4.withprotection.security.AppUserDetails;
 import org.laban.learning.spring.lesson4.withprotection.utils.BeanUtils;
 import org.laban.learning.spring.lesson4.withprotection.utils.SpecificationUtils;
 import org.laban.learning.spring.lesson4.withprotection.web.dto.post.PostDTO;
@@ -16,6 +16,7 @@ import org.laban.learning.spring.lesson4.withprotection.web.dto.post.PostRequest
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +27,8 @@ import java.util.Optional;
 public class PostService {
     private final PostRepository postRepository;
     private final PostMapper postMapper;
+
+    private final UserService userService;
 
     @Transactional(readOnly = true)
     public PostDTO findPostDTObyId(@Nonnull Long id) {
@@ -72,12 +75,14 @@ public class PostService {
 
     @Transactional
     public Long createPostByDTO(@Nonnull PostRequestDTO request) {
-        var upsertPost = postMapper.postRequestDTOtoPost(request);
+        var userDetails = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        var user = userService.getUserById(userDetails.getId());
+
+        var upsertPost = postMapper.postRequestDTOtoPost(request).withUser(user);
         var createdPost = postRepository.save(upsertPost);
         return createdPost.getId();
     }
 
-    @CheckAuthorization(paramName = "request", checkedEntity = Post.class)
     @Transactional
     public void updatePostByDTO(@Nonnull PostRequestDTO request) {
         var upsertPost = postMapper.postRequestDTOtoPost(request);
@@ -85,7 +90,6 @@ public class PostService {
         BeanUtils.copyNonNullProperties(upsertPost, existedPost);
     }
 
-    @CheckAuthorization(paramName = "id", checkedEntity = Post.class)
     @Transactional
     public void deletePostById(@Nonnull Long id) {
         postRepository.deleteById(id);

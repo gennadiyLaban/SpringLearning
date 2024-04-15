@@ -22,7 +22,6 @@
      -  защитить `endpoint` `delete`:
        + `User.class` может удалить свой профиль
        + удалять `User.class` может другой `User.class` с ролью `ROLE_ADMIN` или `ROLE_MODERATOR`
-     -  Проверка правил на удаление, обновление и получение информации о пользователе по ID должна происходить через AOP
    * Для `Category.class`:
      - защитить `endpoint` `create`:
        + создавать `Category` может только `User.class` с ролью `ROLE_ADMIN` или `ROLE_MODERATOR` 
@@ -58,3 +57,4 @@
      - защитить `endpoint` `delete`:
        + `User.class` может удалить те `Comment.class`, которые создал
        + удалять `Comment.class` может `User.class` с ролью `ROLE_ADMIN` или `ROLE_MODERATOR`
+   * Дополнительно защитить `UserService.class`: удаление, обновление и получение `User.class` по ID должна происходить через AOP
