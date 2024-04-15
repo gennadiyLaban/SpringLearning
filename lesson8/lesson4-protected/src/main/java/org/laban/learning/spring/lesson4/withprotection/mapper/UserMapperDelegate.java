@@ -29,8 +29,9 @@ public abstract class UserMapperDelegate implements UserMapper {
     @Override
     public User userDTOtoUser(UserDTO userDTO) {
         var user = delegate.userDTOtoUser(userDTO);
+        var password = userDTO.getPassword();
         return user.toBuilder()
-                .password(passwordEncoder.encode(userDTO.getPassword()))
+                .password(password == null ? null : passwordEncoder.encode(userDTO.getPassword()))
                 .build();
     }
 

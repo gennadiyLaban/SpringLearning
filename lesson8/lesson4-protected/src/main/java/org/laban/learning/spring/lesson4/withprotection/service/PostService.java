@@ -6,7 +6,7 @@ import org.laban.learning.spring.lesson4.withprotection.exception.PostNotFoundEx
 import org.laban.learning.spring.lesson4.withprotection.mapper.PostMapper;
 import org.laban.learning.spring.lesson4.withprotection.model.Post;
 import org.laban.learning.spring.lesson4.withprotection.repository.PostRepository;
-import org.laban.learning.spring.lesson4.withprotection.security.CheckAuthorization;
+import org.laban.learning.spring.lesson4.withprotection.security.authorization.CheckAuthorization;
 import org.laban.learning.spring.lesson4.withprotection.utils.BeanUtils;
 import org.laban.learning.spring.lesson4.withprotection.utils.SpecificationUtils;
 import org.laban.learning.spring.lesson4.withprotection.web.dto.post.PostDTO;

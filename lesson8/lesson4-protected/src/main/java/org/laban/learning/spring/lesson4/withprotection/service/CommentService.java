@@ -8,7 +8,7 @@ import org.laban.learning.spring.lesson4.withprotection.mapper.CommentMapper;
 import org.laban.learning.spring.lesson4.withprotection.model.Comment;
 import org.laban.learning.spring.lesson4.withprotection.repository.CommentRepository;
 import org.laban.learning.spring.lesson4.withprotection.repository.PostRepository;
-import org.laban.learning.spring.lesson4.withprotection.security.CheckAuthorization;
+import org.laban.learning.spring.lesson4.withprotection.security.authorization.CheckAuthorization;
 import org.laban.learning.spring.lesson4.withprotection.utils.BeanUtils;
 import org.laban.learning.spring.lesson4.withprotection.web.dto.comment.CommentDTO;
 import org.laban.learning.spring.lesson4.withprotection.web.dto.comment.CommentListDTO;

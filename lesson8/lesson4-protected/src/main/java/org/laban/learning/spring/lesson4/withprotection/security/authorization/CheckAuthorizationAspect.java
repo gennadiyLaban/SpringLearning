@@ -1,4 +1,4 @@
-package org.laban.learning.spring.lesson4.withprotection.security;
+package org.laban.learning.spring.lesson4.withprotection.security.authorization;
 
 import jakarta.annotation.Nonnull;
 import lombok.RequiredArgsConstructor;

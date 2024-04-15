@@ -1,4 +1,4 @@
-package org.laban.learning.spring.lesson4.withprotection.security;
+package org.laban.learning.spring.lesson4.withprotection.security.authorization;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

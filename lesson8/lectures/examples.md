@@ -290,3 +290,29 @@ public class RedisConfiguration {
 
 #### 8.10 Практическая работа
 * `RoleHierarchy` - The simple interface of a role hierarchy.
+* `@PreAuthorize` и `@PostAuthorize` позволяют использовать любые `@Component` в выражениях проверки прав
+```java
+@Component
+public class AuthComponent {
+    public boolean hasPermission(User user, Long id) {
+        // do whatever checks you want here
+        return someResult;
+    }
+}
+
+@RequireArgsConstructor
+@RestController
+@RequestMapping("/api/v1/foo")
+public class FooController {
+    private final FooService fooService;
+
+    @PreAuthorize("@authComponent.hasPermission(#authUser, #userId)")
+    @GetMapping("/{id}")
+    public ResponseEntity<FooDTO> fooById(
+            @PathVariable @NotNull Long id,
+            @AuthenticationPrincipal UserDetails userDetails
+    ) {
+      return ResponseEntity.ok(fooService.getFooDTOById(id));
+    }
+}
+```

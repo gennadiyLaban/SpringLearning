@@ -13,7 +13,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.text.MessageFormat;
@@ -33,6 +32,7 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserDTOById(id));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/list")
     public ResponseEntity<UserListDTO> userList(
             @RequestParam(defaultValue = "0") Integer page,
@@ -46,8 +46,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<Void> createUser(
             @RequestBody @Validated({ValidationGroup.Create.class})
-            UserDTO userDTO,
-            UriComponentsBuilder builder
+            UserDTO userDTO
     ) {
         var createdId = userService.createUserByDTO(userDTO);
         return ResponseEntity.created(
@@ -55,6 +54,7 @@ public class UserController {
         ).build();
     }
 
+    @PreAuthorize("@userAuthManager.hasPermissionForUpdate(#userDetails, #userDTO)")
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateUser(
             @RequestBody
