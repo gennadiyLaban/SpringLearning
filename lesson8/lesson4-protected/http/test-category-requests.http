@@ -1,0 +1,50 @@
+### findCategoryById
+GET http://localhost:8085/api/v1/category/1
+#Authorization: Basic dGFndWR1cjp0YWd1ZHVy              # by tagudur:tagudur
+#Authorization: Basic bmF0YWxpOm5hdGFsaQ==              # by natali:natali
+#Authorization: Basic bmF0YWxpXzEyMzpuYXRhbGlfMTIz      # by natali_123:natali_123
+#Authorization: Basic YWRtaW46YWRtaW4=                  # by admin:admin
+#Authorization: Basic bmV3VXNlcjpuZXdVc2Vy              # by newUser:newUser
+
+### findAllCategories
+GET http://localhost:8085/api/v1/category/list
+#Authorization: Basic dGFndWR1cjp0YWd1ZHVy              # by tagudur:tagudur
+#Authorization: Basic bmF0YWxpOm5hdGFsaQ==              # by natali:natali
+#Authorization: Basic bmF0YWxpXzEyMzpuYXRhbGlfMTIz      # by natali_123:natali_123
+#Authorization: Basic YWRtaW46YWRtaW4=                  # by admin:admin
+#Authorization: Basic bmV3VXNlcjpuZXdVc2Vy              # by newUser:newUser
+
+### createCategory
+POST http://localhost:8085/api/v1/category
+Content-Type: application/json
+#Authorization: Basic dGFndWR1cjp0YWd1ZHVy              # by tagudur:tagudur
+#Authorization: Basic bmF0YWxpOm5hdGFsaQ==              # by natali:natali
+#Authorization: Basic bmF0YWxpXzEyMzpuYXRhbGlfMTIz      # by natali_123:natali_123
+#Authorization: Basic YWRtaW46YWRtaW4=                  # by admin:admin
+#Authorization: Basic bmV3VXNlcjpuZXdVc2Vy              # by newUser:newUser
+
+{
+  "name": "Cinema"
+}
+
+### updateCategory
+PUT http://localhost:8085/api/v1/category/1
+Content-Type: application/json
+#Authorization: Basic dGFndWR1cjp0YWd1ZHVy              # by tagudur:tagudur
+#Authorization: Basic bmF0YWxpOm5hdGFsaQ==              # by natali:natali
+#Authorization: Basic bmF0YWxpXzEyMzpuYXRhbGlfMTIz      # by natali_123:natali_123
+#Authorization: Basic YWRtaW46YWRtaW4=                  # by admin:admin
+#Authorization: Basic bmV3VXNlcjpuZXdVc2Vy              # by newUser:newUser
+
+{
+  "id": 1,
+  "name": "Sport2"
+}
+
+### deleteCategory
+DELETE http://localhost:8085/api/v1/category/1
+#Authorization: Basic dGFndWR1cjp0YWd1ZHVy              # by tagudur:tagudur
+#Authorization: Basic bmF0YWxpOm5hdGFsaQ==              # by natali:natali
+#Authorization: Basic bmF0YWxpXzEyMzpuYXRhbGlfMTIz      # by natali_123:natali_123
+#Authorization: Basic YWRtaW46YWRtaW4=                  # by admin:admin
+#Authorization: Basic bmV3VXNlcjpuZXdVc2Vy              # by newUser:newUser
