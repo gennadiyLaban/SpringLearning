@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Null;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.With;
 import org.laban.learning.spring.lesson7.withprotection.model.TaskStatus;
 import org.laban.learning.spring.lesson7.withprotection.web.validation.group.ValidationGroup;
 
@@ -20,15 +21,22 @@ public class TaskDTO {
     @Null(groups = ValidationGroup.Create.class)
     @NotBlank(groups = ValidationGroup.Update.class)
     private final String id ;
-    @NotBlank
+
+    @NotBlank(groups = ValidationGroup.Create.class)
     private final String name;
-    @NotBlank
+
+    @NotBlank(groups = ValidationGroup.Create.class)
     private final String description;
-    @NotNull
+
+    @NotNull(groups = ValidationGroup.Create.class)
     private final TaskStatus status;
-    @NotBlank
+
+    @With
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private final String authorId;
+
     private final String assigneeId;
+
     private final Set<@NotBlank String> observerIds;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)

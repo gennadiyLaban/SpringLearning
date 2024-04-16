@@ -9,6 +9,7 @@ import org.laban.learning.spring.lesson7.withprotection.mapper.TaskMapper;
 import org.laban.learning.spring.lesson7.withprotection.model.Task;
 import org.laban.learning.spring.lesson7.withprotection.model.User;
 import org.laban.learning.spring.lesson7.withprotection.repository.TaskRepository;
+import org.laban.learning.spring.lesson7.withprotection.security.AppUserDetails;
 import org.laban.learning.spring.lesson7.withprotection.utils.BeanUtils;
 import org.laban.learning.spring.lesson7.withprotection.web.dto.TaskDTO;
 import org.laban.learning.spring.lesson7.withprotection.web.dto.TaskListDTO;
@@ -106,8 +107,8 @@ public class TaskService {
         return User.builder().id(userId).build();
     }
 
-    public Mono<String> createTask(@Nonnull TaskDTO taskDTO) {
-        return Mono.just(taskDTO)
+    public Mono<String> createTask(@Nonnull TaskDTO taskDTO, @Nonnull AppUserDetails principal) {
+        return Mono.just(taskDTO.withAuthorId(principal.getId()))
                 .map(taskMapper::taskDTOtoTask)
                 .flatMap(this::validateUsersExist)
                 .map(task -> {
