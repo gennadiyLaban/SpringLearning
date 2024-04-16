@@ -1,14 +1,14 @@
 ### findUserById
 GET http://localhost:8085/api/v1/user?userId=user-1
-#Authorization: Basic VXNlcjE6VXNlcjE=     # User1:User1
-Authorization: Basic VXNlcjI6VXNlcjI=     # User2:User2
+Authorization: Basic VXNlcjE6VXNlcjE=     # User1:User1
+#Authorization: Basic VXNlcjI6VXNlcjI=     # User2:User2
 #Authorization: Basic VXNlcjM6VXNlcjM=     # User3:User3
 #Authorization: Basic VXNlcjQ6VXNlcjQ=     # User4:User4
 
 ### findAllUsers
 GET http://localhost:8085/api/v1/user/list
-#Authorization: Basic VXNlcjE6VXNlcjE=     # User1:User1
-Authorization: Basic VXNlcjI6VXNlcjI=     # User2:User2
+Authorization: Basic VXNlcjE6VXNlcjE=     # User1:User1
+#Authorization: Basic VXNlcjI6VXNlcjI=     # User2:User2
 #Authorization: Basic VXNlcjM6VXNlcjM=     # User3:User3
 #Authorization: Basic VXNlcjQ6VXNlcjQ=     # User4:User4
 
@@ -39,8 +39,8 @@ Content-Type: application/json
 
 ### deleteUserById
 DELETE http://localhost:8085/api/v1/user?userId=user-1
-#Authorization: Basic VXNlcjE6VXNlcjE=     # User1:User1
-Authorization: Basic VXNlcjI6VXNlcjI=     # User2:User2
+Authorization: Basic VXNlcjE6VXNlcjE=     # User1:User1
+#Authorization: Basic VXNlcjI6VXNlcjI=     # User2:User2
 #Authorization: Basic VXNlcjM6VXNlcjM=     # User3:User3
 #Authorization: Basic VXNlcjQ6VXNlcjQ=     # User4:User4
 

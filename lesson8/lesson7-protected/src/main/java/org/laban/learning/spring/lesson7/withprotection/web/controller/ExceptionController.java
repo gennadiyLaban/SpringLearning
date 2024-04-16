@@ -9,6 +9,7 @@ import org.laban.learning.spring.lesson7.withprotection.web.dto.ErrorBodyDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -54,10 +55,20 @@ public class ExceptionController {
     ) {
         log.error(
                 MessageFormat.format("Uncatch exception! path: ''{0}''; method: ''{1}''",
-                        request.getPath().contextPath().value(), request.getMethod()),
+                        request.getPath().value(), request.getMethod()),
                 exception
         );
         return ErrorResponseUtils.buildError(HttpStatus.INTERNAL_SERVER_ERROR, request, exception.getMessage());
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ErrorBodyDTO> handleAccessDeniedException(
+            AccessDeniedException exception,
+            ServerHttpRequest request
+    ) {
+        log.error(MessageFormat.format("Access Denied: path ''{0}''; method: ''{1}''",
+                request.getPath().value(), request.getMethod()));
+        return ErrorResponseUtils.buildError(HttpStatus.UNAUTHORIZED, request, exception.getMessage());
     }
 
     @ExceptionHandler({UserNotFoundException.class})
