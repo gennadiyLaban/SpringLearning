@@ -1,0 +1,2 @@
+### findHotelById
+GET http://localhost:8085/api/v1/hotel/1
