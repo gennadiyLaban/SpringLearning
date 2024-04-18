@@ -19,17 +19,15 @@
     + `String name`
     + `Address address`
     + `Long distanceFromCenter`
-    + `BigDecimal raiting`
+    + `BigDecimal rating`
     + `Integer numberOfRating`
   - Создать отображение на БД с помощью JPA
   - Создать `REST API`:
     + `findById`
     + `createHotel`
-      * Вопрос №2
     + `updateHotel`:
       * `rating` не может быть изменён
       * `numberOfRating` не может быть изменён
-      * Вопрос №3
     + `deleteHotel`
     + `GET findAll`
       * реализовать механизм `Pagination`
@@ -37,7 +35,7 @@
   - Fields:
     + `String city`;
     + `String street`;
-    + `String building`;
+    + `String number`;
 * Маппинг сущностей из `DTO` в `@Entity` и обратно должен происходить через библиотеку `Mapstruct`
 
 
