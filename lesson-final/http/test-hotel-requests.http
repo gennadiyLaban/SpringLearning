@@ -1,2 +1,7 @@
 ### findHotelById
 GET http://localhost:8085/api/v1/hotel/1
+
+### findAllHotels
+GET http://localhost:8085/api/v1/hotel/list
+    ?page=1
+    &size=1

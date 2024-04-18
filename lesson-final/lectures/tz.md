@@ -24,13 +24,13 @@
   - Создать отображение на БД с помощью JPA
   - Создать `REST API`:
     + `findById`
+    + `GET findAll`
+      * реализовать механизм `Pagination`
     + `createHotel`
     + `updateHotel`:
       * `rating` не может быть изменён
       * `numberOfRating` не может быть изменён
     + `deleteHotel`
-    + `GET findAll`
-      * реализовать механизм `Pagination`
 * Встраиваемая сущность `Address.class`
   - Fields:
     + `String city`;
