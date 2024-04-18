@@ -1,0 +1,21 @@
+server:
+  port: 8085
+
+logging:
+  level:
+    root: debug
+
+spring:
+  application:
+    name: "Lesson-7-protected"
+  messages:
+    basename: "strings"
+  data:
+    mongodb:
+#      uri: mongodb://root:root@localhost:27017/lesson7protected?authSource=admin
+      host: localhost
+      port: 27017
+      username: admin
+      password: admin
+      database: lesson7protected
+      authentication-database: admin

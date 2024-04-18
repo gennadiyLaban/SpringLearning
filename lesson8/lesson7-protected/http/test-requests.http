@@ -1,0 +1,113 @@
+### findUserById
+GET http://localhost:8085/api/v1/user?userId=user-1
+Authorization: Basic VXNlcjE6VXNlcjE=     # User1:User1
+#Authorization: Basic VXNlcjI6VXNlcjI=     # User2:User2
+#Authorization: Basic VXNlcjM6VXNlcjM=     # User3:User3
+#Authorization: Basic VXNlcjQ6VXNlcjQ=     # User4:User4
+
+### findAllUsers
+GET http://localhost:8085/api/v1/user/list
+Authorization: Basic VXNlcjE6VXNlcjE=     # User1:User1
+#Authorization: Basic VXNlcjI6VXNlcjI=     # User2:User2
+#Authorization: Basic VXNlcjM6VXNlcjM=     # User3:User3
+#Authorization: Basic VXNlcjQ6VXNlcjQ=     # User4:User4
+
+### createUser
+POST http://localhost:8085/api/v1/user
+Content-Type: application/json
+
+{
+  "name": "User-new",
+  "email": "user-new@ya.ru",
+  "password": "User3",
+  "roles": ["ROLE_MANAGER"]
+}
+
+### updateUser
+PUT http://localhost:8085/api/v1/user
+Authorization: Basic VXNlcjE6VXNlcjE=     # User1:User1
+#Authorization: Basic VXNlcjI6VXNlcjI=     # User2:User2
+#Authorization: Basic VXNlcjM6VXNlcjM=     # User3:User3
+#Authorization: Basic VXNlcjQ6VXNlcjQ=     # User4:User4
+Content-Type: application/json
+
+{
+  "id": "user-1",
+  "name": "User-update",
+  "email": "user-update@ya.ru"
+}
+
+### deleteUserById
+DELETE http://localhost:8085/api/v1/user?userId=user-1
+Authorization: Basic VXNlcjE6VXNlcjE=     # User1:User1
+#Authorization: Basic VXNlcjI6VXNlcjI=     # User2:User2
+#Authorization: Basic VXNlcjM6VXNlcjM=     # User3:User3
+#Authorization: Basic VXNlcjQ6VXNlcjQ=     # User4:User4
+
+
+
+### findTaskById
+######################################################################################################
+######################################################################################################
+GET http://localhost:8085/api/v1/task/task-1
+Authorization: Basic VXNlcjE6VXNlcjE=     # User1:User1
+#Authorization: Basic VXNlcjI6VXNlcjI=     # User2:User2
+#Authorization: Basic VXNlcjM6VXNlcjM=     # User3:User3
+#Authorization: Basic VXNlcjQ6VXNlcjQ=     # User4:User4
+
+### findAllTasks
+GET http://localhost:8085/api/v1/task/list
+Authorization: Basic VXNlcjE6VXNlcjE=     # User1:User1
+#Authorization: Basic VXNlcjI6VXNlcjI=     # User2:User2
+#Authorization: Basic VXNlcjM6VXNlcjM=     # User3:User3
+#Authorization: Basic VXNlcjQ6VXNlcjQ=     # User4:User4
+
+### createTask
+POST http://localhost:8085/api/v1/task
+#Authorization: Basic VXNlcjE6VXNlcjE=     # User1:User1
+#Authorization: Basic VXNlcjI6VXNlcjI=     # User2:User2
+Authorization: Basic VXNlcjM6VXNlcjM=     # User3:User3
+#Authorization: Basic VXNlcjQ6VXNlcjQ=     # User4:User4
+Content-Type: application/json
+
+{
+  "name": "TaskNew",
+  "description": "DescriptionNew",
+  "status": "IN_PROGRESS",
+  "assigneeId": "user-1",
+  "observerIds": [
+  ]
+}
+
+### updateTask
+PUT http://localhost:8085/api/v1/task/task-1
+#Authorization: Basic VXNlcjE6VXNlcjE=     # User1:User1
+#Authorization: Basic VXNlcjI6VXNlcjI=     # User2:User2
+Authorization: Basic VXNlcjM6VXNlcjM=     # User3:User3
+#Authorization: Basic VXNlcjQ6VXNlcjQ=     # User4:User4
+Content-Type: application/json
+
+{
+  "id": "task-1",
+  "name": "TaskUpdate",
+  "description": "DescriptionUpdate",
+  "status": "TODO",
+  "assigneeId": "user-1",
+  "observerIds": [
+    "user-2"
+  ]
+}
+
+### deleteTaskById
+DELETE http://localhost:8085/api/v1/task/task-1
+#Authorization: Basic VXNlcjE6VXNlcjE=     # User1:User1
+#Authorization: Basic VXNlcjI6VXNlcjI=     # User2:User2
+Authorization: Basic VXNlcjM6VXNlcjM=     # User3:User3
+#Authorization: Basic VXNlcjQ6VXNlcjQ=     # User4:User4
+
+### addUserAsTaskObserver
+PATCH http://localhost:8085/api/v1/task/task-1/observers/add?userId=user-1
+Authorization: Basic VXNlcjE6VXNlcjE=     # User1:User1
+#Authorization: Basic VXNlcjI6VXNlcjI=     # User2:User2
+#Authorization: Basic VXNlcjM6VXNlcjM=     # User3:User3
+#Authorization: Basic VXNlcjQ6VXNlcjQ=     # User4:User4
