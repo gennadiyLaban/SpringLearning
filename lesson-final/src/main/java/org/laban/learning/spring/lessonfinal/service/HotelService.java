@@ -73,4 +73,12 @@ public class HotelService {
                 Hotel.Fields.address, Hotel.Fields.rating, Hotel.Fields.numberOfRating
         ));
     }
+
+    @Transactional
+    public void deleteHotelById(@Nonnull Long id) {
+        if (!hotelRepository.existsById(id)) {
+            throw new HotelNotFoundException(id);
+        }
+        hotelRepository.deleteById(id);
+    }
 }

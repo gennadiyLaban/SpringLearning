@@ -36,3 +36,6 @@ Content-Type: application/json
   },
   "distanceFromCenter": 2222
 }
+
+### deleteHotel
+DELETE http://localhost:8085/api/v1/hotel/4
