@@ -33,7 +33,7 @@ public class HotelController {
     }
 
     @PostMapping
-    public ResponseEntity<HotelDTO> createHotel(
+    public ResponseEntity<Void> createHotel(
             @RequestBody @Validated(ValidationGroup.Create.class)
             HotelDTO hotelDTO
     ) {
@@ -41,5 +41,14 @@ public class HotelController {
         return ResponseEntity
                 .created(URI.create(MessageFormat.format("/api/v1/hotel/{0}", createdId)))
                 .build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateHotel(
+            @RequestBody @Validated(ValidationGroup.Update.class)
+            HotelDTO hotelDTO
+    ) {
+        hotelService.updateHotel(hotelDTO);
+        return ResponseEntity.noContent().build();
     }
 }

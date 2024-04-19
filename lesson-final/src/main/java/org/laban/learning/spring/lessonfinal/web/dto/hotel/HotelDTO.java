@@ -10,6 +10,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.laban.learning.spring.lessonfinal.model.Address;
+import org.laban.learning.spring.lessonfinal.web.validation.custom.NullOrNotBlank;
 import org.laban.learning.spring.lessonfinal.web.validation.group.ValidationGroup;
 
 import java.math.BigDecimal;
@@ -20,9 +21,11 @@ import java.math.BigDecimal;
 @Getter
 public class HotelDTO {
     @Null(groups = ValidationGroup.Create.class)
+    @NotNull(groups = ValidationGroup.Update.class)
     private Long id;
 
     @NotBlank(groups = ValidationGroup.Create.class)
+    @NullOrNotBlank(groups = ValidationGroup.Update.class)
     private String name;
 
     @Valid
@@ -34,10 +37,12 @@ public class HotelDTO {
     private Long distanceFromCenter;
 
     @NotNull(groups = ValidationGroup.Create.class)
+    @Null(groups = ValidationGroup.Update.class)
     @PositiveOrZero
     private BigDecimal rating;
 
     @NotNull(groups = ValidationGroup.Create.class)
+    @Null(groups = ValidationGroup.Update.class)
     @PositiveOrZero
     private Integer numberOfRating;
 }

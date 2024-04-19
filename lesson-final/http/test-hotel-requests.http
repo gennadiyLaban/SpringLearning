@@ -17,7 +17,22 @@ Content-Type: application/json
     "street": "NewStreet",
     "number": "NewNumber"
   },
-  "distanceFromCenter": 12345,
+  "distanceFromCenter": 1111,
   "rating": "4.5",
-  "numberOfRating": 54321
+  "numberOfRating": 55555
+}
+
+### updateHotel
+PUT http://localhost:8085/api/v1/hotel/4
+Content-Type: application/json
+
+{
+  "id": 4,
+  "name": "UpdatedHotel",
+  "address": {
+    "city": "UpdatedCity",
+    "street": "UpdatedStreet",
+    "number": "UpdatedNumber"
+  },
+  "distanceFromCenter": 2222
 }
