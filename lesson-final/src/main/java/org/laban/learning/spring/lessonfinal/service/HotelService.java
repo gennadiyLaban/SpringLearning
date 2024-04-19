@@ -38,12 +38,22 @@ public class HotelService {
     }
 
     @Transactional(readOnly = true)
-    public HotelListDTO getAllHotelsDTO(Pageable pageable) {
+    public HotelListDTO getAllHotelsDTO(@Nonnull Pageable pageable) {
         return hotelMapper.hotelPageToHotelDTOlist(getAllHotels(pageable));
     }
 
     @Transactional(readOnly = true)
-    public Page<Hotel> getAllHotels(Pageable pageable) {
+    public Page<Hotel> getAllHotels(@Nonnull Pageable pageable) {
         return hotelRepository.findAll(pageable);
+    }
+
+    @Transactional
+    public long createHotel(@Nonnull HotelDTO hotelDTO) {
+        return createHotel(hotelMapper.hotelDTOtoHotel(hotelDTO)).getId();
+    }
+
+    @Transactional
+    public Hotel createHotel(@Nonnull Hotel upsertHotel) {
+        return hotelRepository.save(upsertHotel);
     }
 }

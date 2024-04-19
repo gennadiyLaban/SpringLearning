@@ -1,7 +1,23 @@
 ### findHotelById
-GET http://localhost:8085/api/v1/hotel/1
+GET http://localhost:8085/api/v1/hotel/4
 
 ### findAllHotels
 GET http://localhost:8085/api/v1/hotel/list
     ?page=1
     &size=1
+
+### createHotel
+POST http://localhost:8085/api/v1/hotel
+Content-Type: application/json
+
+{
+  "name": "NewHotel",
+  "address": {
+    "city": "NewCity",
+    "street": "NewStreet",
+    "number": "NewNumber"
+  },
+  "distanceFromCenter": 12345,
+  "rating": "4.5",
+  "numberOfRating": 54321
+}

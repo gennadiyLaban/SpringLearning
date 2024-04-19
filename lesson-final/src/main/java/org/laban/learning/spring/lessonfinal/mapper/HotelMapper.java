@@ -24,4 +24,6 @@ public interface HotelMapper {
     default List<HotelDTO> hotelListToListOfHotelDTO(List<Hotel> hotels) {
         return hotels.stream().map(this::hotelToHotelDTO).toList();
     }
+
+    Hotel hotelDTOtoHotel(HotelDTO hotelDTO);
 }

@@ -4,9 +4,14 @@ import lombok.RequiredArgsConstructor;
 import org.laban.learning.spring.lessonfinal.service.HotelService;
 import org.laban.learning.spring.lessonfinal.web.dto.hotel.HotelDTO;
 import org.laban.learning.spring.lessonfinal.web.dto.hotel.HotelListDTO;
+import org.laban.learning.spring.lessonfinal.web.validation.group.ValidationGroup;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
+import java.text.MessageFormat;
 
 @RequiredArgsConstructor
 @RestController
@@ -25,5 +30,16 @@ public class HotelController {
             @RequestParam(defaultValue = "2147483647") Integer size
     ) {
         return ResponseEntity.ok(hotelService.getAllHotelsDTO(PageRequest.of(page, size)));
+    }
+
+    @PostMapping
+    public ResponseEntity<HotelDTO> createHotel(
+            @RequestBody @Validated(ValidationGroup.Create.class)
+            HotelDTO hotelDTO
+    ) {
+        var createdId = hotelService.createHotel(hotelDTO);
+        return ResponseEntity
+                .created(URI.create(MessageFormat.format("/api/v1/hotel/{0}", createdId)))
+                .build();
     }
 }
