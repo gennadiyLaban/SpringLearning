@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.laban.learning.spring.lessonfinal.exception.HotelNotFoundException;
+import org.laban.learning.spring.lessonfinal.exception.HotelRoomNotFoundException;
 import org.laban.learning.spring.lessonfinal.utils.ErrorResponseUtils;
 import org.laban.learning.spring.lessonfinal.web.dto.ErrorBodyDTO;
 import org.springframework.http.HttpStatus;
@@ -58,11 +59,21 @@ public class ExceptionController {
 //    }
 
     @ExceptionHandler({HotelNotFoundException.class})
-    public ResponseEntity<ErrorBodyDTO> userNotFoundException(
+    public ResponseEntity<ErrorBodyDTO> hotelNotFoundException(
             HotelNotFoundException exception,
             HttpServletRequest request
     ) {
         var message = MessageFormat.format("Hotel with id={0} not found!", exception.getHotelId());
+        log.error(message, exception);
+        return ErrorResponseUtils.buildError(HttpStatus.NOT_FOUND, request, message);
+    }
+
+    @ExceptionHandler({HotelRoomNotFoundException.class})
+    public ResponseEntity<ErrorBodyDTO> hotelRoomNotFoundException(
+            HotelRoomNotFoundException exception,
+            HttpServletRequest request
+    ) {
+        var message = MessageFormat.format("Hotel room with id={0} not found!", exception.getRoomId());
         log.error(message, exception);
         return ErrorResponseUtils.buildError(HttpStatus.NOT_FOUND, request, message);
     }

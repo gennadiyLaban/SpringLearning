@@ -33,6 +33,8 @@ dependencies {
 
     testImplementation(kotlin("test"))
     testImplementation(Global.Library.SpringBootTestStarter)
+    testCompileOnly(Global.Library.Lombok)
+    testAnnotationProcessor(Global.Library.Lombok)
 }
 
 tasks.withType<Test> {

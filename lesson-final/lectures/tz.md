@@ -53,10 +53,10 @@
     + `String name`
     + `String description`
     + `Integer roomNumber`
-    + `BigDecimal cost`
+    + `BigDecimal price`
     + `Integer maxCapacity`
     + `Hotel hotel` (`@Indexed`??)
-    + `List<BookingRecord> bookingRecords`
+    + `List<BookingRecord> bookings`
   - Создать отображение на БД с помощью JPA
   - Создать `REST API`:
     + `findById`
