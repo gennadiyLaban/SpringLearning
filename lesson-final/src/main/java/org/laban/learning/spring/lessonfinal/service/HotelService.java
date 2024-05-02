@@ -20,6 +20,9 @@ import java.util.Set;
 @RequiredArgsConstructor
 @Service
 public class HotelService {
+    private final static Set<String> EXCLUDED_FIELDS_FROM_UPDATE = Set.of(
+            Hotel.Fields.address, Hotel.Fields.rating, Hotel.Fields.numberOfRating);
+
     private final HotelRepository hotelRepository;
     private final HotelMapper hotelMapper;
 
@@ -69,9 +72,7 @@ public class HotelService {
         var existedHotel = getHotelById(upsertHotel.getId());
         var existedAddress = existedHotel.getAddress();
         BeanUtils.copyNonNullProperties(upsertHotel.getAddress(), existedAddress);
-        BeanUtils.copyNonNullProperties(upsertHotel, existedHotel, Set.of(
-                Hotel.Fields.address, Hotel.Fields.rating, Hotel.Fields.numberOfRating
-        ));
+        BeanUtils.copyNonNullProperties(upsertHotel, existedHotel, EXCLUDED_FIELDS_FROM_UPDATE);
     }
 
     @Transactional
