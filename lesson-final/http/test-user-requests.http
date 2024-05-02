@@ -17,3 +17,17 @@ Content-Type: application/json
     "ROLE_USER"
   ]
 }
+
+### updateUser
+PUT http://localhost:8085/api/v1/user/5
+Content-Type: application/json
+
+{
+  "id": 5,
+  "username": "updatedUsername",
+  "email": "updatedEmail@ya.ru",
+  "password": "updatedPassword",
+  "roles": [
+    "ROLE_USER"
+  ]
+}

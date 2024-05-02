@@ -6,6 +6,7 @@ import org.laban.learning.spring.lessonfinal.exception.UserNotFoundException;
 import org.laban.learning.spring.lessonfinal.mapper.UserMapper;
 import org.laban.learning.spring.lessonfinal.model.User;
 import org.laban.learning.spring.lessonfinal.repository.UserRepository;
+import org.laban.learning.spring.lessonfinal.utils.BeanUtils;
 import org.laban.learning.spring.lessonfinal.web.dto.user.UserDTO;
 import org.laban.learning.spring.lessonfinal.web.dto.user.UserListDTO;
 import org.springframework.stereotype.Service;
@@ -21,18 +22,18 @@ public class UserService {
     private final UserMapper userMapper;
 
     @Transactional(readOnly = true)
-    public UserDTO getUserDtoById(Long id) {
+    public UserDTO getUserDtoById(@Nonnull Long id) {
         return userMapper.entityToDTO(getUserById(id));
     }
 
     @Transactional(readOnly = true)
-    public User getUserById(Long id) {
+    public User getUserById(@Nonnull Long id) {
         return findUserById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
     }
 
     @Transactional(readOnly = true)
-    public Optional<User> findUserById(Long id) {
+    public Optional<User> findUserById(@Nonnull Long id) {
         return userRepository.findById(id);
     }
 
@@ -52,12 +53,23 @@ public class UserService {
     }
 
     @Transactional
-    public Long createUser(UserDTO upsertUserDTO) {
+    public Long createUser(@Nonnull UserDTO upsertUserDTO) {
         return createUser(userMapper.dtoToEntity(upsertUserDTO));
     }
 
     @Transactional
-    public Long createUser(User user) {
+    public Long createUser(@Nonnull User user) {
         return userRepository.save(user).getId();
+    }
+
+    @Transactional
+    public void updateUser(@Nonnull UserDTO upsertUserDTO) {
+        updateUser(userMapper.dtoToEntity(upsertUserDTO));
+    }
+
+    @Transactional
+    public void updateUser(@Nonnull User upsertUser) {
+        var existedUser = getUserById(upsertUser.getId());
+        BeanUtils.copyNonNullProperties(upsertUser, existedUser);
     }
 }

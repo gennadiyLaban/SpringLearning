@@ -36,4 +36,14 @@ public class UserController {
         var createdId = userService.createUser(userDTO);
         return ResponseEntity.created(URI.create("api/v1/user/" + createdId)).build();
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateUser(
+            @Validated(ValidationGroup.Update.class)
+            @RequestBody
+            UserDTO userDTO
+    ) {
+        userService.updateUser(userDTO);
+        return ResponseEntity.noContent().build();
+    }
 }

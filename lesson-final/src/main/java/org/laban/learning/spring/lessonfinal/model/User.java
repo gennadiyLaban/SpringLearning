@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldNameConstants;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @FieldNameConstants
@@ -46,6 +45,5 @@ public class User {
     @CollectionTable(name = "user_role_records", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role_type")
     @Enumerated(EnumType.STRING)
-    @Builder.Default
-    private Set<RoleType> roles = new HashSet<>();
+    private Set<RoleType> roles;
 }
