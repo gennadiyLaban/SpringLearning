@@ -1,2 +1,5 @@
 ### findUserById
 GET http://localhost:8085/api/v1/user/1
+
+### findAllUsers
+GET http://localhost:8085/api/v1/user/list

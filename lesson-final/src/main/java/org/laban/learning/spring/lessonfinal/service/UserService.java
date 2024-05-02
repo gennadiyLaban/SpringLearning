@@ -7,9 +7,11 @@ import org.laban.learning.spring.lessonfinal.mapper.UserMapper;
 import org.laban.learning.spring.lessonfinal.model.User;
 import org.laban.learning.spring.lessonfinal.repository.UserRepository;
 import org.laban.learning.spring.lessonfinal.web.dto.user.UserDTO;
+import org.laban.learning.spring.lessonfinal.web.dto.user.UserListDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -39,4 +41,13 @@ public class UserService {
         return userRepository.findUserByUsername(username);
     }
 
+    @Transactional(readOnly = true)
+    public UserListDTO findAllUserDTOs() {
+        return userMapper.entityListToDtoList(findAllUsers());
+    }
+
+    @Transactional(readOnly = true)
+    public List<User> findAllUsers() {
+        return userRepository.findAll();
+    }
 }
