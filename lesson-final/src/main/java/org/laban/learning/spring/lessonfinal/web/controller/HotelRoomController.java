@@ -33,4 +33,13 @@ public class HotelRoomController {
         return ResponseEntity.created(URI.create("/api/v1/room/" + createdId)).build();
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateHotelRoom(
+            @RequestBody
+            @Validated(ValidationGroup.Update.class)
+            HotelRoomDTO hotelRoomDTO
+    ) {
+        hotelRoomService.updateHotelRoom(hotelRoomDTO);
+        return ResponseEntity.noContent().build();
+    }
 }

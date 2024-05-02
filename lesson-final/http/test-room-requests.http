@@ -16,3 +16,19 @@ Content-Type: application/json
     {"id": 23}
   ]
 }
+
+### updateHotelRoom
+PUT http://localhost:8085/api/v1/room/7
+Content-Type: application/json
+
+{
+  "id": 7,
+  "name": "UpdatedRoomForHotel1",
+  "description": "UpdatedRoomDescriptionForHotel1",
+  "roomNumber": 54321,
+  "price": 321.22,
+  "maxCapacity": 10,
+  "bookings": [
+    {"id": 23}
+  ]
+}

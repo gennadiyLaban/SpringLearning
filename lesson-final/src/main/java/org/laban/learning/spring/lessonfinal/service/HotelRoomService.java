@@ -6,12 +6,14 @@ import org.laban.learning.spring.lessonfinal.exception.HotelRoomNotFoundExceptio
 import org.laban.learning.spring.lessonfinal.mapper.HotelRoomMapper;
 import org.laban.learning.spring.lessonfinal.model.HotelRoom;
 import org.laban.learning.spring.lessonfinal.repository.HotelRoomRepository;
+import org.laban.learning.spring.lessonfinal.utils.BeanUtils;
 import org.laban.learning.spring.lessonfinal.web.dto.room.HotelRoomDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.MessageFormat;
 import java.util.Optional;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Service
@@ -36,12 +38,12 @@ public class HotelRoomService {
     }
 
     @Transactional
-    public Long createHotelRoom(HotelRoomDTO upsertHotelRoom) {
-        return createHotelRoom(hotelRoomMapper.dtoToEntity(upsertHotelRoom));
+    public Long createHotelRoom(@Nonnull HotelRoomDTO upsertHotelRoom) {
+        return createHotelRoom(hotelRoomMapper.dtoToEntityForCreation(upsertHotelRoom));
     }
 
     @Transactional
-    public Long createHotelRoom(HotelRoom upsertHotelRoom) {
+    public Long createHotelRoom(@Nonnull HotelRoom upsertHotelRoom) {
         if (upsertHotelRoom.getId() != null) {
             throw new RuntimeException(MessageFormat.format(
                     "Hotel room with id={0} already exists", upsertHotelRoom.getId()));
@@ -50,5 +52,17 @@ public class HotelRoomService {
         return hotelRoomRepository.save(upsertHotelRoom).getId();
     }
 
+    @Transactional
+    public void updateHotelRoom(@Nonnull HotelRoomDTO upsertHotelRoom) {
+        updateHotelRoom(hotelRoomMapper.dtoToEntityForUpdate(upsertHotelRoom));
+    }
 
+    @Transactional
+    public void updateHotelRoom(@Nonnull HotelRoom upsertHotelRoom) {
+        var existedHotelRoom = getHotelRoomById(upsertHotelRoom.getId());
+        BeanUtils.copyNonNullProperties(upsertHotelRoom, existedHotelRoom, Set.of(
+                HotelRoom.Fields.hotel, HotelRoom.Fields.bookings
+        ));
+        hotelRoomRepository.save(existedHotelRoom);
+    }
 }

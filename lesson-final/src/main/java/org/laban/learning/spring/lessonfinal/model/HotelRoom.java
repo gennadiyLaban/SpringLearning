@@ -1,8 +1,11 @@
 package org.laban.learning.spring.lessonfinal.model;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.util.StdConverter;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldNameConstants;
+import org.laban.learning.spring.lessonfinal.web.dto.hotel.HotelDTO;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -49,4 +52,28 @@ public class HotelRoom {
     @OrderBy("start ASC")
     @OneToMany(mappedBy = "room")
     private List<BookingRecord> bookings = new ArrayList<>();
+
+
+    public static class NestedConverter extends StdConverter<JsonNode, HotelDTO> {
+        @Override
+        public HotelDTO convert(JsonNode value) {
+            if (value == null) {
+                return null;
+            }
+
+            Long hotelId = null;
+            if (value.isObject()) {
+                var hotelIdNode = value.get(HotelDTO.Fields.id);
+                if (hotelIdNode != null && hotelIdNode.isIntegralNumber()) {
+                    hotelId = hotelIdNode.asLong();
+                }
+            } else if (value.isIntegralNumber()) {
+                hotelId = value.asLong();
+            }
+
+            return HotelDTO.builder()
+                    .id(hotelId)
+                    .build();
+        }
+    }
 }
