@@ -1,5 +1,6 @@
 package org.laban.learning.spring.lessonfinal.service;
 
+import jakarta.annotation.Nonnull;
 import lombok.RequiredArgsConstructor;
 import org.laban.learning.spring.lessonfinal.exception.UserNotFoundException;
 import org.laban.learning.spring.lessonfinal.mapper.UserMapper;
@@ -31,6 +32,11 @@ public class UserService {
     @Transactional(readOnly = true)
     public Optional<User> findUserById(Long id) {
         return userRepository.findById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<User> findUserByUsername(@Nonnull String username) {
+        return userRepository.findUserByUsername(username);
     }
 
 }
