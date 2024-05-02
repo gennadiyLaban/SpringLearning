@@ -18,4 +18,6 @@ public interface UserMapper {
                 .users(users.stream().map(this::entityToDTO).toList())
                 .build();
     }
+
+    User dtoToEntity(UserDTO upsertUserDTO);
 }

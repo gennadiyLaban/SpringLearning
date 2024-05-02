@@ -1,5 +1,19 @@
 ### findUserById
-GET http://localhost:8085/api/v1/user/1
+GET http://localhost:8085/api/v1/user/5
 
 ### findAllUsers
 GET http://localhost:8085/api/v1/user/list
+
+### createUser
+POST http://localhost:8085/api/v1/user
+Content-Type: application/json
+
+{
+  "username": "newUsername",
+  "email": "newEmail@ya.ru",
+  "password": "newPassword",
+  "roles": [
+    "ROLE_ADMIN",
+    "ROLE_USER"
+  ]
+}

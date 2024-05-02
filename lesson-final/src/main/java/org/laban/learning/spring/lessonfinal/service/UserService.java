@@ -50,4 +50,14 @@ public class UserService {
     public List<User> findAllUsers() {
         return userRepository.findAll();
     }
+
+    @Transactional
+    public Long createUser(UserDTO upsertUserDTO) {
+        return createUser(userMapper.dtoToEntity(upsertUserDTO));
+    }
+
+    @Transactional
+    public Long createUser(User user) {
+        return userRepository.save(user).getId();
+    }
 }

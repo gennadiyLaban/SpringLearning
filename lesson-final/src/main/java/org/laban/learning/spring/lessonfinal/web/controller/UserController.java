@@ -4,11 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.laban.learning.spring.lessonfinal.service.UserService;
 import org.laban.learning.spring.lessonfinal.web.dto.user.UserDTO;
 import org.laban.learning.spring.lessonfinal.web.dto.user.UserListDTO;
+import org.laban.learning.spring.lessonfinal.web.validation.group.ValidationGroup;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
 
 @RequiredArgsConstructor
 @RestController
@@ -24,5 +25,15 @@ public class UserController {
     @GetMapping("/list")
     public ResponseEntity<UserListDTO> getAllUsers() {
         return ResponseEntity.ok(userService.findAllUserDTOs());
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> createUser(
+            @Validated(ValidationGroup.Create.class)
+            @RequestBody
+            UserDTO userDTO
+    ) {
+        var createdId = userService.createUser(userDTO);
+        return ResponseEntity.created(URI.create("api/v1/user/" + createdId)).build();
     }
 }
