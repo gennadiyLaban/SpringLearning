@@ -72,4 +72,12 @@ public class UserService {
         var existedUser = getUserById(upsertUser.getId());
         BeanUtils.copyNonNullProperties(upsertUser, existedUser);
     }
+
+    public void deleteUserById(@Nonnull Long id) {
+        if (!userRepository.existsById(id)) {
+            throw new UserNotFoundException(id);
+        }
+
+        userRepository.deleteById(id);
+    }
 }
