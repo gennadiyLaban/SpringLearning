@@ -66,4 +66,13 @@ public class HotelRoomService {
         BeanUtils.copyNonNullProperties(upsertHotelRoom, existedHotelRoom, EXCLUDED_FIELDS_FROM_UPDATE);
         hotelRoomRepository.save(existedHotelRoom);
     }
+
+    @Transactional
+    public void deleteHotelRoom(@Nonnull Long id) {
+        if (!hotelRoomRepository.existsById(id)) {
+            throw new HotelRoomNotFoundException(id);
+        }
+
+        hotelRoomRepository.deleteById(id);
+    }
 }

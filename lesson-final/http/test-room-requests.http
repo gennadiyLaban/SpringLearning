@@ -32,3 +32,6 @@ Content-Type: application/json
     {"id": 23}
   ]
 }
+
+### deleteHotelRoom
+DELETE http://localhost:8085/api/v1/room/7

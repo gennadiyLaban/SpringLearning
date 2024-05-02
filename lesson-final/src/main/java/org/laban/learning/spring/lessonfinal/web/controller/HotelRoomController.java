@@ -42,4 +42,10 @@ public class HotelRoomController {
         hotelRoomService.updateHotelRoom(hotelRoomDTO);
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteHotelRoom(@PathVariable("id") Long id) {
+        hotelRoomService.deleteHotelRoom(id);
+        return ResponseEntity.noContent().build();
+    }
 }
