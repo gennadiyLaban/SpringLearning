@@ -43,3 +43,26 @@ insert into
         ('2024-05-11T12:00:35.571191680Z', '2024-05-12T12:00:35.571191680Z', 6),
         ('2024-05-27T12:00:35.571191680Z', '2024-06-01T12:00:35.571191680Z', 6),
         ('2024-05-14T12:00:35.571191680Z', '2024-05-20T12:00:35.571191680Z', 6);
+
+insert into
+    user_roles(role_type)
+    values
+        ('ROLE_ADMIN'),
+        ('ROLE_USER');
+
+insert into
+    users(username, password, email)
+    values
+        ('user1', 'password1', 'email1@ya.ru'),
+        ('user2', 'password1', 'email2@ya.ru'),
+        ('user3', 'password1', 'email3@ya.ru'),
+        ('user4', 'password1', 'email4@ya.ru');
+
+insert into
+    user_role_records(user_id, role_type)
+    values
+        (1, 'ROLE_ADMIN'),
+        (1, 'ROLE_USER'),
+        (2, 'ROLE_USER'),
+        (3, 'ROLE_USER'),
+        (4, 'ROLE_USER');
