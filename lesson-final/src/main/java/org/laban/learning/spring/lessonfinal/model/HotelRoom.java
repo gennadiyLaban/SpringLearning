@@ -1,10 +1,7 @@
 package org.laban.learning.spring.lessonfinal.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldNameConstants;
 
 import java.math.BigDecimal;
@@ -44,6 +41,7 @@ public class HotelRoom {
     @Column(nullable = false)
     private Integer maxCapacity;
 
+    @With
     @ManyToOne
     @JoinColumn(nullable = false, updatable = false, referencedColumnName = "id")
     private Hotel hotel;

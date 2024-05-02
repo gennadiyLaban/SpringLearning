@@ -1,2 +1,18 @@
 ### findHotelRoomById
-GET http://localhost:8085/api/v1/room/5
+GET http://localhost:8085/api/v1/room/7
+
+### createHotelRoom
+POST http://localhost:8085/api/v1/room
+Content-Type: application/json
+
+{
+  "name": "NewRoomForHotel1",
+  "description": "NewRoomDescriptionForHotel1",
+  "roomNumber": 12345,
+  "price": 123.22,
+  "maxCapacity": 1,
+  "hotel": 1,
+  "bookings": [
+    {"id": 23}
+  ]
+}

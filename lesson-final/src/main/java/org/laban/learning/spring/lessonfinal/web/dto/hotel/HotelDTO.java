@@ -5,23 +5,23 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.PositiveOrZero;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldNameConstants;
 import org.laban.learning.spring.lessonfinal.model.Address;
 import org.laban.learning.spring.lessonfinal.web.validation.custom.NullOrNotBlank;
 import org.laban.learning.spring.lessonfinal.web.validation.group.ValidationGroup;
 
 import java.math.BigDecimal;
 
+@FieldNameConstants
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Builder
 @Getter
 public class HotelDTO {
     @Null(groups = ValidationGroup.Create.class)
-    @NotNull(groups = ValidationGroup.Update.class)
+    @NotNull(groups = { ValidationGroup.Update.class, ValidationGroup.NestedObject.class })
     private Long id;
 
     @NotBlank(groups = ValidationGroup.Create.class)

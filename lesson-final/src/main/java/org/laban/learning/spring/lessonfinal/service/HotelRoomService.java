@@ -10,6 +10,7 @@ import org.laban.learning.spring.lessonfinal.web.dto.room.HotelRoomDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.MessageFormat;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -33,4 +34,21 @@ public class HotelRoomService {
     public Optional<HotelRoom> findHotelRoomById(@Nonnull Long id) {
         return hotelRoomRepository.findById(id);
     }
+
+    @Transactional
+    public Long createHotelRoom(HotelRoomDTO upsertHotelRoom) {
+        return createHotelRoom(hotelRoomMapper.dtoToEntity(upsertHotelRoom));
+    }
+
+    @Transactional
+    public Long createHotelRoom(HotelRoom upsertHotelRoom) {
+        if (upsertHotelRoom.getId() != null) {
+            throw new RuntimeException(MessageFormat.format(
+                    "Hotel room with id={0} already exists", upsertHotelRoom.getId()));
+        }
+
+        return hotelRoomRepository.save(upsertHotelRoom).getId();
+    }
+
+
 }

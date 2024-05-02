@@ -3,15 +3,13 @@ package org.laban.learning.spring.lessonfinal.mapper;
 import org.laban.learning.spring.lessonfinal.model.Hotel;
 import org.laban.learning.spring.lessonfinal.web.dto.hotel.HotelDTO;
 import org.laban.learning.spring.lessonfinal.web.dto.hotel.HotelListDTO;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@DecoratedWith(HotelMapperDelegate.class)
 public interface HotelMapper {
     HotelDTO hotelToHotelDTO(Hotel hotel);
 
@@ -26,4 +24,7 @@ public interface HotelMapper {
     }
 
     Hotel hotelDTOtoHotel(HotelDTO hotelDTO);
+
+    @Named("findHotelByDTO")
+    Hotel findHotelByDTO(HotelDTO hotelDTO);
 }

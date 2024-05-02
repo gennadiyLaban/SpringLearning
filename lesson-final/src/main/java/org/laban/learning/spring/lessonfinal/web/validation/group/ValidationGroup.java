@@ -9,4 +9,8 @@ public interface ValidationGroup {
     interface Create extends Default {
 
     }
+
+    interface NestedObject {
+
+    }
 }
