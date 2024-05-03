@@ -1,13 +1,13 @@
 package org.laban.learning.spring.lessonfinal.web.controller;
 
+import jakarta.annotation.Nullable;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.laban.learning.spring.lessonfinal.exception.HotelNotFoundException;
-import org.laban.learning.spring.lessonfinal.exception.HotelRoomNotFoundException;
-import org.laban.learning.spring.lessonfinal.exception.UserNotFoundException;
+import org.laban.learning.spring.lessonfinal.exception.*;
 import org.laban.learning.spring.lessonfinal.utils.ErrorResponseUtils;
 import org.laban.learning.spring.lessonfinal.web.dto.ErrorBodyDTO;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -24,13 +24,35 @@ public class ExceptionController {
             MethodArgumentNotValidException exception,
             HttpServletRequest request
     ) {
-        String errorMsg = exception.getBindingResult().getFieldErrors()
+        String errorMsg = extractFieldError(exception);
+        if (StringUtils.isEmpty(errorMsg)) {
+            errorMsg = extractGlobalError(exception);
+        }
+        if (StringUtils.isEmpty(errorMsg)) {
+            errorMsg = exception.getMessage();
+        }
+
+        return ErrorResponseUtils.buildError(HttpStatus.BAD_REQUEST, request, errorMsg);
+    }
+
+    @Nullable
+    private String extractFieldError(MethodArgumentNotValidException exception) {
+        return exception.getBindingResult().getFieldErrors()
                 .stream()
                 .filter(fieldError -> StringUtils.isNotEmpty(fieldError.getDefaultMessage()))
                 .findFirst()
                 .map(fieldError -> fieldError.getField() + " " + fieldError.getDefaultMessage())
-                .orElse(exception.getMessage());
-        return ErrorResponseUtils.buildError(HttpStatus.BAD_REQUEST, request, errorMsg);
+                .orElse(null);
+    }
+
+    @Nullable
+    private String extractGlobalError(MethodArgumentNotValidException exception) {
+        return exception.getBindingResult().getAllErrors()
+                .stream()
+                .filter(error -> StringUtils.isNotEmpty(error.getDefaultMessage()))
+                .findFirst()
+                .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                .orElse(null);
     }
 
     @ExceptionHandler({Exception.class})
@@ -87,5 +109,26 @@ public class ExceptionController {
         var message = MessageFormat.format("User with id={0} not found!", exception.getUserId());
         log.error(message, exception);
         return ErrorResponseUtils.buildError(HttpStatus.NOT_FOUND, request, message);
+    }
+
+    @ExceptionHandler({BookingNotFoundException.class})
+    public ResponseEntity<ErrorBodyDTO> bookingNotFoundException(
+            BookingNotFoundException exception,
+            HttpServletRequest request
+    ) {
+        var message = MessageFormat.format("Booking with id={0} not found!", exception.getBookingId());
+        log.error(message, exception);
+        return ErrorResponseUtils.buildError(HttpStatus.NOT_FOUND, request, message);
+    }
+
+    @ExceptionHandler({BookingDatesAlreadyBookedException.class})
+    public ResponseEntity<ErrorBodyDTO> bookingNotFoundException(
+            BookingDatesAlreadyBookedException exception,
+            HttpServletRequest request
+    ) {
+        var message = MessageFormat.format("Booking dates from {0} to {1} are already booked",
+                exception.getStartDate(), exception.getEndDate());
+        log.error(message, exception);
+        return ErrorResponseUtils.buildError(HttpStatus.BAD_REQUEST, request, message);
     }
 }

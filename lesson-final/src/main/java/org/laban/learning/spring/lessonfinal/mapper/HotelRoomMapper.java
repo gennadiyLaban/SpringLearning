@@ -10,7 +10,7 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(
         componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        uses = { BookingRecordMapper.class, HotelMapper.class }
+        uses = { BookingMapper.class, HotelMapper.class }
 )
 public interface HotelRoomMapper {
     HotelRoomDTO entityToDTO(HotelRoom hotelRoom);

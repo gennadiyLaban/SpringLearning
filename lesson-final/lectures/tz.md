@@ -66,8 +66,8 @@
 * Сущность `BookingRecord.class`
   - Fields:
     + `HotelRoom room` (`@Indexed`??)
-    + `Instant start`
-    + `Instant end`
+    + `Instant startDate`
+    + `Instant endDate`
   - Создать отображение на БД с помощью JPA
 
 
@@ -109,8 +109,8 @@
 * Создать `REST API`:
   - `bookHotelRoom` 
     - Разные `User.class` могут забронировать `HotelRoom.class`, но только на разные(свободные) даты
-  - `findAllBookings`
-    + Вопрос №4 
+  - `findAllUserBookings`
+  - `findAllHotelBookings`
 * Создать отображение на БД с помощью JPA
 
 
@@ -122,6 +122,8 @@
 * `api/v1/room/create`, `api/v1/room/update`, `api/v1/room/delete` - доступ только у `RoleType.ROLE_ADMIN`
 * `api/v1/booking/list` - доступ только у `RoleType.ROLE_ADMIN`
 * Все остальные `endpoints` должны быть доступны `RoleType.ROLE_ADMIN` и `RoleType.ROLE_USER`
+* `endpoint` `POST api/v1/booking` должен брать информацию о `User.class` через `ApplicationPrincipal`
+* `endpoint` `GET /api/v1/booking/{id}` доступен тольк owner `User.class` и `RoleType.ROLE_ADMIN`
 
 
 #### Задание 8. Создание метода изменения рейтинга отеля
@@ -169,7 +171,7 @@
         - `HotelRoom.hotel`
 * Сущность `BookingRecord.class`:
   - Дополнить `REST API`:
-    + `findAllBookings`
+    + `findAllUserBookings` и `findAllHotelBookings`
       * Вопрос №8
       * Реализовать `Pagination`
 * Вопрос №10

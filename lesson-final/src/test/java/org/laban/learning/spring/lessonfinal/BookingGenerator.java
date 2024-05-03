@@ -17,15 +17,16 @@ public class BookingGenerator {
     @Test
     public void generateBookingRecordValues() {
         var rooms = List.of(1, 2, 3, 4, 5, 6);
-        var startDate = Instant.now().plus(12, ChronoUnit.DAYS);
+        var users = List.of(1, 2, 3, 4);
+        var startDate = Instant.now().plus(12, ChronoUnit.DAYS).truncatedTo(ChronoUnit.DAYS);
         var bookingRecords = new ArrayList<BookingRecord>();
         for (var roomId : rooms) {
-            var bookingAmount = Random.Default.nextInt(2, 7);
+            var bookingAmount = Random.Default.nextInt(2, 8);
             var bookingStartDate = startDate;
             for (var index = 0 ; index < bookingAmount ; index++) {
-                var start = bookingStartDate.plus(Random.Default.nextInt(0, 12), ChronoUnit.DAYS);
-                var end = start.plus(Random.Default.nextInt(1, 12), ChronoUnit.DAYS);
-                bookingRecords.add(new BookingRecord(start, end, roomId));
+                var start = bookingStartDate.plus(Random.Default.nextInt(0, 13), ChronoUnit.DAYS);
+                var end = start.plus(Random.Default.nextInt(1, 13), ChronoUnit.DAYS);
+                bookingRecords.add(new BookingRecord(start, end, roomId, users.get(Random.Default.nextInt(0, users.size()))));
                 bookingStartDate = end;
             }
         }
@@ -49,8 +50,8 @@ public class BookingGenerator {
     }
 
     private String toString(BookingRecord bookingRecords) {
-        return MessageFormat.format("(''{0}'', ''{1}'', {2})",
-                bookingRecords.start, bookingRecords.end, bookingRecords.roomId);
+        return MessageFormat.format("(''{0}'', ''{1}'', {2}, {3})",
+                bookingRecords.start, bookingRecords.end, bookingRecords.roomId, bookingRecords.userId);
     }
 
     @AllArgsConstructor
@@ -59,5 +60,6 @@ public class BookingGenerator {
         private Instant start;
         private Instant end;
         private Integer roomId;
+        private Integer userId;
     }
 }

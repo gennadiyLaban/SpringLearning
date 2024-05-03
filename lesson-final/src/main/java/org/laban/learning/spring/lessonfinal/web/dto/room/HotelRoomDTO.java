@@ -7,7 +7,7 @@ import jakarta.validation.constraints.*;
 import jakarta.validation.groups.ConvertGroup;
 import lombok.*;
 import org.laban.learning.spring.lessonfinal.model.HotelRoom;
-import org.laban.learning.spring.lessonfinal.web.dto.booking.BookingRecordDTO;
+import org.laban.learning.spring.lessonfinal.web.dto.booking.BookingDTO;
 import org.laban.learning.spring.lessonfinal.web.dto.hotel.HotelDTO;
 import org.laban.learning.spring.lessonfinal.web.validation.custom.NullOrNotBlank;
 import org.laban.learning.spring.lessonfinal.web.validation.group.ValidationGroup;
@@ -55,5 +55,5 @@ public class HotelRoomDTO {
     private HotelDTO hotel;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private List<BookingRecordDTO> bookings;
+    private List<BookingDTO> bookings;
 }

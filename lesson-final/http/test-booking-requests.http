@@ -1,0 +1,13 @@
+### findBookingById
+GET http://localhost:8085/api/v1/booking/30
+
+### createBooking
+POST http://localhost:8085/api/v1/booking
+Content-Type: application/json
+
+{
+  "startDate": "2024-05-23T12:00:35.000000000Z",
+  "endDate": "2024-05-24T12:00:35.000000000Z",
+  "roomId": 1,
+  "userId": 1
+}
