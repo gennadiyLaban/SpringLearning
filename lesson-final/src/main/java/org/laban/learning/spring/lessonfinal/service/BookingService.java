@@ -7,10 +7,13 @@ import org.laban.learning.spring.lessonfinal.exception.BookingNotFoundException;
 import org.laban.learning.spring.lessonfinal.mapper.BookingMapper;
 import org.laban.learning.spring.lessonfinal.model.Booking;
 import org.laban.learning.spring.lessonfinal.repository.BookingRepository;
+import org.laban.learning.spring.lessonfinal.utils.SpecificationUtils;
 import org.laban.learning.spring.lessonfinal.web.dto.booking.BookingDTO;
+import org.laban.learning.spring.lessonfinal.web.dto.booking.BookingListDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -48,4 +51,11 @@ public class BookingService {
         return bookingRepository.save(upsertBooking);
     }
 
+    public BookingListDTO getBookingListDTOForHotel(@Nonnull Long hotelId) {
+        return bookingMapper.entityListToBookingListDTO(getAllBookingsForHotel(hotelId));
+    }
+
+    public List<Booking> getAllBookingsForHotel(@Nonnull Long hotelId) {
+        return bookingRepository.findAll(SpecificationUtils.bookingsOfHotel(hotelId));
+    }
 }

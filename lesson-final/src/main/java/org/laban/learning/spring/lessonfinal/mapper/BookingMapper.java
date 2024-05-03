@@ -2,6 +2,7 @@ package org.laban.learning.spring.lessonfinal.mapper;
 
 import org.laban.learning.spring.lessonfinal.model.Booking;
 import org.laban.learning.spring.lessonfinal.web.dto.booking.BookingDTO;
+import org.laban.learning.spring.lessonfinal.web.dto.booking.BookingListDTO;
 import org.mapstruct.*;
 
 import java.util.List;
@@ -16,6 +17,12 @@ public interface BookingMapper {
     @Mapping(target = "roomId", source = "room.id")
     @Mapping(target = "userId", source = "user.id")
     BookingDTO entityToDto(Booking booking);
+
+    default BookingListDTO entityListToBookingListDTO(List<Booking> bookings) {
+        return BookingListDTO.builder()
+                .bookings(entityListToDtoList(bookings))
+                .build();
+    }
 
     default List<BookingDTO> entityListToDtoList(List<Booking> bookings) {
         return bookings.stream().map(this::entityToDto).toList();

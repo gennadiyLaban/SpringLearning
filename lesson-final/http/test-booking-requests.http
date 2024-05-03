@@ -11,3 +11,6 @@ Content-Type: application/json
   "roomId": 1,
   "userId": 1
 }
+
+### getAllBookingsForHotel
+GET http://localhost:8085/api/v1/booking/hotel/1/list

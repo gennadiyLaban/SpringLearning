@@ -3,6 +3,7 @@ package org.laban.learning.spring.lessonfinal.web.controller;
 import lombok.RequiredArgsConstructor;
 import org.laban.learning.spring.lessonfinal.service.BookingService;
 import org.laban.learning.spring.lessonfinal.web.dto.booking.BookingDTO;
+import org.laban.learning.spring.lessonfinal.web.dto.booking.BookingListDTO;
 import org.laban.learning.spring.lessonfinal.web.validation.group.ValidationGroup;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -30,4 +31,12 @@ public class BookingController {
         var createdId = bookingService.createBooking(booking);
         return ResponseEntity.created(URI.create("/api/v1/booking/" + createdId)).build();
     }
+
+    @GetMapping("/hotel/{hotelId}/list")
+    public ResponseEntity<BookingListDTO> getAllHotelBookings(
+            @PathVariable("hotelId") Long hotelId
+    ) {
+        return ResponseEntity.ok(bookingService.getBookingListDTOForHotel(hotelId));
+    }
+
 }
