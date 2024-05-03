@@ -58,4 +58,12 @@ public class BookingService {
     public List<Booking> getAllBookingsForHotel(@Nonnull Long hotelId) {
         return bookingRepository.findAll(SpecificationUtils.bookingsOfHotel(hotelId));
     }
+
+    public BookingListDTO getBookingListDTOForUser(@Nonnull Long userId) {
+        return bookingMapper.entityListToBookingListDTO(getAllBookingsForUser(userId));
+    }
+
+    public List<Booking> getAllBookingsForUser(@Nonnull Long userId) {
+        return bookingRepository.findAll(SpecificationUtils.bookingsOfUser(userId));
+    }
 }

@@ -39,4 +39,11 @@ public class BookingController {
         return ResponseEntity.ok(bookingService.getBookingListDTOForHotel(hotelId));
     }
 
+    @GetMapping("/user/{userId}/list")
+    public ResponseEntity<BookingListDTO> getAllUserBookings(
+            @PathVariable("userId") Long userId
+    ) {
+        return ResponseEntity.ok(bookingService.getBookingListDTOForUser(userId));
+    }
+
 }

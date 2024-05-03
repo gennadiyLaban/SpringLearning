@@ -14,3 +14,6 @@ Content-Type: application/json
 
 ### getAllBookingsForHotel
 GET http://localhost:8085/api/v1/booking/hotel/1/list
+
+### getAllBookingsForUser
+GET http://localhost:8085/api/v1/booking/user/1/list
