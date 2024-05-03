@@ -1,6 +1,6 @@
 package org.laban.learning.spring.lessonfinal.mapper;
 
-import org.laban.learning.spring.lessonfinal.model.BookingRecord;
+import org.laban.learning.spring.lessonfinal.model.Booking;
 import org.laban.learning.spring.lessonfinal.web.dto.booking.BookingRecordDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -12,9 +12,9 @@ import java.util.List;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface BookingRecordMapper {
     @Mapping(target = "roomId", source = "room.id")
-    BookingRecordDTO entityToDto(BookingRecord bookingRecord);
+    BookingRecordDTO entityToDto(Booking booking);
 
-    default List<BookingRecordDTO> entityListToDtoList(List<BookingRecord> bookingRecords) {
-        return bookingRecords.stream().map(this::entityToDto).toList();
+    default List<BookingRecordDTO> entityListToDtoList(List<Booking> bookings) {
+        return bookings.stream().map(this::entityToDto).toList();
     }
 }

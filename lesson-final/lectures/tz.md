@@ -165,7 +165,7 @@
         - `minCost` и `maxCost` - `minCost <= HotelRoom.cost <= maxCost`
         - Вопрос №9
         - `targetCapacity` (фильтрация должна быть по полю `HotelRoom.maxCapacity`)
-        - `startBooking` и `endBooking` - `HotelRoom.bookingRecords`
+        - `startBooking` и `endBooking` - `HotelRoom.bookings`
         - `HotelRoom.hotel`
 * Сущность `BookingRecord.class`:
   - Дополнить `REST API`:

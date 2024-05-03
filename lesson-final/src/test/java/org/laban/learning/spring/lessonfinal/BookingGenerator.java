@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class BookingRecordGenerator {
+public class BookingGenerator {
     @Test
     public void generateBookingRecordValues() {
         var rooms = List.of(1, 2, 3, 4, 5, 6);

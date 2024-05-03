@@ -51,7 +51,7 @@ public class HotelRoom {
 
     @OrderBy("start ASC")
     @OneToMany(mappedBy = "room")
-    private List<BookingRecord> bookings = new ArrayList<>();
+    private List<Booking> bookings = new ArrayList<>();
 
 
     public static class NestedConverter extends StdConverter<JsonNode, HotelDTO> {

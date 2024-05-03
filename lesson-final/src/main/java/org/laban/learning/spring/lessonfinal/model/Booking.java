@@ -19,7 +19,7 @@ import java.time.Instant;
         columnList = "room_id, start ASC"
 ))
 @Entity(name = "bookings")
-public class BookingRecord {
+public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
