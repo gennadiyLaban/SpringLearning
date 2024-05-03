@@ -26,10 +26,10 @@ insert into
 insert into
     users(username, password, email)
     values
-        ('user1', 'password1', 'email1@ya.ru'),
-        ('user2', 'password1', 'email2@ya.ru'),
-        ('user3', 'password1', 'email3@ya.ru'),
-        ('user4', 'password1', 'email4@ya.ru');
+        ('user1', '$2a$12$r.JGVIl1qPTWJR6K9vtaFOHWrpyiprFEzcFiNz3GzZt18bLXqSRcK', 'user1@ya.ru'),
+        ('user2', '$2a$12$Pbpuxa1iEuAxq6MhVb2AqujEYhHoUWAobpjGKUPTKKObYPdioHku6', 'user2@ya.ru'),
+        ('user3', '$2a$12$oDpAIIZbwoyWHMeCu0G1hu5pc/bqsq0e83VvH.xl.Z/4Dyqf23.0e', 'user3@ya.ru'),
+        ('user4', '$2a$12$pIcxh4MJ09nfQmU9olqrDup55a2ifGWTS5hjWjWrJxGr4zdKWa7p.', 'user4@ya.ru');
 
 insert into
     user_role_records(user_id, role_type)

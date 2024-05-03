@@ -17,7 +17,7 @@ dependencies {
     implementation(Global.Library.SpringBootWebStarter)
     implementation(Global.Library.SpringBootDataJpaStarter)
     implementation(Global.Library.SpringBootValidationStarter)
-//    implementation(Global.Library.SpringBootSecurityStarter)
+    implementation(Global.Library.SpringBootSecurityStarter)
     implementation(Global.Library.SpringDocOpenApiWebMvcUiStarter)
     runtimeOnly(Global.Library.Postgresql)
 
