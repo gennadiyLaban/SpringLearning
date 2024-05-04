@@ -35,7 +35,6 @@ insert into
     user_role_records(user_id, role_type)
     values
         (1, 'ROLE_ADMIN'),
-        (1, 'ROLE_USER'),
         (2, 'ROLE_USER'),
         (3, 'ROLE_USER'),
         (4, 'ROLE_USER');

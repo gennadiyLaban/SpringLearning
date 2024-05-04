@@ -133,7 +133,7 @@
       * Вопрос №5
       * Вопрос №6
       * Формула изменения `numberOfRating`:
-        - `umberOfRating = numberOfRating + 1`
+        - `numberOfRating = numberOfRating + 1`
       * Формула изменения `rating`: 
         - `var numberOfRating = numberOfRating + 1` (`numberOfRating` - значение до инкремента)
         - `var totalRating = rating * numberOfRating`
