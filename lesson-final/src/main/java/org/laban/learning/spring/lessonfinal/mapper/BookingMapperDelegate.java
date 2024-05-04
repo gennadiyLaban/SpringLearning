@@ -6,6 +6,7 @@ import org.laban.learning.spring.lessonfinal.model.HotelRoom;
 import org.laban.learning.spring.lessonfinal.model.User;
 import org.laban.learning.spring.lessonfinal.service.HotelRoomService;
 import org.laban.learning.spring.lessonfinal.service.UserService;
+import org.laban.learning.spring.lessonfinal.utils.SecurityUtils;
 import org.laban.learning.spring.lessonfinal.web.dto.booking.BookingDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -40,7 +41,7 @@ public abstract class BookingMapperDelegate implements BookingMapper {
 
         var builder = booking.toBuilder();
         return builder
-                .user(getUserById(upsertBookingDto.getUserId()))
+                .user(getUserById(SecurityUtils.getCurrentUserId()))
                 .room(getHotelRoomById(upsertBookingDto.getRoomId()))
                 .startDate(truncateToDays(upsertBookingDto.getStartDate()))
                 .endDate(truncateToDays(upsertBookingDto.getEndDate()))

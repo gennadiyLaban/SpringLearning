@@ -30,6 +30,5 @@ public class BookingDTO {
     @NotNull(groups = ValidationGroup.Create.class)
     private Long roomId;
 
-    @NotNull(groups = ValidationGroup.Create.class)
     private Long userId;
 }
