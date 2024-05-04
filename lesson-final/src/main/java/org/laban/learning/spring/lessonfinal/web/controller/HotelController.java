@@ -7,6 +7,7 @@ import org.laban.learning.spring.lessonfinal.web.dto.hotel.HotelListDTO;
 import org.laban.learning.spring.lessonfinal.web.validation.group.ValidationGroup;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,11 +20,13 @@ import java.text.MessageFormat;
 public class HotelController {
     private final HotelService hotelService;
 
+    @PreAuthorize("hasAnyRole('USER')")
     @GetMapping("/{id}")
     public ResponseEntity<HotelDTO> findHotelById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(hotelService.getHotelDtoById(id));
     }
 
+    @PreAuthorize("hasAnyRole('USER')")
     @GetMapping("/list")
     public ResponseEntity<HotelListDTO> findAllHotels(
             @RequestParam(defaultValue = "0") Integer page,
@@ -32,6 +35,7 @@ public class HotelController {
         return ResponseEntity.ok(hotelService.getAllHotelsDTO(PageRequest.of(page, size)));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping
     public ResponseEntity<Void> createHotel(
             @RequestBody @Validated(ValidationGroup.Create.class)
@@ -43,6 +47,7 @@ public class HotelController {
                 .build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateHotel(
             @RequestBody @Validated(ValidationGroup.Update.class)
@@ -52,6 +57,7 @@ public class HotelController {
         return ResponseEntity.noContent().build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteHotel(@PathVariable("id") Long id) {
         hotelService.deleteHotelById(id);

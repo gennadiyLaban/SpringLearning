@@ -1,14 +1,14 @@
 ### findUserById
-GET http://localhost:8085/api/v1/user/2
-#Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN,ROLE_USER
+GET http://localhost:8085/api/v1/user/5
+#Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
 #Authorization: Basic dXNlcjI6dXNlcjI=    # user2:user2 - ROLE_USER
 #Authorization: Basic dXNlcjM6dXNlcjM=    # user3:user3 - ROLE_USER
 #Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
-#Authorization: Basic dXNlcjU6dXNlcjU=    # user5:user5
+Authorization: Basic dXNlcjU6dXNlcjU=    # user5:user5
 
 ### findAllUsers
 GET http://localhost:8085/api/v1/user/list
-#Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN,ROLE_USER
+#Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
 #Authorization: Basic dXNlcjI6dXNlcjI=    # user2:user2 - ROLE_USER
 #Authorization: Basic dXNlcjM6dXNlcjM=    # user3:user3 - ROLE_USER
 #Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
@@ -23,14 +23,13 @@ Content-Type: application/json
   "email": "user5@ya.ru",
   "password": "user5",
   "roles": [
-    "ROLE_ADMIN",
-    "ROLE_USER"
+    "ROLE_ADMIN"
   ]
 }
 
 ### updateUser
 PUT http://localhost:8085/api/v1/user/5
-#Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN,ROLE_USER
+#Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
 #Authorization: Basic dXNlcjI6dXNlcjI=    # user2:user2 - ROLE_USER
 #Authorization: Basic dXNlcjM6dXNlcjM=    # user3:user3 - ROLE_USER
 #Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
@@ -49,7 +48,7 @@ Content-Type: application/json
 
 ### deleteUserById
 DELETE http://localhost:8085/api/v1/user/5
-#Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN,ROLE_USER
+#Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
 #Authorization: Basic dXNlcjI6dXNlcjI=    # user2:user2 - ROLE_USER
 #Authorization: Basic dXNlcjM6dXNlcjM=    # user3:user3 - ROLE_USER
 #Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
