@@ -49,7 +49,7 @@ public class HotelRoom {
     @JoinColumn(nullable = false, updatable = false, referencedColumnName = "id")
     private Hotel hotel;
 
-    @OrderBy("start ASC")
+    @OrderBy("startDate ASC")
     @OneToMany(mappedBy = "room")
     private List<Booking> bookings = new ArrayList<>();
 

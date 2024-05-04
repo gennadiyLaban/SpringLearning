@@ -6,6 +6,7 @@ import org.laban.learning.spring.lessonfinal.service.HotelRoomService;
 import org.laban.learning.spring.lessonfinal.web.dto.room.HotelRoomDTO;
 import org.laban.learning.spring.lessonfinal.web.validation.group.ValidationGroup;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,11 +19,13 @@ import java.net.URI;
 public class HotelRoomController {
     private final HotelRoomService hotelRoomService;
 
+    @PreAuthorize("hasAnyRole('USER')")
     @GetMapping("/{id}")
     public ResponseEntity<HotelRoomDTO> getHotelRoomById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(hotelRoomService.getHotelRoomDTOById(id));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping
     public ResponseEntity<Void> createHotelRoom(
             @RequestBody
@@ -33,6 +36,7 @@ public class HotelRoomController {
         return ResponseEntity.created(URI.create("/api/v1/room/" + createdId)).build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateHotelRoom(
             @RequestBody
@@ -43,6 +47,7 @@ public class HotelRoomController {
         return ResponseEntity.noContent().build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteHotelRoom(@PathVariable("id") Long id) {
         hotelRoomService.deleteHotelRoom(id);
