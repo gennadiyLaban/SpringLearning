@@ -6,6 +6,7 @@ import org.laban.learning.spring.lessonfinal.web.dto.user.UserDTO;
 import org.laban.learning.spring.lessonfinal.web.dto.user.UserListDTO;
 import org.laban.learning.spring.lessonfinal.web.validation.group.ValidationGroup;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,11 +18,13 @@ import java.net.URI;
 public class UserController {
     private final UserService userService;
 
+    @PreAuthorize("hasAnyRole('USER')")
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(userService.getUserDtoById(id));
     }
 
+    @PreAuthorize("hasAnyRole('USER')")
     @GetMapping("/list")
     public ResponseEntity<UserListDTO> getAllUsers() {
         return ResponseEntity.ok(userService.findAllUserDTOs());
@@ -37,6 +40,7 @@ public class UserController {
         return ResponseEntity.created(URI.create("api/v1/user/" + createdId)).build();
     }
 
+    @PreAuthorize("hasAnyRole('USER')")
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateUser(
             @Validated(ValidationGroup.Update.class)
@@ -47,6 +51,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    @PreAuthorize("hasAnyRole('USER')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id) {
         userService.deleteUserById(id);
