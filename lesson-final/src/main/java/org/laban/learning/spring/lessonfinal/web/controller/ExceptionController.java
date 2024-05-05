@@ -2,6 +2,7 @@ package org.laban.learning.spring.lessonfinal.web.controller;
 
 import jakarta.annotation.Nullable;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.laban.learning.spring.lessonfinal.exception.*;
@@ -56,9 +57,31 @@ public class ExceptionController {
                 .orElse(null);
     }
 
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ErrorBodyDTO> constraintViolationException(
+            ConstraintViolationException exception,
+            HttpServletRequest request
+    ) {
+        log.error(exception.getMessage(), exception);
+        return ErrorResponseUtils.buildError(HttpStatus.BAD_REQUEST, request, exception.getMessage());
+    }
+
+    @ExceptionHandler(HotelAlreadyMarkedException.class)
+    public ResponseEntity<ErrorBodyDTO> hotelAlreadyMarkedException(
+            HotelAlreadyMarkedException exception,
+            HttpServletRequest request
+    ) {
+        var errorMsg = MessageFormat.format(
+                "Hotel with hotelId={0} has already marked by User with userId={1}",
+                exception.getHotelId(),
+                exception.getUserId());
+        log.error(errorMsg, exception);
+        return ErrorResponseUtils.buildError(HttpStatus.BAD_REQUEST, request, errorMsg);
+    }
+
     @ExceptionHandler({Exception.class})
     public ResponseEntity<ErrorBodyDTO> handleUncatchedException(
-            RuntimeException exception,
+            Exception exception,
             HttpServletRequest request
     ) {
         log.error(

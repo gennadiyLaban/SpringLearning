@@ -130,8 +130,7 @@
 * Сущность `Hotel.class`:
   - Дополнить `REST API`:
     + `markHotel`
-      * Вопрос №5
-      * Вопрос №6
+      * Не позволять `User.class` ставить оценку дважды
       * Формула изменения `numberOfRating`:
         - `numberOfRating = numberOfRating + 1`
       * Формула изменения `rating`: 

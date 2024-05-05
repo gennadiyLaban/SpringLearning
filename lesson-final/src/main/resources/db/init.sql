@@ -3,12 +3,15 @@ ALTER ROLE admin IN DATABASE lessonfinal SET SEARCH_PATH=lessonfinal,public;
 SET SEARCH_PATH=lessonfinal,public;
 
 DROP FUNCTION IF EXISTS isBooked;
+DROP FUNCTION IF EXISTS isHotelAlreadyMarked;
+DROP FUNCTION IF EXISTS saveHotelRating;
 
 DROP INDEX IF EXISTS rooms_hotel_id_index;
 DROP INDEX IF EXISTS user_role_records_user_id_index;
 DROP INDEX IF EXISTS bookings_room_id_start_date_index;
 DROP INDEX IF EXISTS bookings_user_id_start_date_index;
 
+DROP TABLE IF EXISTS hotel_ratings;
 DROP TABLE IF EXISTS bookings;
 DROP TABLE IF EXISTS rooms;
 DROP TABLE IF EXISTS hotels;
@@ -60,7 +63,7 @@ CREATE TABLE IF NOT EXISTS user_role_records(
 CREATE INDEX IF NOT EXISTS user_role_records_user_id_index
     ON user_role_records(user_id);
 
-CREATE TABLE bookings(
+CREATE TABLE IF NOT EXISTS bookings(
     id      BIGSERIAL PRIMARY KEY,
     start_date   timestamptz NOT NULL,
     end_date   timestamptz NOT NULL,
@@ -71,6 +74,12 @@ CREATE INDEX IF NOT EXISTS bookings_room_id_start_date_index
     ON bookings (room_id, start_date ASC);
 CREATE INDEX IF NOT EXISTS bookings_user_id_start_date_index
     ON bookings (user_id, start_date ASC);
+
+CREATE TABLE IF NOT EXISTS hotel_ratings(
+    hotel_id BIGINT NOT NULL REFERENCES hotels(id) ON DELETE CASCADE,
+    user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    CONSTRAINT UK_hotel_ratings_hotel_id_user_id UNIQUE (hotel_id, user_id)
+);
 
 
 CREATE FUNCTION isBooked(roomId bigint, startDate timestamptz, endDate timestamptz) RETURNS boolean AS '
@@ -86,3 +95,24 @@ BEGIN
     RETURN isBooked;
 END;
 ' LANGUAGE plpgsql;
+
+CREATE FUNCTION isHotelAlreadyMarked(hotelId bigint, userId bigint) RETURNS boolean AS '
+DECLARE
+    isMarked boolean := false;
+BEGIN
+    SELECT COUNT(*) > 0
+    INTO isMarked
+    FROM hotel_ratings
+    WHERE hotel_id = hotelId AND user_id = userId;
+
+    RETURN isMarked;
+END;
+' LANGUAGE plpgsql;
+
+CREATE FUNCTION saveHotelRating(hotelId bigint, userId bigint) RETURNS void AS '
+DECLARE
+BEGIN
+    INSERT INTO hotel_ratings (hotel_id, user_id) VALUES (hotelId, userId);
+END;
+' LANGUAGE plpgsql;
+

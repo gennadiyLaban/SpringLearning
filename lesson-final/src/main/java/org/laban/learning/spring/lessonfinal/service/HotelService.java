@@ -2,10 +2,12 @@ package org.laban.learning.spring.lessonfinal.service;
 
 import jakarta.annotation.Nonnull;
 import lombok.RequiredArgsConstructor;
+import org.laban.learning.spring.lessonfinal.exception.HotelAlreadyMarkedException;
 import org.laban.learning.spring.lessonfinal.exception.HotelNotFoundException;
 import org.laban.learning.spring.lessonfinal.mapper.HotelMapper;
 import org.laban.learning.spring.lessonfinal.model.Hotel;
 import org.laban.learning.spring.lessonfinal.repository.HotelRepository;
+import org.laban.learning.spring.lessonfinal.security.AppUserDetails;
 import org.laban.learning.spring.lessonfinal.utils.BeanUtils;
 import org.laban.learning.spring.lessonfinal.web.dto.hotel.HotelDTO;
 import org.laban.learning.spring.lessonfinal.web.dto.hotel.HotelListDTO;
@@ -14,6 +16,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Optional;
 import java.util.Set;
 
@@ -81,5 +85,29 @@ public class HotelService {
             throw new HotelNotFoundException(id);
         }
         hotelRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void markHotel(@Nonnull Long hotelId, @Nonnull Integer newMark, @Nonnull AppUserDetails userDetails) {
+        var hotel = getHotelById(hotelId);
+        var userId = userDetails.getUserId();
+        var isHotelAlreadyMarked = hotelRepository.isHotelAlreadyMarked(hotelId, userId);
+        if (isHotelAlreadyMarked) {
+            throw new HotelAlreadyMarkedException(hotelId, userId);
+        }
+        applyNewRating(hotel, userId, newMark);
+    }
+
+    private void applyNewRating(Hotel hotel, Long userId, Integer newMark) {
+        hotelRepository.saveHotelRating(hotel.getId(), userId);
+
+        var numberOfRating = BigDecimal.valueOf(hotel.getNumberOfRating() + 1);
+        var totalRating = hotel.getRating().multiply(numberOfRating);
+        totalRating = totalRating.subtract(hotel.getRating()).add(BigDecimal.valueOf(newMark));
+        var newRating = totalRating.divide(numberOfRating, 1, RoundingMode.HALF_UP);
+
+        hotel.setRating(newRating);
+        hotel.setNumberOfRating(numberOfRating.intValueExact());
+        hotelRepository.save(hotel);
     }
 }
