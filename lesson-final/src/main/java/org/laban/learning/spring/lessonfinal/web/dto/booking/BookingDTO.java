@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.laban.learning.spring.lessonfinal.web.validation.custom.booking.BookingStartBeforeEnd;
+import org.laban.learning.spring.lessonfinal.web.validation.custom.BookingStartBeforeEnd;
 import org.laban.learning.spring.lessonfinal.web.validation.custom.booking.BookingValidationGroup;
 import org.laban.learning.spring.lessonfinal.web.validation.group.ValidationGroup;
 

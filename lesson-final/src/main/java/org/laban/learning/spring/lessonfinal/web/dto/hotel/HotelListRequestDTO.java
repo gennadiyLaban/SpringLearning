@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.jackson.Jacksonized;
 import org.laban.learning.spring.lessonfinal.configuration.AppContestants;
+import org.laban.learning.spring.lessonfinal.web.dto.Page;
 import org.laban.learning.spring.lessonfinal.web.validation.custom.NullOrNotBlank;
 
 @NoArgsConstructor
@@ -27,18 +28,6 @@ public class HotelListRequestDTO {
     @NotNull
     @Builder.Default
     private Filter filter = new Filter();
-
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Builder
-    @Getter
-    public static class Page {
-        @PositiveOrZero
-        private Integer number;
-
-        @Positive
-        private Integer size;
-    }
 
     @NoArgsConstructor
     @AllArgsConstructor

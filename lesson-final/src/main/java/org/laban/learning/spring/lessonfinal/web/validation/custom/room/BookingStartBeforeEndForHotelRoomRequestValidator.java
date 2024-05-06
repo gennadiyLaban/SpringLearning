@@ -1,20 +1,21 @@
-package org.laban.learning.spring.lessonfinal.web.validation.custom.booking;
+package org.laban.learning.spring.lessonfinal.web.validation.custom.room;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.laban.learning.spring.lessonfinal.web.dto.booking.BookingDTO;
+import org.laban.learning.spring.lessonfinal.web.dto.room.HotelRoomListRequestDTO;
 import org.laban.learning.spring.lessonfinal.web.validation.custom.BookingStartBeforeEnd;
 
 import java.time.Period;
 import java.time.ZoneOffset;
 
-public class BookingStartBeforeEndValidator implements ConstraintValidator<BookingStartBeforeEnd, BookingDTO> {
+public class BookingStartBeforeEndForHotelRoomRequestValidator
+        implements ConstraintValidator<BookingStartBeforeEnd, HotelRoomListRequestDTO.BookingDates> {
     private static final ZoneOffset TIMEZONE_UTC = ZoneOffset.UTC;
 
     @Override
-    public boolean isValid(BookingDTO value, ConstraintValidatorContext context) {
-        var start = value.getStartDate();
-        var end = value.getEndDate();
+    public boolean isValid(HotelRoomListRequestDTO.BookingDates value, ConstraintValidatorContext context) {
+        var start = value.startDate();
+        var end = value.endDate();
         if (start == null || end == null) {
             return true;
         }

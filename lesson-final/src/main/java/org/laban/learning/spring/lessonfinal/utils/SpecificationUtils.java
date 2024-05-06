@@ -5,6 +5,7 @@ import jakarta.annotation.Nullable;
 import jakarta.persistence.criteria.Path;
 import org.laban.learning.spring.lessonfinal.model.*;
 import org.laban.learning.spring.lessonfinal.web.dto.hotel.HotelListRequestDTO;
+import org.laban.learning.spring.lessonfinal.web.dto.room.HotelRoomListRequestDTO;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.function.Function;
@@ -66,6 +67,44 @@ public class SpecificationUtils {
                 minRatingSpec,
                 minNumberOfRating
         );
+    }
+
+    public static Specification<HotelRoom> hotelRoomsByFilter(@Nonnull HotelRoomListRequestDTO.Filter filter) {
+        Specification<HotelRoom> roomIdSpec = equalNotNull(path -> path.get(HotelRoom.Fields.id), filter.roomId());
+        Specification<HotelRoom> nameSpec = likeNotNull(path -> path.get(HotelRoom.Fields.name), filter.name());
+        Specification<HotelRoom> minPriceSpec = greaterThanOrEqualNotNull(
+                path -> path.get(HotelRoom.Fields.price),
+                filter.minPrice());
+        Specification<HotelRoom> maxPriceSpec = lessThanOrEqualNotNull(
+                path -> path.get(HotelRoom.Fields.price),
+                filter.maxPrice());
+        Specification<HotelRoom> capacitySpec = greaterThanOrEqualNotNull(
+                path -> path.get(HotelRoom.Fields.maxCapacity),
+                filter.targetCapacity());
+        Specification<HotelRoom> hotelIdSpec = equalNotNull(
+                path -> path.get(HotelRoom.Fields.hotel).get(Hotel.Fields.id),
+                filter.hotelId());
+
+        Specification<HotelRoom> bookingRangeSpec;
+        if (filter.bookingDates() != null) {
+            bookingRangeSpec = Specification.where((root, query, criteriaBuilder) -> criteriaBuilder.isFalse(
+                    criteriaBuilder.function("isBooked", Boolean.class,
+                            root.get(HotelRoom.Fields.id),
+                            criteriaBuilder.literal(filter.bookingDates().startDate()),
+                            criteriaBuilder.literal(filter.bookingDates().endDate())
+                    )));
+        } else {
+            bookingRangeSpec = Specification.where(null);
+        }
+
+        return Specification.allOf(
+                roomIdSpec,
+                nameSpec,
+                minPriceSpec,
+                maxPriceSpec,
+                capacitySpec,
+                hotelIdSpec,
+                bookingRangeSpec);
     }
 
     private static <T> Specification<T> equalNotNull(

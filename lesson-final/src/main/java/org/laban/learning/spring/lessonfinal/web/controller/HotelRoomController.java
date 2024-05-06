@@ -1,9 +1,12 @@
 package org.laban.learning.spring.lessonfinal.web.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.laban.learning.spring.lessonfinal.service.HotelRoomService;
 import org.laban.learning.spring.lessonfinal.web.dto.room.HotelRoomDTO;
+import org.laban.learning.spring.lessonfinal.web.dto.room.HotelRoomListDTO;
+import org.laban.learning.spring.lessonfinal.web.dto.room.HotelRoomListRequestDTO;
 import org.laban.learning.spring.lessonfinal.web.validation.group.ValidationGroup;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,6 +26,17 @@ public class HotelRoomController {
     @GetMapping("/{id}")
     public ResponseEntity<HotelRoomDTO> getHotelRoomById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(hotelRoomService.getHotelRoomDTOById(id));
+    }
+
+    @PreAuthorize("hasAnyRole('USER')")
+    @PostMapping("/list")
+    public ResponseEntity<HotelRoomListDTO> findAllHotelRooms(
+            @RequestBody @Valid
+            HotelRoomListRequestDTO requestDTO
+    ) {
+        return ResponseEntity.ok(
+                hotelRoomService.getAllHotelsDTO(requestDTO)
+        );
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
