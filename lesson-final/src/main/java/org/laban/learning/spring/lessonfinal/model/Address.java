@@ -6,9 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldNameConstants;
 import org.laban.learning.spring.lessonfinal.web.validation.custom.NullOrNotBlank;
 import org.laban.learning.spring.lessonfinal.web.validation.group.ValidationGroup;
 
+@FieldNameConstants
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

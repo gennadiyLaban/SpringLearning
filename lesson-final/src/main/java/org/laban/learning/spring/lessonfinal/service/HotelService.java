@@ -9,10 +9,14 @@ import org.laban.learning.spring.lessonfinal.model.Hotel;
 import org.laban.learning.spring.lessonfinal.repository.HotelRepository;
 import org.laban.learning.spring.lessonfinal.security.AppUserDetails;
 import org.laban.learning.spring.lessonfinal.utils.BeanUtils;
+import org.laban.learning.spring.lessonfinal.utils.SpecificationUtils;
 import org.laban.learning.spring.lessonfinal.web.dto.hotel.HotelDTO;
 import org.laban.learning.spring.lessonfinal.web.dto.hotel.HotelListDTO;
+import org.laban.learning.spring.lessonfinal.web.dto.hotel.HotelListRequestDTO;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,8 +56,23 @@ public class HotelService {
     }
 
     @Transactional(readOnly = true)
+    public HotelListDTO getAllHotelsDTO(@Nonnull HotelListRequestDTO requestDTO) {
+        var page = requestDTO.getPage();
+        var filter = requestDTO.getFilter();
+        return hotelMapper.hotelPageToHotelDTOlist(getAllHotels(
+                PageRequest.of(page.getNumber(), page.getSize()),
+                SpecificationUtils.hotelsByFilter(filter)
+        ));
+    }
+
+    @Transactional(readOnly = true)
     public Page<Hotel> getAllHotels(@Nonnull Pageable pageable) {
         return hotelRepository.findAll(pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Hotel> getAllHotels(@Nonnull Pageable pageable, @Nonnull Specification<Hotel> specification) {
+        return hotelRepository.findAll(specification, pageable);
     }
 
     @Transactional

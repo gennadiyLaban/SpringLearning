@@ -21,6 +21,9 @@ public class Hotel {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
+    private String title;
+
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "city", column = @Column(name = "address_city", nullable = false)),

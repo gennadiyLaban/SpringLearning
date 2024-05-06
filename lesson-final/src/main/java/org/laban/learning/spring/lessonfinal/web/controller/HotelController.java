@@ -1,5 +1,6 @@
 package org.laban.learning.spring.lessonfinal.web.controller;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,7 @@ import org.laban.learning.spring.lessonfinal.security.AppUserDetails;
 import org.laban.learning.spring.lessonfinal.service.HotelService;
 import org.laban.learning.spring.lessonfinal.web.dto.hotel.HotelDTO;
 import org.laban.learning.spring.lessonfinal.web.dto.hotel.HotelListDTO;
+import org.laban.learning.spring.lessonfinal.web.dto.hotel.HotelListRequestDTO;
 import org.laban.learning.spring.lessonfinal.web.validation.group.ValidationGroup;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +42,17 @@ public class HotelController {
             @RequestParam(defaultValue = "2147483647") Integer size
     ) {
         return ResponseEntity.ok(hotelService.getAllHotelsDTO(PageRequest.of(page, size)));
+    }
+
+    @PreAuthorize("hasAnyRole('USER')")
+    @PostMapping("/list")
+    public ResponseEntity<HotelListDTO> findAllHotels(
+            @RequestBody @Valid
+            HotelListRequestDTO hotelListRequestDTO
+    ) {
+        return ResponseEntity.ok(
+                hotelService.getAllHotelsDTO(hotelListRequestDTO)
+        );
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")

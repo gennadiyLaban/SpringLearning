@@ -146,12 +146,14 @@
     + `POST findAll`
       * Реализовать механизм `Pagination`
       * Реализовать механизм фильтрации отелей:
-        - Вопрос №7
         - `Hotel.id`
         - `Hotel.name`
-        - `Hotel.distanceFromCenter` (промежуток?)
-        - `Hotel.rating` (промежуток?)
-        - `Hotel.numberOfRating` (промежуток?)
+        - `Hotel.title`
+        - `Hotel.city`
+        - `Hotel.streetNumber`
+        - `Hotel.distanceFromCenter` (maxDistanceFromCenter)
+        - `Hotel.rating` (minRating)
+        - `Hotel.numberOfRating` (minNumberOfRating)
 
 
 #### Задание 10. Разработка метода, отдающего постраничную информацию о комнатах с учётом фильтрации от пользователя

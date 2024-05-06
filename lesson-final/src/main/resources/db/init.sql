@@ -22,6 +22,7 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE hotels(
     id BIGSERIAL PRIMARY KEY,
     name varchar (255) NOT NULL,
+    title varchar (255) NOT NULL,
     address_city varchar (255) NOT NULL,
     address_street varchar (255) NOT NULL,
     address_number varchar (255) NOT NULL,

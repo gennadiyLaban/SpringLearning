@@ -16,6 +16,27 @@ GET http://localhost:8085/api/v1/hotel/list
 #Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
 Authorization: Basic dXNlcjU6dXNlcjU=    # user5:user5
 
+### findAllHotels
+POST http://localhost:8085/api/v1/hotel/list
+Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
+#Authorization: Basic dXNlcjI6dXNlcjI=    # user2:user2 - ROLE_USER
+#Authorization: Basic dXNlcjM6dXNlcjM=    # user3:user3 - ROLE_USER
+#Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
+#Authorization: Basic dXNlcjU6dXNlcjU=    # user5:user5
+Content-Type: application/json
+
+{
+  "page": {
+    "number": 0,
+    "size": 1
+  },
+  "filter": {
+    "name": "hotel",
+    "minRating": 2,
+    "minNumberOfRating": 20
+  }
+}
+
 ### createHotel
 POST http://localhost:8085/api/v1/hotel
 #Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
@@ -27,6 +48,7 @@ Content-Type: application/json
 
 {
   "name": "NewHotel",
+  "title": "NewTitle",
   "address": {
     "city": "NewCity",
     "street": "NewStreet",

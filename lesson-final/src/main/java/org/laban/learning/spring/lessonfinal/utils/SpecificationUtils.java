@@ -1,11 +1,13 @@
 package org.laban.learning.spring.lessonfinal.utils;
 
 import jakarta.annotation.Nonnull;
-import org.laban.learning.spring.lessonfinal.model.Booking;
-import org.laban.learning.spring.lessonfinal.model.Hotel;
-import org.laban.learning.spring.lessonfinal.model.HotelRoom;
-import org.laban.learning.spring.lessonfinal.model.User;
+import jakarta.annotation.Nullable;
+import jakarta.persistence.criteria.Path;
+import org.laban.learning.spring.lessonfinal.model.*;
+import org.laban.learning.spring.lessonfinal.web.dto.hotel.HotelListRequestDTO;
 import org.springframework.data.jpa.domain.Specification;
+
+import java.util.function.Function;
 
 public class SpecificationUtils {
     private SpecificationUtils() {
@@ -28,4 +30,102 @@ public class SpecificationUtils {
                 userId
         )));
     }
+
+    @Nonnull
+    public static Specification<Hotel> hotelsByFilter(@Nonnull HotelListRequestDTO.Filter filter) {
+        Specification<Hotel> idSpec = equalNotNull(path -> path.get(Hotel.Fields.id), filter.getHotelId());
+        Specification<Hotel> nameSpec = likeNotNull(path -> path.get(Hotel.Fields.name), filter.getName());
+        Specification<Hotel> titleSpec = likeNotNull(path -> path.get(Hotel.Fields.title), filter.getTitle());
+        Specification<Hotel> citySpec = likeNotNull(
+                path -> path.get(Hotel.Fields.address).get(Address.Fields.city),
+                filter.getCity());
+        Specification<Hotel> streetSpec = likeNotNull(
+                path -> path.get(Hotel.Fields.address).get(Address.Fields.street),
+                filter.getStreet());
+        Specification<Hotel> streetNumberSpec = likeNotNull(
+                path -> path.get(Hotel.Fields.address).get(Address.Fields.number),
+                filter.getStreetNumber());
+        Specification<Hotel> maxDistanceSpec = lessThanOrEqualNotNull(
+                path -> path.get(Hotel.Fields.distanceFromCenter),
+                filter.getMaxDistanceFromCenter());
+        Specification<Hotel> minRatingSpec = greaterThanOrEqualNotNull(
+                path -> path.get(Hotel.Fields.rating),
+                filter.getMinRating());
+        Specification<Hotel> minNumberOfRating = greaterThanOrEqualNotNull(
+                path -> path.get(Hotel.Fields.numberOfRating),
+                filter.getMinNumberOfRating());
+
+        return Specification.allOf(
+                idSpec,
+                nameSpec,
+                titleSpec,
+                citySpec,
+                streetSpec,
+                streetNumberSpec,
+                maxDistanceSpec,
+                minRatingSpec,
+                minNumberOfRating
+        );
+    }
+
+    private static <T> Specification<T> equalNotNull(
+            @Nonnull Function<Path<T>, Path<?>> pathMapper,
+            @Nullable Object value
+    ) {
+        if (value == null) {
+            return Specification.where(null);
+        }
+
+        return Specification.where((root, query, criteriaBuilder) ->
+                criteriaBuilder.equal(pathMapper.apply(root), value));
+    }
+
+    private static <T> Specification<T> likeNotNull(
+            @Nonnull Function<Path<T>, Path<String>> pathMapper,
+            @Nullable String value
+    ) {
+        if (value == null) {
+            return Specification.where(null);
+        }
+
+        return (root, query, criteriaBuilder) -> {
+            var path = pathMapper.apply(root);
+            return criteriaBuilder.like(
+                    criteriaBuilder.lower(path),
+                    "%" + value.toLowerCase() + "%"
+            );
+        };
+    }
+
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    private static <T> Specification<T> lessThanOrEqualNotNull(
+            @Nonnull Function<Path<T>, Path<Comparable>> pathMapper,
+            @Nullable Comparable value
+    ) {
+        if (value == null) {
+            return Specification.where(null);
+        }
+
+        return (root, query, criteriaBuilder) -> criteriaBuilder.lessThanOrEqualTo(
+                pathMapper.apply(root),
+                value
+        );
+    }
+
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    private static <T> Specification<T> greaterThanOrEqualNotNull(
+            @Nonnull Function<Path<T>, Path<Comparable>> pathMapper,
+            @Nullable Comparable value
+    ) {
+        if (value == null) {
+            return Specification.where(null);
+        }
+
+        return (root, query, criteriaBuilder) -> criteriaBuilder.greaterThanOrEqualTo(
+                pathMapper.apply(root),
+                value
+        );
+    }
+
+
 }
