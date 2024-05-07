@@ -38,7 +38,14 @@ spring:
       group-id: ${app.kafka.kafkaGroupId}
       properties:
         spring.json.trusted.packages: "org.laban.learning.spring.lessonfinal.model.kafka"
-
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      username: admin
+      password: admin
+      database: lessonfinal
+      authentication-database: admin
 app:
   kafka:
     kafkaGroupId: "kafka-order-group-id"

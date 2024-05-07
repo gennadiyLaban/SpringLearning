@@ -1,8 +1,11 @@
+import net.ltgt.gradle.errorprone.errorprone
+
 plugins {
     java
     applyPlugin(Global.Plugin.KotlinJVM)
     applyPlugin(Global.Plugin.SpringBoot)
     applyPlugin(Global.Plugin.SpringDependencyManagement)
+    applyPlugin(Global.Plugin.ErrorProne)
 }
 
 group = "org.laban"
@@ -21,6 +24,7 @@ dependencies {
     implementation(Global.Library.SpringDocOpenApiWebMvcUiStarter)
     runtimeOnly(Global.Library.Postgresql)
     implementation(Global.Library.SpringKafka)
+    implementation(Global.Library.SpringBootMongoDbReactiveStarter)
 
     annotationProcessor(Global.Library.SpringBootConfigurationProcessor)
 
@@ -32,10 +36,18 @@ dependencies {
 
     implementation(Global.Library.ApacheCommonLang3)
 
+    errorProne(Global.Library.ErrorProne)
+
     testImplementation(kotlin("test"))
     testImplementation(Global.Library.SpringBootTestStarter)
     testCompileOnly(Global.Library.Lombok)
     testAnnotationProcessor(Global.Library.Lombok)
+}
+
+tasks.withType<JavaCompile> {
+    options.errorprone {
+        disableWarningsInGeneratedCode.set(true)
+    }
 }
 
 tasks.withType<Test> {
