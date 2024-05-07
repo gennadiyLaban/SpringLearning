@@ -24,6 +24,8 @@ public class BookingService {
     private final BookingRepository bookingRepository;
     private final BookingMapper bookingMapper;
 
+    private final StatisticService statisticService;
+
     @Transactional(readOnly = true)
     public BookingDTO getBookingDtoById(@Nonnull Long id) {
         return bookingMapper.entityToDto(getBookingById(id));
@@ -50,7 +52,9 @@ public class BookingService {
         if (bookingRepository.isBooked(upsertBooking)) {
             throw new BookingDatesAlreadyBookedException(upsertBooking.getStartDate(), upsertBooking.getEndDate());
         }
-        return bookingRepository.save(upsertBooking);
+        var savedBooking = bookingRepository.save(upsertBooking);
+        statisticService.sendHotelRoomBooked(savedBooking);
+        return savedBooking;
     }
 
     @Transactional(readOnly = true)
