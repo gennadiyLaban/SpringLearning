@@ -20,6 +20,7 @@ dependencies {
     implementation(Global.Library.SpringBootSecurityStarter)
     implementation(Global.Library.SpringDocOpenApiWebMvcUiStarter)
     runtimeOnly(Global.Library.Postgresql)
+    implementation(Global.Library.SpringKafka)
 
     annotationProcessor(Global.Library.SpringBootConfigurationProcessor)
 

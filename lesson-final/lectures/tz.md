@@ -198,6 +198,8 @@
 * Создать `REST API`:
   - `downloadUserRegistrationStatistics`
     + доступен пользователям с ролью `ROLE_ADMIN`
+    + in CSV format
   - `downloadBookingStatistics`
     + доступен пользователям с ролью `ROLE_ADMIN`
+    + in CSV format
 * Вопрос №11
