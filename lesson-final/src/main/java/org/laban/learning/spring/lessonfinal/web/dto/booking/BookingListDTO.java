@@ -13,4 +13,7 @@ import java.util.List;
 @Getter
 public class BookingListDTO {
     private List<BookingDTO> bookings;
+    private Integer page;
+    private Integer pageSize;
+    private Integer pageCount;
 }

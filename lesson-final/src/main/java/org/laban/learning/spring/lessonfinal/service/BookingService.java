@@ -10,10 +10,12 @@ import org.laban.learning.spring.lessonfinal.repository.BookingRepository;
 import org.laban.learning.spring.lessonfinal.utils.SpecificationUtils;
 import org.laban.learning.spring.lessonfinal.web.dto.booking.BookingDTO;
 import org.laban.learning.spring.lessonfinal.web.dto.booking.BookingListDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -51,19 +53,24 @@ public class BookingService {
         return bookingRepository.save(upsertBooking);
     }
 
-    public BookingListDTO getBookingListDTOForHotel(@Nonnull Long hotelId) {
-        return bookingMapper.entityListToBookingListDTO(getAllBookingsForHotel(hotelId));
+    @Transactional(readOnly = true)
+    public BookingListDTO findBookingListDTOForHotel(@Nonnull Long hotelId, @Nonnull Pageable pageable) {
+        return bookingMapper.entityPageToBookingListDTO(findAllBookings(
+                SpecificationUtils.bookingsOfHotel(hotelId),
+                pageable
+        ));
     }
 
-    public List<Booking> getAllBookingsForHotel(@Nonnull Long hotelId) {
-        return bookingRepository.findAll(SpecificationUtils.bookingsOfHotel(hotelId));
+    @Transactional(readOnly = true)
+    public BookingListDTO findBookingListDTOForUser(@Nonnull Long userId, @Nonnull Pageable pageable) {
+        return bookingMapper.entityPageToBookingListDTO(findAllBookings(
+                SpecificationUtils.bookingsOfUser(userId),
+                pageable
+        ));
     }
 
-    public BookingListDTO getBookingListDTOForUser(@Nonnull Long userId) {
-        return bookingMapper.entityListToBookingListDTO(getAllBookingsForUser(userId));
-    }
-
-    public List<Booking> getAllBookingsForUser(@Nonnull Long userId) {
-        return bookingRepository.findAll(SpecificationUtils.bookingsOfUser(userId));
+    @Transactional(readOnly = true)
+    public Page<Booking> findAllBookings(@Nonnull Specification<Booking> specification, @Nonnull Pageable pageable) {
+        return bookingRepository.findAll(specification, pageable);
     }
 }

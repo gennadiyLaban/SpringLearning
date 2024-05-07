@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.laban.learning.spring.lessonfinal.configuration.AppContestants;
 import org.laban.learning.spring.lessonfinal.security.AppUserDetails;
 import org.laban.learning.spring.lessonfinal.service.HotelService;
 import org.laban.learning.spring.lessonfinal.web.dto.hotel.HotelDTO;
@@ -39,7 +40,7 @@ public class HotelController {
     @GetMapping("/list")
     public ResponseEntity<HotelListDTO> findAllHotels(
             @RequestParam(defaultValue = "0") Integer page,
-            @RequestParam(defaultValue = "2147483647") Integer size
+            @RequestParam(defaultValue = AppContestants.DEFAULT_PAGE_SIZE_STR) Integer size
     ) {
         return ResponseEntity.ok(hotelService.getAllHotelsDTO(PageRequest.of(page, size)));
     }

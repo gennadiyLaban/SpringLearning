@@ -1,10 +1,12 @@
 package org.laban.learning.spring.lessonfinal.web.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.laban.learning.spring.lessonfinal.configuration.AppContestants;
 import org.laban.learning.spring.lessonfinal.service.BookingService;
 import org.laban.learning.spring.lessonfinal.web.dto.booking.BookingDTO;
 import org.laban.learning.spring.lessonfinal.web.dto.booking.BookingListDTO;
 import org.laban.learning.spring.lessonfinal.web.validation.group.ValidationGroup;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -38,17 +40,27 @@ public class BookingController {
     @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/hotel/{hotelId}/list")
     public ResponseEntity<BookingListDTO> getAllHotelBookings(
-            @PathVariable("hotelId") Long hotelId
+            @PathVariable("hotelId") Long hotelId,
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = AppContestants.DEFAULT_PAGE_SIZE_STR) Integer size
     ) {
-        return ResponseEntity.ok(bookingService.getBookingListDTOForHotel(hotelId));
+        return ResponseEntity.ok(bookingService.findBookingListDTOForHotel(
+                hotelId,
+                PageRequest.of(page, size)
+        ));
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/user/{userId}/list")
     public ResponseEntity<BookingListDTO> getAllUserBookings(
-            @PathVariable("userId") Long userId
+            @PathVariable("userId") Long userId,
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = AppContestants.DEFAULT_PAGE_SIZE_STR) Integer size
     ) {
-        return ResponseEntity.ok(bookingService.getBookingListDTOForUser(userId));
+        return ResponseEntity.ok(bookingService.findBookingListDTOForUser(
+                userId,
+                PageRequest.of(page, size)
+        ));
     }
 
 }
