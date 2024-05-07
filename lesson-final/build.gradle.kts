@@ -24,7 +24,7 @@ dependencies {
     implementation(Global.Library.SpringDocOpenApiWebMvcUiStarter)
     runtimeOnly(Global.Library.Postgresql)
     implementation(Global.Library.SpringKafka)
-    implementation(Global.Library.SpringBootMongoDbReactiveStarter)
+    implementation(Global.Library.SpringBootMongoDbBlockedStarter)
 
     annotationProcessor(Global.Library.SpringBootConfigurationProcessor)
 

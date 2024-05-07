@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.laban.learning.spring.lessonfinal.model.kafka.HotelRoomBookedEvent;
 import org.laban.learning.spring.lessonfinal.model.kafka.UserRegisteredEvent;
+import org.laban.learning.spring.lessonfinal.service.StatisticService;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Component
 public class KafkaStatisticEventListener {
+    private final StatisticService statisticService;
 
     @KafkaListener(
             topics = "${app.kafka.kafkaUserRegistrationTopic}",
@@ -33,7 +35,6 @@ public class KafkaStatisticEventListener {
             @Payload HotelRoomBookedEvent event
     ) {
         log.info("event: {}", event);
+        statisticService.onHotelRoomBooked(event);
     }
-
-
 }
