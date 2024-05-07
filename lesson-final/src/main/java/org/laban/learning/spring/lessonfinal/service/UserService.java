@@ -21,6 +21,8 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
+    private final StatisticService statisticService;
+
     @Transactional(readOnly = true)
     public UserDTO getUserDtoById(@Nonnull Long id) {
         return userMapper.entityToDTO(getUserById(id));
@@ -59,7 +61,9 @@ public class UserService {
 
     @Transactional
     public Long createUser(@Nonnull User user) {
-        return userRepository.save(user).getId();
+        var savedUser = userRepository.save(user);
+        statisticService.sendUserRegistered(savedUser);
+        return savedUser.getId();
     }
 
     @Transactional
