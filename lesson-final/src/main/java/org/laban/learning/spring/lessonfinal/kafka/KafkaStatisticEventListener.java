@@ -24,6 +24,7 @@ public class KafkaStatisticEventListener {
             @Payload UserRegisteredEvent event
     ) {
         log.info("event: {}", event);
+        statisticService.onUserRegistered(event);
     }
 
     @KafkaListener(

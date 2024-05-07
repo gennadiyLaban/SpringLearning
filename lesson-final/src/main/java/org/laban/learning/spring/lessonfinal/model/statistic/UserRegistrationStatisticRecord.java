@@ -13,15 +13,10 @@ import java.time.Instant;
 @AllArgsConstructor
 @Builder
 @Getter
-@Document(collection = "bookings")
-public class BookingStatisticRecord {
+@Document(collection = "user_registrations")
+public class UserRegistrationStatisticRecord {
     @Id
     private String id;
-
-    private Long bookingId;
     private Long userId;
-    private Long hotelRoomId;
-    private Instant startBooking;
-    private Instant endBooking;
     private Instant timestamp;
 }
