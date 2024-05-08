@@ -35,6 +35,7 @@ dependencies {
     annotationProcessor(Global.Library.MapStructProcessor)
 
     implementation(Global.Library.ApacheCommonLang3)
+    implementation(Global.Library.ApacheCommonCSV)
 
     errorProne(Global.Library.ErrorProne)
 

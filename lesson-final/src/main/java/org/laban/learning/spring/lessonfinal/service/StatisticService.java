@@ -2,19 +2,23 @@ package org.laban.learning.spring.lessonfinal.service;
 
 import jakarta.annotation.Nonnull;
 import lombok.RequiredArgsConstructor;
-import org.laban.learning.spring.lessonfinal.mapper.BookingStatisticRecordMapper;
-import org.laban.learning.spring.lessonfinal.mapper.UserRegistrationStatisticRecordMapper;
+import org.laban.learning.spring.lessonfinal.configuration.AppContestants;
+import org.laban.learning.spring.lessonfinal.mapper.StatisticMapper;
 import org.laban.learning.spring.lessonfinal.model.Booking;
 import org.laban.learning.spring.lessonfinal.model.User;
 import org.laban.learning.spring.lessonfinal.model.kafka.HotelRoomBookedEvent;
 import org.laban.learning.spring.lessonfinal.model.kafka.UserRegisteredEvent;
+import org.laban.learning.spring.lessonfinal.model.statistic.UserRegistrationStatisticRecord;
 import org.laban.learning.spring.lessonfinal.repository.statistic.BookingStatisticRecordRepository;
 import org.laban.learning.spring.lessonfinal.repository.statistic.UserRegistrationStatisticRecordRepository;
+import org.laban.learning.spring.lessonfinal.utils.io.csv.CSVHelper;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.time.Instant;
 
 @RequiredArgsConstructor
@@ -25,14 +29,17 @@ public class StatisticService {
     @Value("${app.kafka.kafkaHotelRoomBookingTopic}")
     private String kafkaHotelRoomBookingTopic;
 
+    @Value("${app.storage.statistic.files.userRegistrations}")
+    private String userRegistrationsFile;
+
     private final KafkaTemplate<String, UserRegisteredEvent> userRegisteredTemplate;
     private final KafkaTemplate<String, HotelRoomBookedEvent> hotelRoomBookedTemplate;
 
     private final BookingStatisticRecordRepository bookingStatisticRepository;
-    private final BookingStatisticRecordMapper bookingStatisticRecordMapper;
-
     private final UserRegistrationStatisticRecordRepository userRegistrationStatisticRecordRepository;
-    private final UserRegistrationStatisticRecordMapper userRegistrationStatisticRecordMapper;
+    private final StatisticMapper statisticMapper;
+
+    private final FileSystemStatisticStorageService fileStorageService;
 
     public void sendUserRegistered(User user) {
         userRegisteredTemplate.send(kafkaUserRegistrationTopic, UserRegisteredEvent.builder()
@@ -44,7 +51,7 @@ public class StatisticService {
     @Transactional
     public void onUserRegistered(UserRegisteredEvent event) {
         userRegistrationStatisticRecordRepository.save(
-                userRegistrationStatisticRecordMapper.eventToUserRegistrationStatisticRecord(event));
+                statisticMapper.eventToUserRegistrationStatisticRecord(event));
     }
 
     public void sendHotelRoomBooked(Booking booking) {
@@ -60,6 +67,21 @@ public class StatisticService {
 
     @Transactional
     public void onHotelRoomBooked(@Nonnull HotelRoomBookedEvent event) {
-        bookingStatisticRepository.save(bookingStatisticRecordMapper.eventToBookingStatisticRecord(event));
+        bookingStatisticRepository.save(statisticMapper.eventToBookingStatisticRecord(event));
+    }
+
+    @Transactional(readOnly = true)
+    public Resource generateAndLoadUserRegistrationStatistic() throws IOException {
+        CSVHelper.printCsvFile(
+                CSVHelper.pageableContentProvider(userRegistrationStatisticRecordRepository,
+                        AppContestants.DEFAULT_PAGE_SIZE),
+                (printer, record) -> {
+                    printer.print(record.getUserId());
+                    printer.print(record.getTimestamp());
+                },
+                fileStorageService.openOutputStreamFor(userRegistrationsFile),
+                UserRegistrationStatisticRecord.Fields.userId, UserRegistrationStatisticRecord.Fields.timestamp
+        );
+        return fileStorageService.loadAsResource(userRegistrationsFile);
     }
 }

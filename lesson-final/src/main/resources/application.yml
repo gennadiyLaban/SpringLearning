@@ -47,6 +47,11 @@ spring:
       database: lessonfinal
       authentication-database: admin
 app:
+  storage:
+    statistic:
+      files:
+        root: "resources/files"
+        userRegistrations: 'user_registration.csv'
   kafka:
     kafkaGroupId: "kafka-order-group-id"
     kafkaUserRegistrationTopic: "user_registration"
