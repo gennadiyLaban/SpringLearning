@@ -8,6 +8,7 @@ import org.laban.learning.spring.lessonfinal.model.Booking;
 import org.laban.learning.spring.lessonfinal.model.User;
 import org.laban.learning.spring.lessonfinal.model.kafka.HotelRoomBookedEvent;
 import org.laban.learning.spring.lessonfinal.model.kafka.UserRegisteredEvent;
+import org.laban.learning.spring.lessonfinal.model.statistic.BookingStatisticRecord;
 import org.laban.learning.spring.lessonfinal.model.statistic.UserRegistrationStatisticRecord;
 import org.laban.learning.spring.lessonfinal.repository.statistic.BookingStatisticRecordRepository;
 import org.laban.learning.spring.lessonfinal.repository.statistic.UserRegistrationStatisticRecordRepository;
@@ -31,6 +32,8 @@ public class StatisticService {
 
     @Value("${app.storage.statistic.files.userRegistrations}")
     private String userRegistrationsFile;
+    @Value("${app.storage.statistic.files.bookings}")
+    private String bookingsFile;
 
     private final KafkaTemplate<String, UserRegisteredEvent> userRegisteredTemplate;
     private final KafkaTemplate<String, HotelRoomBookedEvent> hotelRoomBookedTemplate;
@@ -83,5 +86,29 @@ public class StatisticService {
                 UserRegistrationStatisticRecord.Fields.userId, UserRegistrationStatisticRecord.Fields.timestamp
         );
         return fileStorageService.loadAsResource(userRegistrationsFile);
+    }
+
+    @Transactional(readOnly = true)
+    public Resource generateAndLoadBookingsStatistic() throws IOException {
+        CSVHelper.printCsvFile(
+                CSVHelper.pageableContentProvider(bookingStatisticRepository,
+                        AppContestants.DEFAULT_PAGE_SIZE),
+                (printer, record) -> {
+                    printer.print(record.getBookingId());
+                    printer.print(record.getUserId());
+                    printer.print(record.getHotelRoomId());
+                    printer.print(record.getStartBooking());
+                    printer.print(record.getEndBooking());
+                    printer.print(record.getTimestamp());
+                },
+                fileStorageService.openOutputStreamFor(bookingsFile),
+                BookingStatisticRecord.Fields.bookingId,
+                BookingStatisticRecord.Fields.userId,
+                BookingStatisticRecord.Fields.hotelRoomId,
+                BookingStatisticRecord.Fields.startBooking,
+                BookingStatisticRecord.Fields.endBooking,
+                BookingStatisticRecord.Fields.timestamp
+        );
+        return fileStorageService.loadAsResource(bookingsFile);
     }
 }

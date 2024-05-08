@@ -52,6 +52,7 @@ app:
       files:
         root: "resources/files"
         userRegistrations: 'user_registration.csv'
+        bookings: 'bookings.csv'
   kafka:
     kafkaGroupId: "kafka-order-group-id"
     kafkaUserRegistrationTopic: "user_registration"

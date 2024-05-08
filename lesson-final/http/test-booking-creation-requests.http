@@ -1,0 +1,111 @@
+### createBooking
+POST http://localhost:8085/api/v1/booking
+#Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
+Authorization: Basic dXNlcjI6dXNlcjI=    # user2:user2 - ROLE_USER
+#Authorization: Basic dXNlcjM6dXNlcjM=    # user3:user3 - ROLE_USER
+#Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
+#Authorization: Basic dXNlcjU6dXNlcjU=    # user5:user5
+Content-Type: application/json
+
+{
+  "startDate": "2024-09-23T12:00:35.000000000Z",
+  "endDate": "2024-09-24T12:00:35.000000000Z",
+  "roomId": 1,
+  "userId": 1
+}
+
+### createBooking
+POST http://localhost:8085/api/v1/booking
+#Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
+Authorization: Basic dXNlcjI6dXNlcjI=    # user2:user2 - ROLE_USER
+#Authorization: Basic dXNlcjM6dXNlcjM=    # user3:user3 - ROLE_USER
+#Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
+#Authorization: Basic dXNlcjU6dXNlcjU=    # user5:user5
+Content-Type: application/json
+
+{
+  "startDate": "2024-10-23T12:00:35.000000000Z",
+  "endDate": "2024-10-24T12:00:35.000000000Z",
+  "roomId": 1,
+  "userId": 1
+}
+
+### createBooking
+POST http://localhost:8085/api/v1/booking
+#Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
+Authorization: Basic dXNlcjI6dXNlcjI=    # user2:user2 - ROLE_USER
+#Authorization: Basic dXNlcjM6dXNlcjM=    # user3:user3 - ROLE_USER
+#Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
+#Authorization: Basic dXNlcjU6dXNlcjU=    # user5:user5
+Content-Type: application/json
+
+{
+  "startDate": "2024-11-23T12:00:35.000000000Z",
+  "endDate": "2024-11-24T12:00:35.000000000Z",
+  "roomId": 1,
+  "userId": 1
+}
+
+### createBooking
+POST http://localhost:8085/api/v1/booking
+#Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
+Authorization: Basic dXNlcjI6dXNlcjI=    # user2:user2 - ROLE_USER
+#Authorization: Basic dXNlcjM6dXNlcjM=    # user3:user3 - ROLE_USER
+#Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
+#Authorization: Basic dXNlcjU6dXNlcjU=    # user5:user5
+Content-Type: application/json
+
+{
+  "startDate": "2024-12-23T12:00:35.000000000Z",
+  "endDate": "2024-12-24T12:00:35.000000000Z",
+  "roomId": 1,
+  "userId": 1
+}
+
+### createBooking
+POST http://localhost:8085/api/v1/booking
+#Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
+Authorization: Basic dXNlcjI6dXNlcjI=    # user2:user2 - ROLE_USER
+#Authorization: Basic dXNlcjM6dXNlcjM=    # user3:user3 - ROLE_USER
+#Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
+#Authorization: Basic dXNlcjU6dXNlcjU=    # user5:user5
+Content-Type: application/json
+
+{
+  "startDate": "2025-01-23T12:00:35.000000000Z",
+  "endDate": "2025-01-24T12:00:35.000000000Z",
+  "roomId": 1,
+  "userId": 1
+}
+
+### createBooking
+POST http://localhost:8085/api/v1/booking
+#Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
+Authorization: Basic dXNlcjI6dXNlcjI=    # user2:user2 - ROLE_USER
+#Authorization: Basic dXNlcjM6dXNlcjM=    # user3:user3 - ROLE_USER
+#Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
+#Authorization: Basic dXNlcjU6dXNlcjU=    # user5:user5
+Content-Type: application/json
+
+{
+  "startDate": "2025-02-23T12:00:35.000000000Z",
+  "endDate": "2025-02-24T12:00:35.000000000Z",
+  "roomId": 1,
+  "userId": 1
+}
+
+### createBooking
+POST http://localhost:8085/api/v1/booking
+#Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
+Authorization: Basic dXNlcjI6dXNlcjI=    # user2:user2 - ROLE_USER
+#Authorization: Basic dXNlcjM6dXNlcjM=    # user3:user3 - ROLE_USER
+#Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
+#Authorization: Basic dXNlcjU6dXNlcjU=    # user5:user5
+Content-Type: application/json
+
+{
+  "startDate": "2025-03-23T12:00:35.000000000Z",
+  "endDate": "2025-03-24T12:00:35.000000000Z",
+  "roomId": 1,
+  "userId": 1
+}

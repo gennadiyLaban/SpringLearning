@@ -21,7 +21,9 @@ public class StatisticController {
     private final StatisticService statisticService;
 
     @Value("${app.storage.statistic.files.userRegistrations}")
-    private String filesUserRegistrations;
+    private String fileUserRegistrations;
+    @Value("${app.storage.statistic.files.bookings}")
+    private String fileBookings;
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/user/registrations")
@@ -29,7 +31,19 @@ public class StatisticController {
         var resource = statisticService.generateAndLoadUserRegistrationStatistic();
         return ResponseEntity.ok()
                 .headers(httpHeaders -> httpHeaders.add(HttpHeaders.CONTENT_DISPOSITION,
-                        "attachment; filename=" + filesUserRegistrations))
+                        "attachment; filename=" + fileUserRegistrations))
+                .contentLength(resource.contentLength())
+                .contentType(MediaType.parseMediaType("application/csv"))
+                .body(resource);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/bookings")
+    public ResponseEntity<Resource> bookings() throws IOException {
+        var resource = statisticService.generateAndLoadBookingsStatistic();
+        return ResponseEntity.ok()
+                .headers(httpHeaders -> httpHeaders.add(HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=" + fileBookings))
                 .contentLength(resource.contentLength())
                 .contentType(MediaType.parseMediaType("application/csv"))
                 .body(resource);
