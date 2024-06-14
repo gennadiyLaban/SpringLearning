@@ -1,0 +1,43 @@
+### findBookingById
+GET http://localhost:8085/api/v1/booking/30
+Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
+#Authorization: Basic dXNlcjI6dXNlcjI=    # user2:user2 - ROLE_USER
+#Authorization: Basic dXNlcjM6dXNlcjM=    # user3:user3 - ROLE_USER
+#Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
+#Authorization: Basic dXNlcjU6dXNlcjU=    # user5:user5
+
+### createBooking
+POST http://localhost:8085/api/v1/booking
+#Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
+Authorization: Basic dXNlcjI6dXNlcjI=    # user2:user2 - ROLE_USER
+#Authorization: Basic dXNlcjM6dXNlcjM=    # user3:user3 - ROLE_USER
+#Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
+#Authorization: Basic dXNlcjU6dXNlcjU=    # user5:user5
+Content-Type: application/json
+
+{
+  "startDate": "2024-05-23T12:00:35.000000000Z",
+  "endDate": "2024-05-24T12:00:35.000000000Z",
+  "roomId": 1,
+  "userId": 1
+}
+
+### getAllBookingsForHotel
+GET http://localhost:8085/api/v1/booking/hotel/1/list
+    ?page=0
+    &size=3
+Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
+#Authorization: Basic dXNlcjI6dXNlcjI=    # user2:user2 - ROLE_USER
+#Authorization: Basic dXNlcjM6dXNlcjM=    # user3:user3 - ROLE_USER
+#Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
+#Authorization: Basic dXNlcjU6dXNlcjU=    # user5:user5
+
+### getAllBookingsForUser
+GET http://localhost:8085/api/v1/booking/user/1/list
+    ?page=0
+    &size=3
+Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
+#Authorization: Basic dXNlcjI6dXNlcjI=    # user2:user2 - ROLE_USER
+#Authorization: Basic dXNlcjM6dXNlcjM=    # user3:user3 - ROLE_USER
+#Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
+#Authorization: Basic dXNlcjU6dXNlcjU=    # user5:user5

@@ -1,0 +1,81 @@
+### findHotelRoomById
+GET http://localhost:8085/api/v1/room/5
+Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
+#Authorization: Basic dXNlcjI6dXNlcjI=    # user2:user2 - ROLE_USER
+#Authorization: Basic dXNlcjM6dXNlcjM=    # user3:user3 - ROLE_USER
+#Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
+#Authorization: Basic dXNlcjU6dXNlcjU=    # user5:user5
+
+### findAllHotelRooms
+POST http://localhost:8085/api/v1/room/list
+Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
+#Authorization: Basic dXNlcjI6dXNlcjI=    # user2:user2 - ROLE_USER
+#Authorization: Basic dXNlcjM6dXNlcjM=    # user3:user3 - ROLE_USER
+#Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
+#Authorization: Basic dXNlcjU6dXNlcjU=    # user5:user5
+Content-Type: application/json
+
+{
+  "filter": {
+    "roomId": 2,
+    "name": "Hotel1Room2",
+    "minPrice": 2,
+    "maxPrice": 2,
+    "targetCapacity": 2,
+    "bookingDates": {
+      "startDate": "2024-05-26T12:00:35.000000000Z",
+      "endDate": "2024-05-27T12:00:35.000000000Z"
+    },
+    "hotelId": 1
+  }
+}
+
+### createHotelRoom
+POST http://localhost:8085/api/v1/room
+Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
+#Authorization: Basic dXNlcjI6dXNlcjI=    # user2:user2 - ROLE_USER
+#Authorization: Basic dXNlcjM6dXNlcjM=    # user3:user3 - ROLE_USER
+#Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
+#Authorization: Basic dXNlcjU6dXNlcjU=    # user5:user5
+Content-Type: application/json
+
+{
+  "name": "NewRoomForHotel1",
+  "description": "NewRoomDescriptionForHotel1",
+  "roomNumber": 12345,
+  "price": 123.22,
+  "maxCapacity": 1,
+  "hotel": 1,
+  "bookings": [
+    {"id": 23}
+  ]
+}
+
+### updateHotelRoom
+PUT http://localhost:8085/api/v1/room/7
+Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
+#Authorization: Basic dXNlcjI6dXNlcjI=    # user2:user2 - ROLE_USER
+#Authorization: Basic dXNlcjM6dXNlcjM=    # user3:user3 - ROLE_USER
+#Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
+#Authorization: Basic dXNlcjU6dXNlcjU=    # user5:user5
+Content-Type: application/json
+
+{
+  "id": 7,
+  "name": "UpdatedRoomForHotel1",
+  "description": "UpdatedRoomDescriptionForHotel1",
+  "roomNumber": 54321,
+  "price": 321.22,
+  "maxCapacity": 10,
+  "bookings": [
+    {"id": 23}
+  ]
+}
+
+### deleteHotelRoom
+DELETE http://localhost:8085/api/v1/room/7
+#Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
+#Authorization: Basic dXNlcjI6dXNlcjI=    # user2:user2 - ROLE_USER
+#Authorization: Basic dXNlcjM6dXNlcjM=    # user3:user3 - ROLE_USER
+#Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
+#Authorization: Basic dXNlcjU6dXNlcjU=    # user5:user5

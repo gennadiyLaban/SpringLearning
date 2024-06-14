@@ -78,6 +78,11 @@ object Global {
             "spring-boot-starter-data-mongodb-reactive",
             Version.SPRING_BOOT_PLUGIN
         )
+        val SpringBootMongoDbBlockedStarter = Library(
+            "org.springframework.boot",
+            "spring-boot-starter-data-mongodb",
+            Version.SPRING_BOOT_PLUGIN
+        )
         val SpringBootSecurityStarter = Library(
             "org.springframework.boot",
             "spring-boot-starter-security",
@@ -157,6 +162,7 @@ object Global {
 
         val SnakeYaml = Library("org.yaml", "snakeyaml", Version.SnakeYaml)
         val ApacheCommonLang3 = Library("org.apache.commons", "commons-lang3", Version.ApacheCommonLang3)
+        val ApacheCommonCSV = Library("org.apache.commons", "commons-csv", Version.ApacheCommonCSV)
 
         val SpringBootTestStarter = Library("org.springframework.boot", "spring-boot-starter-test")
         val JavacrumbsJsonUnit = Library("net.javacrumbs.json-unit", "json-unit", Version.JAVACRUMBS_JSON_UNIT)
@@ -201,6 +207,7 @@ object Global {
 
         const val SnakeYaml = "2.0"
         const val ApacheCommonLang3 = "3.12.0"
+        const val ApacheCommonCSV = "1.10.0"
 
         const val JAVACRUMBS_JSON_UNIT = "2.38.0"
 

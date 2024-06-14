@@ -1,0 +1,55 @@
+### findUserById
+GET http://localhost:8085/api/v1/user/5
+#Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
+#Authorization: Basic dXNlcjI6dXNlcjI=    # user2:user2 - ROLE_USER
+#Authorization: Basic dXNlcjM6dXNlcjM=    # user3:user3 - ROLE_USER
+#Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
+Authorization: Basic dXNlcjU6dXNlcjU=    # user5:user5
+
+### findAllUsers
+GET http://localhost:8085/api/v1/user/list
+#Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
+#Authorization: Basic dXNlcjI6dXNlcjI=    # user2:user2 - ROLE_USER
+#Authorization: Basic dXNlcjM6dXNlcjM=    # user3:user3 - ROLE_USER
+#Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
+#Authorization: Basic dXNlcjU6dXNlcjU=    # user5:user5
+
+### createUser
+POST http://localhost:8085/api/v1/user
+Content-Type: application/json
+
+{
+  "username": "user5",
+  "email": "user5@ya.ru",
+  "password": "user5",
+  "roles": [
+    "ROLE_ADMIN"
+  ]
+}
+
+### updateUser
+PUT http://localhost:8085/api/v1/user/5
+#Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
+#Authorization: Basic dXNlcjI6dXNlcjI=    # user2:user2 - ROLE_USER
+#Authorization: Basic dXNlcjM6dXNlcjM=    # user3:user3 - ROLE_USER
+#Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
+#Authorization: Basic dXNlcjU6dXNlcjU=    # user5:user5
+Content-Type: application/json
+
+{
+  "id": 5,
+  "username": "updatedUsername",
+  "email": "updatedEmail@ya.ru",
+  "password": "updatedPassword",
+  "roles": [
+    "ROLE_USER"
+  ]
+}
+
+### deleteUserById
+DELETE http://localhost:8085/api/v1/user/5
+#Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
+#Authorization: Basic dXNlcjI6dXNlcjI=    # user2:user2 - ROLE_USER
+#Authorization: Basic dXNlcjM6dXNlcjM=    # user3:user3 - ROLE_USER
+#Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
+#Authorization: Basic dXNlcjU6dXNlcjU=    # user5:user5

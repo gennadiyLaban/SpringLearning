@@ -80,6 +80,14 @@ fun DependencyHandler.testImplementation(library: Library): ExternalModuleDepend
     return addDepsLibrary(library, targetConfiguration = "testImplementation")
 }
 
+fun DependencyHandler.testCompileOnly(library: Library): ExternalModuleDependency {
+    return addDepsLibrary(library, targetConfiguration = "testCompileOnly")
+}
+
+fun DependencyHandler.testAnnotationProcessor(library: Library): ExternalModuleDependency {
+    return addDepsLibrary(library, targetConfiguration = "testAnnotationProcessor")
+}
+
 fun DependencyHandler.runtimeOnly(library: Library): ExternalModuleDependency {
     return addDepsLibrary(library, targetConfiguration = "runtimeOnly")
 }

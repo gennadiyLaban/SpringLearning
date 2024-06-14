@@ -1,0 +1,59 @@
+server:
+  port: 8085
+
+logging:
+  level:
+    root: info
+
+spring:
+  application:
+    name: "Lesson-final"
+  messages:
+    basename: "strings"
+  datasource:
+    url: "jdbc:postgresql://127.0.0.1:5433/lessonfinal"
+    username: admin
+    password: admin
+    hikari:
+      schema: lessonfinal
+  sql:
+    init:
+      schema-locations: classpath:db/init.sql
+      data-locations: classpath:db/data.sql
+#      mode: embedded
+      mode: always
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+#      ddl-auto: create
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      group-id: ${app.kafka.kafkaGroupId}
+      properties:
+        spring.json.trusted.packages: "org.laban.learning.spring.lessonfinal.model.kafka"
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      username: admin
+      password: admin
+      database: lessonfinal
+      authentication-database: admin
+app:
+  storage:
+    statistic:
+      files:
+        root: "resources/files"
+        userRegistrations: 'user_registration.csv'
+        bookings: 'bookings.csv'
+  kafka:
+    kafkaGroupId: "kafka-order-group-id"
+    kafkaUserRegistrationTopic: "user_registration"
+    kafkaHotelRoomBookingTopic: "hotel_room_booking"

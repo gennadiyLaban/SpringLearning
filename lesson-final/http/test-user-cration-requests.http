@@ -1,0 +1,129 @@
+### createUser user6
+POST http://localhost:8085/api/v1/user
+Content-Type: application/json
+
+{
+  "username": "user6",
+  "email": "user6@ya.ru",
+  "password": "user6",
+  "roles": [
+    "ROLE_USER"
+  ]
+}
+
+### createUser user7
+POST http://localhost:8085/api/v1/user
+Content-Type: application/json
+
+{
+  "username": "user7",
+  "email": "user7@ya.ru",
+  "password": "user7",
+  "roles": [
+    "ROLE_USER"
+  ]
+}
+
+### createUser user8
+POST http://localhost:8085/api/v1/user
+Content-Type: application/json
+
+{
+  "username": "user8",
+  "email": "user8@ya.ru",
+  "password": "user8",
+  "roles": [
+    "ROLE_USER"
+  ]
+}
+
+### createUser user9
+POST http://localhost:8085/api/v1/user
+Content-Type: application/json
+
+{
+  "username": "user9",
+  "email": "user9@ya.ru",
+  "password": "user9",
+  "roles": [
+    "ROLE_USER"
+  ]
+}
+
+### createUser user10
+POST http://localhost:8085/api/v1/user
+Content-Type: application/json
+
+{
+  "username": "user10",
+  "email": "user10@ya.ru",
+  "password": "user10",
+  "roles": [
+    "ROLE_USER"
+  ]
+}
+
+### createUser user11
+POST http://localhost:8085/api/v1/user
+Content-Type: application/json
+
+{
+  "username": "user11",
+  "email": "user11@ya.ru",
+  "password": "user11",
+  "roles": [
+    "ROLE_USER"
+  ]
+}
+
+### createUser user12
+POST http://localhost:8085/api/v1/user
+Content-Type: application/json
+
+{
+  "username": "user12",
+  "email": "user12@ya.ru",
+  "password": "user12",
+  "roles": [
+    "ROLE_USER"
+  ]
+}
+
+### createUser user13
+POST http://localhost:8085/api/v1/user
+Content-Type: application/json
+
+{
+  "username": "user13",
+  "email": "user13@ya.ru",
+  "password": "user13",
+  "roles": [
+    "ROLE_USER"
+  ]
+}
+
+### createUser user14
+POST http://localhost:8085/api/v1/user
+Content-Type: application/json
+
+{
+  "username": "user14",
+  "email": "user14@ya.ru",
+  "password": "user14",
+  "roles": [
+    "ROLE_USER"
+  ]
+}
+
+### createUser user15
+POST http://localhost:8085/api/v1/user
+Content-Type: application/json
+
+{
+  "username": "user15",
+  "email": "user15@ya.ru",
+  "password": "user15",
+  "roles": [
+    "ROLE_USER"
+  ]
+}

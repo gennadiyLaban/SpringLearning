@@ -1,0 +1,96 @@
+### findHotelById
+GET http://localhost:8085/api/v1/hotel/3
+Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
+#Authorization: Basic dXNlcjI6dXNlcjI=    # user2:user2 - ROLE_USER
+#Authorization: Basic dXNlcjM6dXNlcjM=    # user3:user3 - ROLE_USER
+#Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
+#Authorization: Basic dXNlcjU6dXNlcjU=    # user5:user5
+
+### findAllHotels
+GET http://localhost:8085/api/v1/hotel/list
+    ?page=0
+    &size=2
+#Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
+#Authorization: Basic dXNlcjI6dXNlcjI=    # user2:user2 - ROLE_USER
+#Authorization: Basic dXNlcjM6dXNlcjM=    # user3:user3 - ROLE_USER
+#Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
+Authorization: Basic dXNlcjU6dXNlcjU=    # user5:user5
+
+### findAllHotels
+POST http://localhost:8085/api/v1/hotel/list
+Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
+#Authorization: Basic dXNlcjI6dXNlcjI=    # user2:user2 - ROLE_USER
+#Authorization: Basic dXNlcjM6dXNlcjM=    # user3:user3 - ROLE_USER
+#Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
+#Authorization: Basic dXNlcjU6dXNlcjU=    # user5:user5
+Content-Type: application/json
+
+{
+  "page": {
+    "number": 0,
+    "size": 1
+  },
+  "filter": {
+    "name": "hotel",
+    "minRating": 2,
+    "minNumberOfRating": 20
+  }
+}
+
+### createHotel
+POST http://localhost:8085/api/v1/hotel
+#Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
+#Authorization: Basic dXNlcjI6dXNlcjI=    # user2:user2 - ROLE_USER
+#Authorization: Basic dXNlcjM6dXNlcjM=    # user3:user3 - ROLE_USER
+#Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
+#Authorization: Basic dXNlcjU6dXNlcjU=    # user5:user5
+Content-Type: application/json
+
+{
+  "name": "NewHotel",
+  "title": "NewTitle",
+  "address": {
+    "city": "NewCity",
+    "street": "NewStreet",
+    "number": "NewNumber"
+  },
+  "distanceFromCenter": 1111,
+  "rating": "4.5",
+  "numberOfRating": 55555
+}
+
+### updateHotel
+PUT http://localhost:8085/api/v1/hotel/4
+Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
+#Authorization: Basic dXNlcjI6dXNlcjI=    # user2:user2 - ROLE_USER
+#Authorization: Basic dXNlcjM6dXNlcjM=    # user3:user3 - ROLE_USER
+#Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
+#Authorization: Basic dXNlcjU6dXNlcjU=    # user5:user5
+Content-Type: application/json
+
+{
+  "id": 4,
+  "name": "UpdatedHotel",
+  "address": {
+    "city": "UpdatedCity",
+    "street": "UpdatedStreet",
+    "number": "UpdatedNumber"
+  },
+  "distanceFromCenter": 2222
+}
+
+### deleteHotel
+DELETE http://localhost:8085/api/v1/hotel/4
+Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
+#Authorization: Basic dXNlcjI6dXNlcjI=    # user2:user2 - ROLE_USER
+#Authorization: Basic dXNlcjM6dXNlcjM=    # user3:user3 - ROLE_USER
+#Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
+#Authorization: Basic dXNlcjU6dXNlcjU=    # user5:user5
+
+### markHotel
+PATCH http://localhost:8085/api/v1/hotel/3/mark?rating=4
+#Authorization: Basic dXNlcjE6dXNlcjE=    # user1:user1 - ROLE_ADMIN
+#Authorization: Basic dXNlcjI6dXNlcjI=    # user2:user2 - ROLE_USER
+Authorization: Basic dXNlcjM6dXNlcjM=    # user3:user3 - ROLE_USER
+#Authorization: Basic dXNlcjQ6dXNlcjQ=    # user4:user4 - ROLE_USER
+#Authorization: Basic dXNlcjU6dXNlcjU=    # user5:user5
